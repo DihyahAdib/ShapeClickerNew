@@ -44,10 +44,14 @@
         <statsdata>
           <h6 id="stda"></h6>
           <h3>Stats & Data</h3>
-          <button class="btn" id="Rlevel">Reset Level</button>
-          <button class="btn" id="Rshape">Reset Shapes Clicked</button>
-          <button class="btn" id="Rquota">Reset Quota</button>
-          <button class="btn" id="Rach">Reset Achievements</button>
+          <div class="button-container">
+            <button class="btnR" id="Rlevel">Reset Level</button>
+            <button class="btnR" id="Rshape">Reset Shapes Clicked</button>
+            <button class="btnR" id="Rach">Reset Achievements</button>
+            <button class="btnR" id="Rmulti">Reset Multiplier</button>
+            <button class="btnR" id="Rquota">Reset Quota</button>
+            <button class="btnR" id="Rcash">Reset Cash</button>
+          </div>
         </statsdata>
 
         <danger-zone>
@@ -174,7 +178,8 @@
                 <prompt-frame-tip class="arrow-top">
                   <div>
                     The <span class="c1">10k</span> refers to the amount of
-                    Shapes needed to convert into the displayed amount
+                    Shapes needed to convert into the displayed amount. <br />
+                    (Conversion ratio is 10k : 10$)
                   </div>
                 </prompt-frame-tip>
               </more-info>
@@ -204,7 +209,11 @@
                   </locked>
                 </lock-button-container>
                 <h2>Max Conversion</h2>
-                <convert-max-clicks-to-cash> </convert-max-clicks-to-cash>
+                <lockedmax>
+                  <convert-max-clicks-to-cash>
+                    <click-convert-desc>Max &#10234; Max$</click-convert-desc>
+                  </convert-max-clicks-to-cash>
+                </lockedmax>
                 <h2>Custom Conversion</h2>
                 <click-convert-warn></click-convert-warn>
                 <add-amount></add-amount>
@@ -221,5 +230,5 @@
   <script type="module" src="./scripts/shapeHandler.js"></script>
   <script type="module" src="./scripts/state.js"></script>
   <script type="module" src="./scripts/Ui.js"></script>
-  <script type="module" src="./scripts/wait.js"></script>
+  <script type="module" src="./scripts/utils.js"></script>
 </html>

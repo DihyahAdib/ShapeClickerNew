@@ -38,7 +38,7 @@ click-convert {
   }
 
   click-convert-warn {
-    margin-top: 30px;
+    margin-top: 20px;
     color: black;
     font-family: #{v.$Quick};
     font-size: 1.2em;
@@ -77,13 +77,13 @@ lock-container {
   flex-direction: column;
 
   lock-button-container {
+    position: relative; // Add this
     display: flex;
     width: inherit;
-    height: inherit;
-    justify-content: center;
-    width: inherit;
     height: 28%;
+    justify-content: center;
   }
+
   h2 {
     margin-top: 10px;
     color: black;
@@ -93,15 +93,33 @@ lock-container {
   }
 
   locked {
-    width: 30%;
-    height: inherit;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin-left: 4px;
+    margin-right: 4px;
+    z-index: 2;
 
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      visibility: visible;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.564);
+      z-index: 10;
+    }
     convert-clicks-to-cash {
+      position: relative;
       display: flex;
       align-items: center;
-      margin: 5px;
-      width: 100px;
-      height: 90px;
+      width: 100%;
+      height: 100%;
       cursor: pointer;
       border: none;
       border-radius: 10px;
@@ -114,10 +132,46 @@ lock-container {
       font-family: #{v.$Quick};
       font-size: #{map.get(v.$font-sizes, "regular2up")};
       font-weight: #{map.get(v.$font-weights, "bold1up")};
+      z-index: 9;
     }
     convert-clicks-to-cash:active {
       background-color: #367f6c;
       box-shadow: inset 2px 2px 7px;
     }
+  }
+}
+
+lockedmax {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 25%;
+  margin-left: 4px;
+  margin-right: 4px;
+
+  convert-max-clicks-to-cash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    width: 210px;
+    height: 90px;
+    border-radius: 10px;
+    letter-spacing: 2px;
+    background-color: #45a088;
+    box-shadow: 2px 2px 7px;
+    transition: background-color 0.3s ease;
+    color: black;
+    text-align: center;
+    font-family: #{v.$Quick};
+    font-size: #{map.get(v.$font-sizes, "regular2up")};
+    font-weight: #{map.get(v.$font-weights, "bold1up")};
+    z-index: 0;
+  }
+
+  convert-max-clicks-to-cash:active {
+    background-color: #367f6c;
+    box-shadow: inset 2px 2px 7px;
   }
 }

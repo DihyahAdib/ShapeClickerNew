@@ -181,7 +181,6 @@ main-right upgrade-and-store nav-bar hr {
 }
 svg-container {
   position: relative;
-  z-index: 0;
   animation: spin 0s linear infinite;
   display: inline-block;
 }
@@ -250,7 +249,7 @@ click-convert click-convert-desc {
   font-weight: 900;
 }
 click-convert click-convert-warn {
-  margin-top: 30px;
+  margin-top: 20px;
   color: black;
   font-family: Quicksand, sans-serif;
   font-size: 1.2em;
@@ -287,12 +286,11 @@ lock-container {
   flex-direction: column;
 }
 lock-container lock-button-container {
+  position: relative;
   display: flex;
   width: inherit;
-  height: inherit;
-  justify-content: center;
-  width: inherit;
   height: 28%;
+  justify-content: center;
 }
 lock-container h2 {
   margin-top: 10px;
@@ -302,15 +300,33 @@ lock-container h2 {
   font-weight: 700;
 }
 lock-container locked {
-  width: 30%;
-  height: inherit;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin-left: 4px;
+  margin-right: 4px;
+  z-index: 2;
+}
+lock-container locked::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  visibility: visible;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.564);
+  z-index: 10;
 }
 lock-container locked convert-clicks-to-cash {
+  position: relative;
   display: flex;
   align-items: center;
-  margin: 5px;
-  width: 100px;
-  height: 90px;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   border: none;
   border-radius: 10px;
@@ -323,8 +339,42 @@ lock-container locked convert-clicks-to-cash {
   font-family: Quicksand, sans-serif;
   font-size: 1.3em;
   font-weight: 900;
+  z-index: 9;
 }
 lock-container locked convert-clicks-to-cash:active {
+  background-color: #367f6c;
+  box-shadow: inset 2px 2px 7px;
+}
+
+lockedmax {
+  display: flex;
+  justify-content: center;
+  width: auto;
+  height: 25%;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+lockedmax convert-max-clicks-to-cash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  width: 210px;
+  height: 90px;
+  border-radius: 10px;
+  letter-spacing: 2px;
+  background-color: #45a088;
+  box-shadow: 2px 2px 7px;
+  transition: background-color 0.3s ease;
+  color: black;
+  text-align: center;
+  font-family: Quicksand, sans-serif;
+  font-size: 1.3em;
+  font-weight: 900;
+  z-index: 0;
+}
+lockedmax convert-max-clicks-to-cash:active {
   background-color: #367f6c;
   box-shadow: inset 2px 2px 7px;
 }
@@ -517,11 +567,9 @@ warning-screen .close {
 }
 settings general,
 settings animations,
-settings statsdata,
 settings danger-zone,
 warning-screen general,
 warning-screen animations,
-warning-screen statsdata,
 warning-screen danger-zone {
   display: flex;
   justify-content: space-evenly;
@@ -532,11 +580,51 @@ warning-screen danger-zone {
   margin-bottom: 5px;
   padding: 5px;
 }
+settings statsdata,
+warning-screen statsdata {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin-top: 12px;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+settings .button-container,
+warning-screen .button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  width: 85%;
+  align-items: center;
+  justify-items: center;
+}
+settings .btnR,
+warning-screen .btnR {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  min-height: 70px;
+  width: 90%;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: Quicksand, sans-serif;
+}
+settings .btnR:hover,
+warning-screen .btnR:hover {
+  background-color: cadetblue;
+}
 
 ul#bar {
   position: fixed;
-  top: 51%;
-  right: 30%;
+  top: 50%;
+  right: 29%;
   text-align: center;
   display: flex;
   gap: 25px;

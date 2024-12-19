@@ -1,6 +1,6 @@
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
 import { VAR, resetGame } from "./state.js";
-import { wait } from "./wait.js";
+import { wait } from "./utils.js";
 
 export function initializeUi() {
   $("#bg").on("click", function () {
@@ -48,6 +48,26 @@ export function initializeUi() {
   });
 
   $("convert-clicks-to-cash").on("click", async function () {
+    if (VAR.shapesClicked >= 10000) {
+      VAR.decrement("shapesClicked", 10000);
+      VAR.increment("cash", 10);
+    } else if (VAR.shapesClicked >= 500000) {
+      VAR.decrement("shapesClicked", 500000);
+      VAR.increment("cash", 500);
+    } else if (VAR.shapesClicked >= 1000000) {
+      VAR.decrement("shapesClicked", 1000000);
+      VAR.increment("cash", 1000);
+    }
+    $("click-convert-warn")
+      .text(VAR.shapesClicked >= 10000 ? "" : "Insufficient amount of shapes")
+      .text(VAR.shapesClicked >= 500000 ? "" : "Insufficient amount of shapes")
+      .text(
+        VAR.shapesClicked >= 1000000 ? "" : "Insufficient amount of shapes"
+      );
+    await wait(2000);
+  });
+
+  $("convert-max-clicks-to-cash").on("click", async function () {
     const MIN_SHAPES = 10000;
     if (VAR.shapesClicked >= MIN_SHAPES) {
       const shapesToConvert =
@@ -71,6 +91,30 @@ export function initializeUi() {
 
   $("#DONT").on("click", function () {
     $("warning-screen").removeClass("warn");
+  });
+
+  $("#Rlevel").on("click", function () {
+    VAR.set("level", 0);
+  });
+
+  $("#Rshape").on("click", function () {
+    VAR.set("shapesClicked", 0);
+  });
+
+  $("#Rach").on("click", function () {
+    VAR.set("ach", []);
+  });
+
+  $("#Rmulti").on("click", function () {
+    VAR.set("multiplier", 0);
+  });
+
+  $("#Rquota").on("click", function () {
+    VAR.set("quota", 15);
+  });
+
+  $("#Rcash").on("click", function () {
+    VAR.set("cash", 0);
   });
 }
 
