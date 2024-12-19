@@ -1,0 +1,36 @@
+svg-container {
+  position: relative;
+  z-index: 0;
+  animation: spin 0s linear infinite;
+  display: inline-block;
+}
+
+svg-container.shape-spin {
+  animation: spin 110s linear infinite;
+}
+
+svg-bouncing {
+  display: block;
+}
+
+svg#gear {
+  stroke-width: 10;
+}
+
+svg#gear.spin {
+  animation: spin 0.3s linear;
+}
+
+svg#gear.Ospin {
+  animation: o-spin 0.3s linear;
+}
+
+svg {
+  margin-top: 15px;
+  overflow: visible;
+  cursor: pointer;
+}
+
+.bouncy {
+  animation: bounce 0.3s ease-in-out;
+}

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/ppperspective(0).png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Shape Clicker</title>
+  </head>
+  <body>
+    <overlay>
+      <nav>
+        <ul id="bar">
+          <li><a href="#up">&#9650;</a></li>
+          <li><a href="#gen">General</a></li>
+          <li><a href="#ani">Effects & Animations</a></li>
+          <li><a href="#stda">Stats & Data</a></li>
+          <li><a href="#danger">Danger Zone</a></li>
+          <li><a href="#down">&#9660;</a></li>
+        </ul>
+      </nav>
+
+      <settings>
+        <button id="up" class="close">&#10006;</button>
+        <h1>Settings</h1>
+        <general>
+          <h6 id="gen"></h6>
+          <h3>General</h3>
+          <button class="btn" id="leaderboard">Global Leaderboards</button>
+          <button class="btn" id="Contacts">Contact Me!</button>
+        </general>
+
+        <animations>
+          <h6 id="ani"></h6>
+          <h3>Effects & Animations</h3>
+          <button class="btn" id="bg">Pause Background</button>
+          <bg></bg>
+          <button class="btn" id="spin">Pause Shape Spin</button>
+          <ss></ss>
+          <button class="btn" id="bounce">Pause Shape Bounce</button>
+          <sb></sb>
+        </animations>
+
+        <statsdata>
+          <h6 id="stda"></h6>
+          <h3>Stats & Data</h3>
+          <button class="btn" id="Rlevel">Reset Level</button>
+          <button class="btn" id="Rshape">Reset Shapes Clicked</button>
+          <button class="btn" id="Rquota">Reset Quota</button>
+          <button class="btn" id="Rach">Reset Achievements</button>
+        </statsdata>
+
+        <danger-zone>
+          <h6 id="danger"></h6>
+          <h3>⚠️ Danger Zone ⚠️</h3>
+          <button class="btnDng" id="reset-game">Reset Entire Game</button>
+          <button class="btnDng" id="Rstats">Reset All Stats</button>
+        </danger-zone>
+        <h6 id="down"></h6>
+      </settings>
+    </overlay>
+
+    <warning-screen>
+      <h1>Your about to lose Everything!</h1>
+      <NOT>This Action cannot be undone</NOT>
+      <button class="btnReset" id="RESETFORSURE">Do it</button>
+      <button class="btnNoReset" id="DONT">Uhh, Maybe not</button>
+    </warning-screen>
+
+    <prompt-frame class="popup arrow">
+      <div id="prompt">
+        <span id="c">Well done!</span> You will now have more shapes added to
+        the ones you are already clicking on since you have met your
+        <span id="c0">initial quota</span>. Do you understand? Okay, just keep
+        clicking, and I'll get outta ya hair!
+      </div>
+    </prompt-frame>
+
+    <main-container>
+      <main>
+        <game-container>
+          <stats-container>
+            <stats>
+              <shapes></shapes>
+              <plus-shapes></plus-shapes>
+            </stats>
+          </stats-container>
+          <bonus-shape>Click me</bonus-shape>
+          <svg-container>
+            <svg-bouncing></svg-bouncing>
+          </svg-container>
+        </game-container>
+      </main>
+      <main-left> </main-left>
+
+      <main-right>
+        <containerone>
+          <data-container>
+            <container>
+              <STATS>
+                <level></level>
+              </STATS>
+              <svg
+                class="rotate-vertical"
+                height="20"
+                width="10%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="0"
+                  y1="10"
+                  x2="100%"
+                  y2="10"
+                  style="stroke: orange; stroke-width: 4"
+                />
+              </svg>
+              <STATS>
+                <quota></quota>
+              </STATS>
+              <svg
+                class="rotate-vertical"
+                height="20"
+                width="10%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <line
+                  x1="0"
+                  y1="10"
+                  x2="100%"
+                  y2="10"
+                  style="stroke: orange; stroke-width: 4"
+                />
+              </svg>
+              <STATS>
+                <cash></cash>
+              </STATS>
+            </container>
+            <svg-spin>
+              <svg
+                id="gear"
+                width="50"
+                height="50"
+                viewBox="0 0 50 50"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25 34c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9zm0-16c-3.9 0-7 3.1-7 7s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7z"
+                  stroke="black"
+                  stroke-width="1"
+                />
+                <path
+                  d="M27.7 44h-5.4l-1.5-4.6c-1-.3-2-.7-2.9-1.2l-4.4 2.2-3.8-3.8 2.2-4.4c-.5-.9-.9-1.9-1.2-2.9L6 27.7v-5.4l4.6-1.5c.3-1 .7-2 1.2-2.9l-2.2-4.4 3.8-3.8 4.4 2.2c.9-.5 1.9-.9 2.9-1.2L22.3 6h5.4l1.5 4.6c1 .3 2 .7 2.9 1.2l4.4-2.2 3.8 3.8-2.2 4.4c.5.9.9 1.9 1.2 2.9l4.6 1.5v5.4l-4.6 1.5c-.3 1-.7 2-1.2 2.9l2.2 4.4-3.8 3.8-4.4-2.2c-.9.5-1.9.9-2.9 1.2L27.7 44zm-4-2h2.6l1.4-4.3.5-.1c1.2-.3 2.3-.8 3.4-1.4l.5-.3 4 2 1.8-1.8-2-4 .3-.5c.6-1 1.1-2.2 1.4-3.4l.1-.5 4.3-1.4v-2.6l-4.3-1.4-.1-.5c-.3-1.2-.8-2.3-1.4-3.4l-.3-.5 2-4-1.8-1.8-4 2-.5-.3c-1.1-.6-2.2-1.1-3.4-1.4l-.5-.1L26.3 8h-2.6l-1.4 4.3-.5.1c-1.2.3-2.3.8-3.4 1.4l-.5.3-4-2-1.8 1.8 2 4-.3.5c-.6 1-1.1 2.2-1.4 3.4l-.1.5L8 23.7v2.6l4.3 1.4.1.5c.3 1.2.8 2.3 1.4 3.4l.3.5-2 4 1.8 1.8 4-2 .5.3c1.1.6 2.2 1.1 3.4 1.4l.5.1 1.4 4.3z"
+                  stroke="black"
+                  stroke-width="1"
+                />
+              </svg>
+            </svg-spin>
+          </data-container>
+          <upgrade-and-store>
+            <nav-bar>
+              <ul>
+                <li><a href="#bank">Bank</a></li>
+                <hr />
+                <li><a href="#shop">Shop</a></li>
+                <hr />
+                <li><a href="#upgrades">Upgrades</a></li>
+                <hr />
+                <li><a href="#achievements">Achievements</a></li>
+              </ul>
+            </nav-bar>
+            <click-convert>
+              <more-info>
+                <img src="./assets/question.svg" alt="question" />
+                <prompt-frame-tip class="arrow-top">
+                  <div>
+                    The <span class="c1">10k</span> refers to the amount of
+                    Shapes needed to convert into the displayed amount
+                  </div>
+                </prompt-frame-tip>
+              </more-info>
+              <click-convert-desc>10k &#10234; 10$</click-convert-desc>
+              <hr />
+              <convert-clicks-to-cash>
+                <div></div>
+                <p>Convert Clicks</p>
+              </convert-clicks-to-cash>
+              <click-convert-warn></click-convert-warn>
+              <add-amount></add-amount>
+            </click-convert>
+          </upgrade-and-store>
+        </containerone>
+      </main-right>
+    </main-container>
+  </body>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="./scripts/jqueryPlugins.js"></script>
+  <script type="module" src="./scripts/random.js"></script>
+  <script type="module" src="./scripts/shapeHandler.js"></script>
+  <script type="module" src="./scripts/state.js"></script>
+  <script type="module" src="./scripts/Ui.js"></script>
+  <script type="module" src="./scripts/wait.js"></script>
+</html>

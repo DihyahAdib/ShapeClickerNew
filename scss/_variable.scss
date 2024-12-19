@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
+@import url(https://fonts.googleapis.com/css?family=Exo:100);
+
+$Quick: "Quicksand", sans-serif;
+$Comfort: "Comfortaa", sans-serif;
+$Exo: "Exo", sans-serif;
+
+$font-sizes: (
+  "regular": 0.8em,
+  "regular1up": 1em,
+  "regular2up": 1.3em,
+  "regular3up": 1.5em,
+  "large": 2em,
+  "large1up": 2.5em,
+  "large2up": 3em,
+  "large3up": 4em,
+);
+
+$font-weights: (
+  "light": 500,
+  "light1up": 600,
+  "bold": 700,
+  "bold1up": 900,
+);
+
+$popup-C: (
+  "goodempha": aquamarine,
+  "highlight": yellow,
+  "money": rgb(2, 150, 2),
+);
+
+$bg-url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAIAAACRXR/mAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABnSURBVHja7M5RDYAwDEXRDgmvEocnlrQS2SwUFST9uEfBGWs9c97nbGtDcquqiKhOImLs/UpuzVzWEi1atGjRokWLFi1atGjRokWLFi1atGjRokWLFi1af7Ukz8xWp8z8AAAA//8DAJ4LoEAAlL1nAAAAAElFTkSuQmCC";
+$bg-width: 50px;
+$bg-height: 50px;

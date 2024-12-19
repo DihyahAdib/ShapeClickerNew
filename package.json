@@ -1,0 +1,11 @@
+{
+  "name": "shapeclicker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "css": "sass -w ./scss/style.scss ./css/style.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

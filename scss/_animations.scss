@@ -1,0 +1,52 @@
+@use "sass:map";
+@use "variable" as v;
+
+@keyframes bg-scrolling-reverse {
+  100% {
+    background-position: v.$bg-width v.$bg-height;
+  }
+}
+
+@keyframes bg-scrolling {
+  0% {
+    background-position: v.$bg-width v.$bg-height;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes o-spin {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.04);
+  }
+
+  40% {
+    transform: scale(0.97);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
