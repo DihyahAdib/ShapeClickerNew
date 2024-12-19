@@ -48,10 +48,14 @@ export function initializeUi() {
   });
 
   $("convert-clicks-to-cash").on("click", async function () {
-    if (VAR.shapesClicked >= 10000) {
-      VAR.decrement("shapesClicked", 10000);
-      VAR.increment("cash", 10);
-    } else if (VAR.shapesClicked <= 10000) {
+    const MIN_SHAPES = 10000;
+    if (VAR.shapesClicked >= MIN_SHAPES) {
+      const shapesToConvert =
+        Math.floor(VAR.shapesClicked / MIN_SHAPES) * MIN_SHAPES;
+      const cashToAdd = shapesToConvert / 1000;
+      VAR.decrement("shapesClicked", shapesToConvert);
+      VAR.increment("cash", cashToAdd);
+    } else {
       $("click-convert-warn").text("Insufficient amount of shapes");
       await wait(2000);
       $("click-convert-warn").text("");

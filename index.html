@@ -62,19 +62,10 @@
 
     <warning-screen>
       <h1>Your about to lose Everything!</h1>
-      <NOT>This Action cannot be undone</NOT>
+      <NOT>This Action cannot be undone!</NOT>
       <button class="btnReset" id="RESETFORSURE">Do it</button>
-      <button class="btnNoReset" id="DONT">Uhh, Maybe not</button>
+      <button class="btnNoReset" id="DONT">&#10006;</button>
     </warning-screen>
-
-    <prompt-frame class="popup arrow">
-      <div id="prompt">
-        <span id="c">Well done!</span> You will now have more shapes added to
-        the ones you are already clicking on since you have met your
-        <span id="c0">initial quota</span>. Do you understand? Okay, just keep
-        clicking, and I'll get outta ya hair!
-      </div>
-    </prompt-frame>
 
     <main-container>
       <main>
@@ -83,6 +74,15 @@
             <stats>
               <shapes></shapes>
               <plus-shapes></plus-shapes>
+              <prompt-frame class="popup arrow">
+                <div id="prompt">
+                  <span id="c">Well done!</span> You will now have more shapes
+                  added to the ones you are already clicking on since you have
+                  met your <span id="c0">initial quota</span>. Do you
+                  understand? Okay, just keep clicking, and I'll get outta ya
+                  hair!
+                </div>
+              </prompt-frame>
             </stats>
           </stats-container>
           <bonus-shape>Click me</bonus-shape>
@@ -178,14 +178,37 @@
                   </div>
                 </prompt-frame-tip>
               </more-info>
-              <click-convert-desc>10k &#10234; 10$</click-convert-desc>
+              <text>Convert Clicks to Cash</text>
               <hr />
-              <convert-clicks-to-cash>
-                <div></div>
-                <p>Convert Clicks</p>
-              </convert-clicks-to-cash>
-              <click-convert-warn></click-convert-warn>
-              <add-amount></add-amount>
+              <lock-container>
+                <h2>Standard Conversions</h2>
+                <lock-button-container>
+                  <locked>
+                    <convert-clicks-to-cash>
+                      <click-convert-desc>10k &#10234; 10$</click-convert-desc>
+                    </convert-clicks-to-cash>
+                  </locked>
+
+                  <locked>
+                    <convert-clicks-to-cash>
+                      <click-convert-desc
+                        >500k &#10234; 500$</click-convert-desc
+                      >
+                    </convert-clicks-to-cash>
+                  </locked>
+
+                  <locked>
+                    <convert-clicks-to-cash>
+                      <click-convert-desc>1M &#10234; 1k$</click-convert-desc>
+                    </convert-clicks-to-cash>
+                  </locked>
+                </lock-button-container>
+                <h2>Max Conversion</h2>
+                <convert-max-clicks-to-cash> </convert-max-clicks-to-cash>
+                <h2>Custom Conversion</h2>
+                <click-convert-warn></click-convert-warn>
+                <add-amount></add-amount>
+              </lock-container>
             </click-convert>
           </upgrade-and-store>
         </containerone>
