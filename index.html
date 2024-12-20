@@ -188,35 +188,44 @@
               <lock-container>
                 <h2>Standard Conversions</h2>
                 <lock-button-container>
-                  <locked>
+                  <div>
+                    <lockedoverlay
+                      ><img src="/assets/lock.svg"
+                    /></lockedoverlay>
                     <convert-clicks-to-cash>
                       <click-convert-desc>10k &#10234; 10$</click-convert-desc>
                     </convert-clicks-to-cash>
-                  </locked>
-
-                  <locked>
+                  </div>
+                  <div>
+                    <lockedoverlay
+                      ><img src="/assets/lock.svg"
+                    /></lockedoverlay>
                     <convert-clicks-to-cash>
                       <click-convert-desc
                         >500k &#10234; 500$</click-convert-desc
                       >
                     </convert-clicks-to-cash>
-                  </locked>
-
-                  <locked>
+                  </div>
+                  <div>
+                    <lockedoverlay
+                      ><img src="/assets/lock.svg"
+                    /></lockedoverlay>
                     <convert-clicks-to-cash>
                       <click-convert-desc>1M &#10234; 1k$</click-convert-desc>
                     </convert-clicks-to-cash>
-                  </locked>
+                  </div>
                 </lock-button-container>
                 <h2>Max Conversion</h2>
-                <lockedmax>
-                  <convert-max-clicks-to-cash>
-                    <click-convert-desc>Max &#10234; Max$</click-convert-desc>
-                  </convert-max-clicks-to-cash>
-                </lockedmax>
+                <lock-button-container-max>
+                  <div>
+                    <lockedmax><img src="" alt="" /></lockedmax>
+                    <convert-max-clicks-to-cash>
+                      <click-convert-desc>Max &#10234; Max$</click-convert-desc>
+                    </convert-max-clicks-to-cash>
+                  </div>
+                </lock-button-container-max>
                 <h2>Custom Conversion</h2>
-                <click-convert-warn></click-convert-warn>
-                <add-amount></add-amount>
+                <p id="text-for-standard-warnings"></p>
               </lock-container>
             </click-convert>
           </upgrade-and-store>

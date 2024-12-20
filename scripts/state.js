@@ -13,6 +13,13 @@ export const VAR = {
   enableAnimationForShapes: true,
   enableAnimationForBouncing: true,
 
+  unlockedOverlays: {
+    first: false,
+    second: false,
+    third: false,
+    max: false,
+  },
+
   updateBonusShapeTimes(min, max) {
     this.bonusShapeMinTime = min;
     this.bonusShapeMaxTime = max;
@@ -62,6 +69,12 @@ export const loadState = () => {
     VAR.multiplier = savedState.multiplier || 0;
     VAR.quota = savedState.quota || 15;
     VAR.cash = savedState.cash || 0;
+    VAR.unlockedOverlays = savedState.unlockedOverlays || {
+      first: false,
+      second: false,
+      third: false,
+      max: false,
+    };
     VAR.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
     VAR.enableAnimationForShapes = savedState.enableAnimationForShapes ?? true;
     VAR.enableAnimationForBouncing =
@@ -80,6 +93,7 @@ export const saveState = () => {
       multiplier: VAR.multiplier,
       quota: VAR.quota,
       cash: VAR.cash,
+      unlockedOverlays: VAR.unlockedOverlays,
       enableAnimationForBg: VAR.enableAnimationForBg,
       enableAnimationForShapes: VAR.enableAnimationForShapes,
       enableAnimationForBouncing: VAR.enableAnimationForBouncing,

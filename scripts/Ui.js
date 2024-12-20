@@ -1,5 +1,5 @@
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
-import { VAR, resetGame } from "./state.js";
+import { VAR, resetGame, saveState } from "./state.js";
 import { wait } from "./utils.js";
 
 export function initializeUi() {
@@ -47,24 +47,37 @@ export function initializeUi() {
     $("#bar").removeClass("active");
   });
 
-  $("convert-clicks-to-cash").on("click", async function () {
+  $("convert-clicks-to-cash:first").on("click", async function () {
     if (VAR.shapesClicked >= 10000) {
       VAR.decrement("shapesClicked", 10000);
       VAR.increment("cash", 10);
-    } else if (VAR.shapesClicked >= 500000) {
+    } else {
+      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
+      await wait(2000);
+      $("#text-for-standard-warnings").text("");
+    }
+  });
+
+  $("convert-clicks-to-cash:eq(1)").on("click", async function () {
+    if (VAR.shapesClicked >= 500000) {
       VAR.decrement("shapesClicked", 500000);
       VAR.increment("cash", 500);
-    } else if (VAR.shapesClicked >= 1000000) {
+    } else {
+      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
+      await wait(2000);
+      $("#text-for-standard-warnings").text("");
+    }
+  });
+
+  $("convert-clicks-to-cash:eq(2)").on("click", async function () {
+    if (VAR.shapesClicked >= 1000000) {
       VAR.decrement("shapesClicked", 1000000);
       VAR.increment("cash", 1000);
+    } else {
+      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
+      await wait(2000);
+      $("#text-for-standard-warnings").text("");
     }
-    $("click-convert-warn")
-      .text(VAR.shapesClicked >= 10000 ? "" : "Insufficient amount of shapes")
-      .text(VAR.shapesClicked >= 500000 ? "" : "Insufficient amount of shapes")
-      .text(
-        VAR.shapesClicked >= 1000000 ? "" : "Insufficient amount of shapes"
-      );
-    await wait(2000);
   });
 
   $("convert-max-clicks-to-cash").on("click", async function () {
@@ -76,9 +89,9 @@ export function initializeUi() {
       VAR.decrement("shapesClicked", shapesToConvert);
       VAR.increment("cash", cashToAdd);
     } else {
-      $("click-convert-warn").text("Insufficient amount of shapes");
+      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
       await wait(2000);
-      $("click-convert-warn").text("");
+      $("#text-for-standard-warnings").text("");
     }
   });
 
@@ -118,6 +131,55 @@ export function initializeUi() {
   });
 }
 
+$("lockedoverlay:first").on("click", async function () {
+  if (VAR.shapesClicked < 10000) {
+    $("#text-for-standard-warnings").text("Locked: Reach 10k Shapes first");
+    await wait(2500);
+    $("#text-for-standard-warnings").text("");
+  } else if (VAR.shapesClicked >= 10000) {
+    VAR.unlockedOverlays.first = true;
+    $(this).addClass("unlocked");
+    saveState();
+  }
+});
+
+$("lockedoverlay:eq(1)").on("click", async function () {
+  if (VAR.shapesClicked < 500000) {
+    $("#text-for-standard-warnings").text("Locked: Reach 500k Shapes first");
+    await wait(2500);
+    $("#text-for-standard-warnings").text("");
+  } else if (VAR.shapesClicked >= 500000) {
+    $("lockedoverlay:eq(1)").addClass("unlocked");
+    VAR.unlockedOverlays.second = true;
+    $(this).addClass("unlocked");
+    saveState();
+  }
+});
+
+$("lockedoverlay:eq(2)").on("click", async function () {
+  if (VAR.shapesClicked < 1000000) {
+    $("#text-for-standard-warnings").text("Locked: Reach 1M Shapes first");
+    await wait(2500);
+    $("#text-for-standard-warnings").text("");
+  } else if (VAR.shapesClicked >= 1000000) {
+    VAR.unlockedOverlays.third = true;
+    $(this).addClass("unlocked");
+    saveState();
+  }
+});
+
+$("lockedmax").on("click", async function () {
+  if (VAR.shapesClicked >= 100000000) {
+    $("click-convert-warn-max").text("Locked: Reach 10k Shapes first");
+    await wait(2000);
+    $("click-convert-warn-max").text("");
+  } else if (VAR.shapesClicked >= 100000000) {
+    VAR.unlockedOverlays.max = true;
+    $(this).addClass("unlocked");
+    saveState();
+  }
+});
+
 export function render() {
   $("shapes").text(`${formatPlaceValue(VAR.shapesClicked)} Shapes`);
   $("plus-shapes").text(`+${formatPlaceValue(VAR.multiplier)} Shapes`);
@@ -132,4 +194,16 @@ export function render() {
   $("bg").text(VAR.enableAnimationForBg ? "Unpaused" : "Paused");
   $("ss").text(VAR.enableAnimationForShapes ? "Unpaused" : "Paused");
   $("sb").text(VAR.enableAnimationForBouncing ? "Unpaused" : "Paused");
+  if (VAR.unlockedOverlays.first) {
+    $("lockedoverlay:first").addClass("unlocked");
+  }
+  if (VAR.unlockedOverlays.second) {
+    $("lockedoverlay:eq(1)").addClass("unlocked");
+  }
+  if (VAR.unlockedOverlays.third) {
+    $("lockedoverlay:eq(2)").addClass("unlocked");
+  }
+  if (VAR.unlockedOverlays.max) {
+    $("lockedmax").addClass("unlocked");
+  }
 }
