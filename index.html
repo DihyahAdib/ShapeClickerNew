@@ -95,7 +95,6 @@
           </svg-container>
         </game-container>
       </main>
-      <main-left> </main-left>
 
       <main-right>
         <containerone>
@@ -165,6 +164,8 @@
               <ul>
                 <li><a href="#bank">Bank</a></li>
                 <hr />
+                <li><a href="#convert">Conversion</a></li>
+                <hr />
                 <li><a href="#shop">Shop</a></li>
                 <hr />
                 <li><a href="#upgrades">Upgrades</a></li>
@@ -172,62 +173,69 @@
                 <li><a href="#achievements">Achievements</a></li>
               </ul>
             </nav-bar>
-            <click-convert>
-              <more-info>
-                <img src="./assets/question.svg" alt="question" />
-                <prompt-frame-tip class="arrow-top">
-                  <div>
-                    The <span class="c1">10k</span> refers to the amount of
-                    Shapes needed to convert into the displayed amount. <br />
-                    (Conversion ratio is 10k : 10$)
-                  </div>
-                </prompt-frame-tip>
-              </more-info>
-              <text>Convert Clicks to Cash</text>
-              <hr />
-              <lock-container>
-                <h2>Standard Conversions</h2>
-                <lock-button-container>
-                  <div>
-                    <lockedoverlay
-                      ><img src="/assets/lock.svg"
-                    /></lockedoverlay>
-                    <convert-clicks-to-cash>
-                      <click-convert-desc>10k &#10234; 10$</click-convert-desc>
-                    </convert-clicks-to-cash>
-                  </div>
-                  <div>
-                    <lockedoverlay
-                      ><img src="/assets/lock.svg"
-                    /></lockedoverlay>
-                    <convert-clicks-to-cash>
-                      <click-convert-desc
-                        >500k &#10234; 500$</click-convert-desc
-                      >
-                    </convert-clicks-to-cash>
-                  </div>
-                  <div>
-                    <lockedoverlay
-                      ><img src="/assets/lock.svg"
-                    /></lockedoverlay>
-                    <convert-clicks-to-cash>
-                      <click-convert-desc>1M &#10234; 1k$</click-convert-desc>
-                    </convert-clicks-to-cash>
-                  </div>
-                </lock-button-container>
-                <h2>Max Conversion</h2>
-                <lock-button-container-max>
-                  <div>
-                    <lockedmax><img src="" alt="" /></lockedmax>
-                    <convert-max-clicks-to-cash>
-                      <click-convert-desc>Max &#10234; Max$</click-convert-desc>
-                    </convert-max-clicks-to-cash>
-                  </div>
-                </lock-button-container-max>
-                <h2>Custom Conversion</h2>
-                <p id="text-for-standard-warnings"></p>
-              </lock-container>
-            </click-convert>
+            <convert-container>
+              <click-convert>
+                <more-info>
+                  <img src="./assets/question.svg" alt="question" />
+                  <prompt-frame-tip class="arrow-top">
+                    <div>
+                      The <span class="c1">10k</span> refers to the amount of
+                      Shapes needed to convert into the displayed amount. <br />
+                      (Conversion ratio is 10k : 10$)
+                    </div>
+                  </prompt-frame-tip>
+                </more-info>
+                <text>Convert Clicks to Cash</text>
+                <hr />
+                <lock-container>
+                  <h2>Standard Conversions</h2>
+                  <lock-button-container>
+                    <div>
+                      <lockedoverlay
+                        ><img src="/assets/lock.svg"
+                      /></lockedoverlay>
+                      <convert-clicks-to-cash>
+                        <click-convert-desc
+                          >10k &#10234; 10$</click-convert-desc
+                        >
+                      </convert-clicks-to-cash>
+                    </div>
+                    <div>
+                      <lockedoverlay
+                        ><img src="/assets/lock.svg"
+                      /></lockedoverlay>
+                      <convert-clicks-to-cash>
+                        <click-convert-desc
+                          >500k &#10234; 500$</click-convert-desc
+                        >
+                      </convert-clicks-to-cash>
+                    </div>
+                    <div>
+                      <lockedoverlay
+                        ><img src="/assets/lock.svg"
+                      /></lockedoverlay>
+                      <convert-clicks-to-cash>
+                        <click-convert-desc>1M &#10234; 1k$</click-convert-desc>
+                      </convert-clicks-to-cash>
+                    </div>
+                  </lock-button-container>
+                  <h2>Max Conversion</h2>
+                  <lock-button-container-max>
+                    <div>
+                      <lockedmax><img src="/assets/lock.svg" /></lockedmax>
+                      <convert-max-clicks-to-cash>
+                        <click-convert-desc
+                          >Max &#10234; Max$</click-convert-desc
+                        >
+                      </convert-max-clicks-to-cash>
+                    </div>
+                  </lock-button-container-max>
+                  <h2>Custom Conversion</h2>
+                  <p id="text-for-standard-warnings"></p>
+                </lock-container>
+              </click-convert>
+              <click-convert> </click-convert>
+            </convert-container>
           </upgrade-and-store>
         </containerone>
       </main-right>

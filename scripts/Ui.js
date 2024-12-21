@@ -159,7 +159,7 @@ $("lockedoverlay:eq(1)").on("click", async function () {
 $("lockedoverlay:eq(2)").on("click", async function () {
   if (VAR.shapesClicked < 1000000) {
     $("#text-for-standard-warnings").text("Locked: Reach 1M Shapes first");
-    await wait(2500);
+    await wait(2800);
     $("#text-for-standard-warnings").text("");
   } else if (VAR.shapesClicked >= 1000000) {
     VAR.unlockedOverlays.third = true;
@@ -169,10 +169,10 @@ $("lockedoverlay:eq(2)").on("click", async function () {
 });
 
 $("lockedmax").on("click", async function () {
-  if (VAR.shapesClicked >= 100000000) {
-    $("click-convert-warn-max").text("Locked: Reach 10k Shapes first");
-    await wait(2000);
-    $("click-convert-warn-max").text("");
+  if (VAR.shapesClicked < 100000000) {
+    $("#text-for-standard-warnings").text("Locked: Reach 100M Shapes first");
+    await wait(2800);
+    $("#text-for-standard-warnings").text("");
   } else if (VAR.shapesClicked >= 100000000) {
     VAR.unlockedOverlays.max = true;
     $(this).addClass("unlocked");
