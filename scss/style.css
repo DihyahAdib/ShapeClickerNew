@@ -2,7 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 @import url(https://fonts.googleapis.com/css?family=Exo:100);
 main-right {
-  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  width: 110%;
   height: 92vh;
   margin: 1em;
   padding: 0;
@@ -16,19 +18,19 @@ main-right containerone {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: 50%;
   height: 100%;
 }
 main-right containerone data-container {
   display: grid;
-  grid-template-columns: 87% 4%;
+  grid-template-columns: 87% 14%;
   align-content: center;
   justify-content: space-around;
   align-items: center;
   justify-items: center;
   border: 4px solid #989898;
   border-radius: 47px;
-  margin-top: 30px;
+  margin-top: 15px;
   padding: 10px;
   height: auto;
   width: 90%;
@@ -73,12 +75,12 @@ main-right containerone data-container svg-spin #gear {
 main-right upgrade-and-store {
   display: flex;
   flex-direction: column;
-  border-radius: 10px;
+  justify-content: center;
   border: 4px solid #989898;
-  margin-top: 20px;
+  margin-bottom: 15px;
   padding: 10px;
   height: 78%;
-  width: 85%;
+  width: 500px;
   background-color: rgb(245, 245, 245);
   z-index: 8;
 }
@@ -87,33 +89,51 @@ nav-bar {
   position: relative;
   display: flex;
   justify-content: center;
-  border-radius: 4px;
+  align-items: center;
+  border-radius: 13px 13px 0 0;
   border: 4px solid #989898;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  width: auto;
+  border-bottom: none;
+  width: 500px;
+  height: 80px;
+  padding: 10px;
+  margin-top: 15px;
+  background: rgb(146, 163, 177);
 }
 nav-bar ul {
   display: flex;
+  position: relative;
   align-items: center;
+  justify-content: center;
   list-style-type: none;
+  margin: 0;
   padding: 0;
+  width: 100%;
+  height: 100%;
 }
 nav-bar ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px;
   transform: scale(1);
   transition: transform 0.3s ease;
+  height: 100%;
 }
 nav-bar ul li a {
   letter-spacing: 1px;
-  color: rgb(0, 34, 128);
+  color: whitesmoke;
   text-decoration: none;
   font-family: Comfortaa, sans-serif;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 nav-bar ul li:hover {
-  transform: scale(1.1);
+  transform: scale(1.04);
+}
+nav-bar ul p#left {
+  transform: rotate(110deg);
 }
 nav-bar hr {
   width: 20px;
@@ -127,6 +147,8 @@ nav-bar hr {
 
 convert-container {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes bg-scrolling-reverse {
