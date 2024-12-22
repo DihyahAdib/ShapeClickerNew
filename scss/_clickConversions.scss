@@ -10,10 +10,13 @@ click-convert {
   align-items: center;
   border-radius: 10px;
   border: 3px solid #0000001f;
-  width: 355px;
-  height: 530px;
+  width: 435px;
+  height: 540px;
   background-color: rgb(255, 242, 225);
   padding: 10px;
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
 
   text {
     margin-top: 28px;
@@ -61,8 +64,25 @@ click-convert {
   }
 }
 
-#text-for-standard-warnings,
-#text-for-max-warnings {
+click-convertone {
+  position: relative;
+  display: flex;
+  top: 1%;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 3px solid #0000001f;
+  width: 435px;
+  height: 540px;
+  background-color: rgb(255, 242, 225);
+  padding: 10px;
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
+}
+
+#text-for-standard-warnings {
   margin-top: 20px;
   color: black;
   font-family: #{v.$Quick};

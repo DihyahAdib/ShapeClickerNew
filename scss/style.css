@@ -74,7 +74,7 @@ main-right containerone data-container svg-spin #gear {
 }
 main-right upgrade-and-store {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   border: 4px solid #989898;
   margin-bottom: 15px;
@@ -83,6 +83,10 @@ main-right upgrade-and-store {
   width: 500px;
   background-color: rgb(245, 245, 245);
   z-index: 8;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 }
 
 nav-bar {
@@ -132,9 +136,6 @@ nav-bar ul li a {
 nav-bar ul li:hover {
   transform: scale(1.04);
 }
-nav-bar ul p#left {
-  transform: rotate(110deg);
-}
 nav-bar hr {
   width: 20px;
   color: #333;
@@ -148,7 +149,24 @@ nav-bar hr {
 convert-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  min-width: 100%;
+  gap: 40px;
+  padding: 0 10px;
+}
+
+click-convert:first-child {
+  margin-left: 20px;
+}
+
+#achievements {
+  margin-right: 20px;
+}
+
+click-convert {
+  min-width: 435px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
 }
 
 @keyframes bg-scrolling-reverse {
@@ -189,6 +207,38 @@ convert-container {
   }
   100% {
     transform: scale(1);
+  }
+}
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+@keyframes slideOutToLeft {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
   }
 }
 svg-container {
@@ -236,10 +286,13 @@ click-convert {
   align-items: center;
   border-radius: 10px;
   border: 3px solid rgba(0, 0, 0, 0.1215686275);
-  width: 355px;
-  height: 530px;
+  width: 435px;
+  height: 540px;
   background-color: rgb(255, 242, 225);
   padding: 10px;
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
 }
 click-convert text {
   margin-top: 28px;
@@ -282,8 +335,25 @@ click-convert hr::after {
   font-weight: 900;
 }
 
-#text-for-standard-warnings,
-#text-for-max-warnings {
+click-convertone {
+  position: relative;
+  display: flex;
+  top: 1%;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.1215686275);
+  width: 435px;
+  height: 540px;
+  background-color: rgb(255, 242, 225);
+  padding: 10px;
+  opacity: 1;
+  visibility: visible;
+  z-index: 0;
+}
+
+#text-for-standard-warnings {
   margin-top: 20px;
   color: black;
   font-family: Quicksand, sans-serif;

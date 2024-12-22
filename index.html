@@ -161,20 +161,18 @@
           </data-container>
 
           <nav-bar>
-            <p id="left">&#9650;</p>
             <ul>
-              <li><a href="#bank">Bank</a></li>
-              <li><a href="#convert">Conversion</a></li>
-              <li><a href="#shop">Shop</a></li>
-              <li><a href="#upgrades">Upgrades</a></li>
-              <li><a href="#achievements">Achievements</a></li>
+              <li><a href="#" data-nav="bank">Bank</a></li>
+              <li><a href="#" data-nav="convert">Conversion</a></li>
+              <li><a href="#" data-nav="shop">Shop</a></li>
+              <li><a href="#" data-nav="upgrades">Upgrades</a></li>
+              <li><a href="#" data-nav="achievements">Achievements</a></li>
             </ul>
-            <p id="right">&#9660;</p>
           </nav-bar>
 
           <upgrade-and-store>
             <convert-container>
-              <click-convert>
+              <click-convert id="bank">
                 <more-info>
                   <img src="./assets/question.svg" alt="question" />
                   <prompt-frame-tip class="arrow-top">
@@ -234,6 +232,19 @@
                   <p id="text-for-standard-warnings"></p>
                 </lock-container>
               </click-convert>
+              <click-convert id="convert">
+                <p>cool</p>
+              </click-convert>
+              <click-convert id="shop">
+                <p>cool</p>
+              </click-convert>
+              <click-convert id="upgrades">
+                <p>cool</p>
+              </click-convert>
+              <click-convert id="achievements">
+                <p>NOTCOOL</p>
+              </click-convert>
+              <click-convert id="last"> </click-convert>
             </convert-container>
           </upgrade-and-store>
         </containerone>

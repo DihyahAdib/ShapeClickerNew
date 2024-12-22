@@ -81,7 +81,7 @@ main-right {
 
   upgrade-and-store {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     border: 4px solid #989898;
     margin-bottom: 15px;
@@ -90,6 +90,10 @@ main-right {
     width: 500px;
     background-color: rgb(245, 245, 245);
     z-index: 8;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
   }
 }
 
@@ -117,6 +121,7 @@ nav-bar {
     padding: 0;
     width: 100%;
     height: 100%;
+
     li {
       display: flex;
       align-items: center;
@@ -125,6 +130,7 @@ nav-bar {
       transform: scale(1);
       transition: transform 0.3s ease;
       height: 100%;
+
       a {
         letter-spacing: 1px;
         color: whitesmoke;
@@ -139,10 +145,6 @@ nav-bar {
 
     li:hover {
       transform: scale(1.04);
-    }
-
-    p#left {
-      transform: rotate(110deg);
     }
   }
 
@@ -160,5 +162,22 @@ nav-bar {
 convert-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  min-width: 100%;
+  gap: 40px;
+  padding: 0 10px;
+}
+
+click-convert:first-child {
+  margin-left: 20px;
+}
+
+#achievements {
+  margin-right: 20px;
+}
+
+click-convert {
+  min-width: 435px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
 }

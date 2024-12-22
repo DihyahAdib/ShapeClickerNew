@@ -207,3 +207,17 @@ export function render() {
     $("lockedmax").addClass("unlocked");
   }
 }
+
+$(document).ready(function () {
+  $("[data-nav]").click(function (e) {
+    e.preventDefault();
+    const targetId = $(this).data("nav");
+    const target = $(`#${targetId}`);
+
+    target[0].scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  });
+});
