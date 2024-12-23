@@ -109,6 +109,12 @@ export function resetGame() {
   VAR.multiplier = 0;
   VAR.quota = 15;
   VAR.cash = 0;
+  VAR.unlockedOverlays = {
+    first: false,
+    second: false,
+    third: false,
+    max: false,
+  };
   VAR.enableAnimationForBg = true;
   VAR.enableAnimationForShapes = true;
   VAR.enableAnimationForBouncing = true;

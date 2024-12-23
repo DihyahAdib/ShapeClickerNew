@@ -51,10 +51,25 @@ export function initializeUi() {
     if (VAR.shapesClicked >= 10000) {
       VAR.decrement("shapesClicked", 10000);
       VAR.increment("cash", 10);
+      $("progress-bar:first").addClass("visible");
+      coolDown(30000);
+      $("somethign ");
     } else {
       $("#text-for-standard-warnings").text("Insufficient amount of shapes");
       await wait(2000);
       $("#text-for-standard-warnings").text("");
+    }
+  });
+
+  $("lockedoverlay:first").on("click", async function () {
+    if (VAR.shapesClicked < 10000) {
+      $("#text-for-standard-warnings").text("Locked: Reach 10k Shapes first");
+      await wait(2500);
+      $("#text-for-standard-warnings").text("");
+    } else if (VAR.shapesClicked >= 10000) {
+      VAR.unlockedOverlays.first = true;
+      $(this).addClass("unlocked");
+      saveState();
     }
   });
 
@@ -62,6 +77,8 @@ export function initializeUi() {
     if (VAR.shapesClicked >= 500000) {
       VAR.decrement("shapesClicked", 500000);
       VAR.increment("cash", 500);
+      $("progress-bar:eq(1)").addClass("visible");
+      coolDown(30000);
     } else {
       $("#text-for-standard-warnings").text("Insufficient amount of shapes");
       await wait(2000);
@@ -69,14 +86,40 @@ export function initializeUi() {
     }
   });
 
+  $("lockedoverlay:eq(1)").on("click", async function () {
+    if (VAR.shapesClicked < 500000) {
+      $("#text-for-standard-warnings").text("Locked: Reach 500k Shapes first");
+      await wait(2500);
+      $("#text-for-standard-warnings").text("");
+    } else if (VAR.shapesClicked >= 500000) {
+      VAR.unlockedOverlays.second = true;
+      $(this).addClass("unlocked");
+      saveState();
+    }
+  });
+
   $("convert-clicks-to-cash:eq(2)").on("click", async function () {
     if (VAR.shapesClicked >= 1000000) {
       VAR.decrement("shapesClicked", 1000000);
       VAR.increment("cash", 1000);
+      $("progress-bar:eq(2)").addClass("visible");
+      coolDown(30000);
     } else {
       $("#text-for-standard-warnings").text("Insufficient amount of shapes");
       await wait(2000);
       $("#text-for-standard-warnings").text("");
+    }
+  });
+
+  $("lockedoverlay:eq(2)").on("click", async function () {
+    if (VAR.shapesClicked < 1000000) {
+      $("#text-for-standard-warnings").text("Locked: Reach 1M Shapes first");
+      await wait(2800);
+      $("#text-for-standard-warnings").text("");
+    } else if (VAR.shapesClicked >= 1000000) {
+      VAR.unlockedOverlays.third = true;
+      $(this).addClass("unlocked");
+      saveState();
     }
   });
 
@@ -92,6 +135,18 @@ export function initializeUi() {
       $("#text-for-standard-warnings").text("Insufficient amount of shapes");
       await wait(2000);
       $("#text-for-standard-warnings").text("");
+    }
+  });
+
+  $("lockedmax").on("click", async function () {
+    if (VAR.shapesClicked < 100000000) {
+      $("#text-for-standard-warnings").text("Locked: Reach 100M Shapes first");
+      await wait(2800);
+      $("#text-for-standard-warnings").text("");
+    } else if (VAR.shapesClicked >= 100000000) {
+      VAR.unlockedOverlays.max = true;
+      $(this).addClass("unlocked");
+      saveState();
     }
   });
 
@@ -131,55 +186,6 @@ export function initializeUi() {
   });
 }
 
-$("lockedoverlay:first").on("click", async function () {
-  if (VAR.shapesClicked < 10000) {
-    $("#text-for-standard-warnings").text("Locked: Reach 10k Shapes first");
-    await wait(2500);
-    $("#text-for-standard-warnings").text("");
-  } else if (VAR.shapesClicked >= 10000) {
-    VAR.unlockedOverlays.first = true;
-    $(this).addClass("unlocked");
-    saveState();
-  }
-});
-
-$("lockedoverlay:eq(1)").on("click", async function () {
-  if (VAR.shapesClicked < 500000) {
-    $("#text-for-standard-warnings").text("Locked: Reach 500k Shapes first");
-    await wait(2500);
-    $("#text-for-standard-warnings").text("");
-  } else if (VAR.shapesClicked >= 500000) {
-    $("lockedoverlay:eq(1)").addClass("unlocked");
-    VAR.unlockedOverlays.second = true;
-    $(this).addClass("unlocked");
-    saveState();
-  }
-});
-
-$("lockedoverlay:eq(2)").on("click", async function () {
-  if (VAR.shapesClicked < 1000000) {
-    $("#text-for-standard-warnings").text("Locked: Reach 1M Shapes first");
-    await wait(2800);
-    $("#text-for-standard-warnings").text("");
-  } else if (VAR.shapesClicked >= 1000000) {
-    VAR.unlockedOverlays.third = true;
-    $(this).addClass("unlocked");
-    saveState();
-  }
-});
-
-$("lockedmax").on("click", async function () {
-  if (VAR.shapesClicked < 100000000) {
-    $("#text-for-standard-warnings").text("Locked: Reach 100M Shapes first");
-    await wait(2800);
-    $("#text-for-standard-warnings").text("");
-  } else if (VAR.shapesClicked >= 100000000) {
-    VAR.unlockedOverlays.max = true;
-    $(this).addClass("unlocked");
-    saveState();
-  }
-});
-
 export function render() {
   $("shapes").text(`${formatPlaceValue(VAR.shapesClicked)} Shapes`);
   $("plus-shapes").text(`+${formatPlaceValue(VAR.multiplier)} Shapes`);
@@ -194,17 +200,29 @@ export function render() {
   $("bg").text(VAR.enableAnimationForBg ? "Unpaused" : "Paused");
   $("ss").text(VAR.enableAnimationForShapes ? "Unpaused" : "Paused");
   $("sb").text(VAR.enableAnimationForBouncing ? "Unpaused" : "Paused");
+
   if (VAR.unlockedOverlays.first) {
     $("lockedoverlay:first").addClass("unlocked");
+  } else {
+    $("lockedoverlay:first").removeClass("unlocked");
   }
+
   if (VAR.unlockedOverlays.second) {
     $("lockedoverlay:eq(1)").addClass("unlocked");
+  } else {
+    $("lockedoverlay:eq(1)").removeClass("unlocked");
   }
+
   if (VAR.unlockedOverlays.third) {
     $("lockedoverlay:eq(2)").addClass("unlocked");
+  } else {
+    $("lockedoverlay:eq(2)").removeClass("unlocked");
   }
+
   if (VAR.unlockedOverlays.max) {
     $("lockedmax").addClass("unlocked");
+  } else {
+    $("lockedmax").removeClass("unlocked");
   }
 }
 
@@ -213,7 +231,8 @@ $(document).ready(function () {
     e.preventDefault();
     const targetId = $(this).data("nav");
     const target = $(`#${targetId}`);
-
+    $("[data-nav]").css("color", "white");
+    $(this).css("color", "blue");
     target[0].scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -221,3 +240,25 @@ $(document).ready(function () {
     });
   });
 });
+
+async function coolDown(duration) {
+  $("#text-for-standard-warnings").text(`cooldown: ${duration / 1000} Seconds`);
+  $("loading-part").css({
+    height: "100%",
+  });
+  $("loading-part").animate(
+    { height: "0%" },
+    {
+      duration: duration,
+      easing: "linear",
+      step: function (now) {
+        const progress = Math.round(now);
+        $("loading-part").text(`${formatPlaceValue(progress)}%`);
+      },
+      complete: function () {
+        $("progress-bar").removeClass("visible");
+        $("#text-for-standard-warnings").text("");
+      },
+    }
+  );
+}
