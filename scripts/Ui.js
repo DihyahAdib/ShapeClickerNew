@@ -1,6 +1,5 @@
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
 import { VAR, resetGame, saveState } from "./state.js";
-import { wait } from "./utils.js";
 
 export function initializeUi() {
   $("#bg").on("click", function () {
@@ -52,20 +51,16 @@ export function initializeUi() {
       VAR.decrement("shapesClicked", 10000);
       VAR.increment("cash", 10);
       $("progress-bar:first").addClass("visible");
-      coolDown(30000);
+      coolDown(30000, 0);
       $("somethign ");
     } else {
-      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
-      await wait(2000);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
     }
   });
 
   $("lockedoverlay:first").on("click", async function () {
     if (VAR.shapesClicked < 10000) {
-      $("#text-for-standard-warnings").text("Locked: Reach 10k Shapes first");
-      await wait(2500);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Locked: Reach 10k Shapes first", 2000);
     } else if (VAR.shapesClicked >= 10000) {
       VAR.unlockedOverlays.first = true;
       $(this).addClass("unlocked");
@@ -78,19 +73,15 @@ export function initializeUi() {
       VAR.decrement("shapesClicked", 500000);
       VAR.increment("cash", 500);
       $("progress-bar:eq(1)").addClass("visible");
-      coolDown(30000);
+      coolDown(60000, 1);
     } else {
-      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
-      await wait(2000);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
     }
   });
 
   $("lockedoverlay:eq(1)").on("click", async function () {
     if (VAR.shapesClicked < 500000) {
-      $("#text-for-standard-warnings").text("Locked: Reach 500k Shapes first");
-      await wait(2500);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Locked: Reach 500k Shapes first", 2000);
     } else if (VAR.shapesClicked >= 500000) {
       VAR.unlockedOverlays.second = true;
       $(this).addClass("unlocked");
@@ -103,19 +94,15 @@ export function initializeUi() {
       VAR.decrement("shapesClicked", 1000000);
       VAR.increment("cash", 1000);
       $("progress-bar:eq(2)").addClass("visible");
-      coolDown(30000);
+      coolDown(120000, 2);
     } else {
-      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
-      await wait(2000);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
     }
   });
 
   $("lockedoverlay:eq(2)").on("click", async function () {
     if (VAR.shapesClicked < 1000000) {
-      $("#text-for-standard-warnings").text("Locked: Reach 1M Shapes first");
-      await wait(2800);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Locked: Reach 1M Shapes first", 2000);
     } else if (VAR.shapesClicked >= 1000000) {
       VAR.unlockedOverlays.third = true;
       $(this).addClass("unlocked");
@@ -132,17 +119,13 @@ export function initializeUi() {
       VAR.decrement("shapesClicked", shapesToConvert);
       VAR.increment("cash", cashToAdd);
     } else {
-      $("#text-for-standard-warnings").text("Insufficient amount of shapes");
-      await wait(2000);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
     }
   });
 
   $("lockedmax").on("click", async function () {
     if (VAR.shapesClicked < 100000000) {
-      $("#text-for-standard-warnings").text("Locked: Reach 100M Shapes first");
-      await wait(2800);
-      $("#text-for-standard-warnings").text("");
+      $("#text-warnings").textTimeout("Locked: Reach 100M Shapes first", 2000);
     } else if (VAR.shapesClicked >= 100000000) {
       VAR.unlockedOverlays.max = true;
       $(this).addClass("unlocked");
@@ -241,23 +224,26 @@ $(document).ready(function () {
   });
 });
 
-async function coolDown(duration) {
-  $("#text-for-standard-warnings").text(`cooldown: ${duration / 1000} Seconds`);
-  $("loading-part").css({
+async function coolDown(duration, index) {
+  $("#text-warnings").text(`cooldown: ${duration / 1000} Seconds`);
+
+  $(`progress-bar:eq(${index}) loading-part`).css({
     height: "100%",
   });
-  $("loading-part").animate(
+  $(`progress-bar:eq(${index}) loading-part`).animate(
     { height: "0%" },
     {
       duration: duration,
       easing: "linear",
       step: function (now) {
         const progress = Math.round(now);
-        $("loading-part").text(`${formatPlaceValue(progress)}%`);
+        $(`progress-bar:eq(${index}) loading-part`).text(
+          `${formatPlaceValue(progress)}%`
+        );
       },
       complete: function () {
-        $("progress-bar").removeClass("visible");
-        $("#text-for-standard-warnings").text("");
+        $(`progress-bar:eq(${index}) loading-part`).removeClass("visible");
+        $("#text-warnings").text("");
       },
     }
   );

@@ -19,3 +19,10 @@ $.fn.spin = function (direction) {
     $("svg#gear").removeClass("spin").addClass("Ospin");
   }
 };
+
+$.fn.textTimeout = async function (text, ms) {
+  this.text(text);
+  await new Promise((resolve) => setTimeout(resolve, ms));
+  this.text("");
+  return this;
+};
