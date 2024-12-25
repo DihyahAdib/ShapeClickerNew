@@ -127,15 +127,26 @@ function showAchievementNotification(ach) {
   $("<achievement-popup>")
     .attr("data-achievement", ach.name)
     .html(
-      `<div>
-      <h3>Achievement Unlocked!</h3>
-      <p>${title}</p>
-      <p>${description}</p>
-      <p>Unlocked</p>
+      `<div class="ach-styling">
+      <div>
+        <button id="close-ach">&#10006;</button>
+      </div>
+      <div>
+        <h3>Achievement Unlocked!</h3>
+        <p>${title}</p>
+        <p>${description}</p>
+        <p>Unlocked</p>
+      </div>
     </div>
   `
     )
     .appendTo("achievements-container");
+
+  $("achievement-popup").addClass("active");
+  // setTimeout(() => {
+  //   $("achievement-popup").addClass("active");
+  //   setTimeout(() => $("achievement-popup").remove(), 300);
+  // }, 5000);
 }
 
 export const loadState = () => {

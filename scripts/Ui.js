@@ -46,6 +46,10 @@ export function initializeUi() {
     $("#bar").removeClass("active");
   });
 
+  $("achievements-container").on("click", "#close-ach", function () {
+    $("achievement-popup").removeClass("active");
+  });
+
   $("convert-clicks-to-cash:first").on("click", async function () {
     if (VAR.shapesClicked >= 10000) {
       VAR.decrement("shapesClicked", 10000);
