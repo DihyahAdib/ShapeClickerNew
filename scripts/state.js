@@ -112,6 +112,7 @@ function checkAchievements() {
 }
 
 function updateAchievementList() {
+  $("achievements-list").empty();
   VAR.achievements.forEach((achievementName) => {
     $("<li>").text(achievementName).appendTo("achievements-list");
   });
@@ -143,10 +144,10 @@ function showAchievementNotification(ach) {
     .appendTo("achievements-container");
 
   $("achievement-popup").addClass("active");
-  // setTimeout(() => {
-  //   $("achievement-popup").addClass("active");
-  //   setTimeout(() => $("achievement-popup").remove(), 300);
-  // }, 5000);
+  setTimeout(() => {
+    $("achievement-popup").addClass("active");
+    setTimeout(() => $("achievement-popup").remove(), 300);
+  }, 6000);
 }
 
 export const loadState = () => {
