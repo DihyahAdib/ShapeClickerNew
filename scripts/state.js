@@ -102,28 +102,36 @@ function checkAchievements() {
     const ach = ACHIEVEMENTS[key]; // Useing ach as a reference to the achievement object
     if (!ach.unlocked && ach.condition(VAR)) {
       ach.ifUnlocked = true;
-      VAR.achievements.push(ach.name); // attempting to add to state array.
-      showAchievementNotification(ach);
+      if (!VAR.achievements.includes(ach.name)) {
+        VAR.achievements.push(ach.name); // attempting to add to state array.
+        showAchievementNotification(ach);
+        updateAchievementList();
+      }
     }
   }
 }
 
+function updateAchievementList() {
+  VAR.achievements.forEach((achievementName) => {
+    $("<li>").text(achievementName).appendTo("achievements-list");
+  });
+}
+
 function showAchievementNotification(ach) {
   //fallbacks
+  const title = ach.name || "Achievement";
+  const description = ach.description || "No description provided.";
   if ($(`achievement-popup[data-achievement="${ach.name}"]`).length > 0) {
     return;
   }
-  const title = ach.name || "Achievement";
-  const description = ach.description || "No description provided.";
-
   $("<achievement-popup>")
     .attr("data-achievement", ach.name)
     .html(
-      `<div class="achievement-text">
+      `<div>
       <h3>Achievement Unlocked!</h3>
       <p>${title}</p>
       <p>${description}</p>
-      <p>${ach.ifUnlocked}</p>
+      <p>Unlocked</p>
     </div>
   `
     )

@@ -14,6 +14,18 @@ main-right {
   background-image: url(/assets/rrreplicate1.svg);
   background-size: cover;
 
+  containertwo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+
+    ul {
+      list-style-type: none;
+    }
+  }
+
   containerone {
     display: flex;
     flex-direction: column;
