@@ -93,3 +93,29 @@ prompt-frame-tip.active {
   left: calc(0% - 10px);
   top: 104px;
 }
+
+achievements-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  height: 50vh;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  z-index: 99;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  achievement-popup {
+    position: relative;
+    margin: 10px 0 0 0;
+    padding: 10px;
+    border-radius: 9px;
+    border: 4px gray solid;
+    text-align: center;
+    visibility: visible;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.904);
+  }
+}
