@@ -2,7 +2,9 @@
 @use "variable" as v;
 
 main-right {
-  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  width: 110%;
   height: 92vh;
   margin: 1em;
   padding: 0;
@@ -12,22 +14,35 @@ main-right {
   background-image: url(/assets/rrreplicate1.svg);
   background-size: cover;
 
+  containertwo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+
+    ul {
+      list-style-type: none;
+    }
+  }
+
   containerone {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
+    width: 50%;
     height: 100%;
 
     data-container {
       display: grid;
-      grid-template-columns: 87% 13%;
+      grid-template-columns: 87% 14%;
       align-content: center;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
+      justify-items: center;
       border: 4px solid #989898;
       border-radius: 47px;
-      margin-top: 30px;
+      margin-top: 15px;
       padding: 10px;
       height: auto;
       width: 90%;
@@ -77,66 +92,104 @@ main-right {
   }
 
   upgrade-and-store {
-    display: grid;
-    grid-template-rows: 7% 93%;
-    align-content: center;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    justify-items: center;
-    border-radius: 10px;
     border: 4px solid #989898;
-    margin-top: 20px;
+    margin-bottom: 15px;
     padding: 10px;
     height: 78%;
-    width: 85%;
+    width: 500px;
     background-color: rgb(245, 245, 245);
     z-index: 8;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+  }
+}
 
-    nav-bar {
-      position: relative;
+nav-bar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 13px 13px 0 0;
+  border: 4px solid #989898;
+  border-bottom: none;
+  width: 500px;
+  height: 80px;
+  padding: 10px;
+  margin-top: 15px;
+  background: rgb(146, 163, 177);
+
+  ul {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+
+    li {
       display: flex;
+      align-items: center;
       justify-content: center;
-      border-radius: 4px;
-      border: 4px solid #989898;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      width: auto;
+      padding: 10px;
+      transform: scale(1);
+      transition: transform 0.3s ease;
+      height: 100%;
 
-      ul {
-        display: flex;
-        align-items: center;
-        list-style-type: none;
-        padding: 0;
-
-        li {
-          padding: 10px;
-          transform: scale(1);
-          transition: transform 0.3s ease;
-
-          a {
-            letter-spacing: 1px;
-            color: rgb(0, 34, 128);
-            text-decoration: none;
-            font-family: #{v.$Comfort};
-            font-weight: #{map.get(v.$font-weights, "bold")};
-          }
-        }
-
-        li:hover {
-          transform: scale(1.1);
-        }
-      }
-
-      hr {
-        width: 20px;
-        color: #333;
-        border: none;
-        border-radius: 0px;
-        border-top: 2px double #333;
-        background-color: #333;
-        transform: rotate(90deg);
+      a {
+        letter-spacing: 1px;
+        color: whitesmoke;
+        text-decoration: none;
+        font-family: #{v.$Comfort};
+        font-weight: #{map.get(v.$font-weights, "bold")};
+        display: flex; // Added this
+        align-items: center; // Added this
+        height: 100%; // Added this
       }
     }
+
+    li:hover {
+      transform: scale(1.04);
+    }
   }
+
+  hr {
+    width: 20px;
+    color: #333;
+    border: none;
+    border-radius: 0px;
+    border-top: 2px double #333;
+    background-color: #333;
+    transform: rotate(90deg);
+  }
+}
+
+convert-container {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  min-width: 100%;
+  gap: 40px;
+  padding: 0 10px;
+}
+
+click-convert:first-child {
+  margin-left: 20px;
+}
+
+#achievements {
+  margin-right: 20px;
+}
+
+click-convert {
+  min-width: 435px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
 }

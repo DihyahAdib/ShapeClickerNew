@@ -1,6 +1,5 @@
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
-import { VAR, resetGame } from "./state.js";
-import { wait } from "./wait.js";
+import { VAR, resetGame, saveState } from "./state.js";
 
 export function initializeUi() {
   $("#bg").on("click", function () {
@@ -47,14 +46,94 @@ export function initializeUi() {
     $("#bar").removeClass("active");
   });
 
-  $("convert-clicks-to-cash").on("click", async function () {
+  $("achievements-container").on("click", "#close-ach", function () {
+    $("achievement-popup").removeClass("active");
+  });
+
+  $("convert-clicks-to-cash:first").on("click", async function () {
     if (VAR.shapesClicked >= 10000) {
       VAR.decrement("shapesClicked", 10000);
       VAR.increment("cash", 10);
-    } else if (VAR.shapesClicked <= 10000) {
-      $("click-convert-warn").text("Insufficient amount of shapes");
-      await wait(2000);
-      $("click-convert-warn").text("");
+      $("progress-bar:first").addClass("visible");
+      coolDown(30000, 0);
+      $("somethign ");
+    } else {
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
+    }
+  });
+
+  $("lockedoverlay:first").on("click", async function () {
+    if (VAR.shapesClicked < 10000) {
+      $("#text-warnings").textTimeout("Locked: Reach 10k Shapes first", 2000);
+    } else if (VAR.shapesClicked >= 10000) {
+      VAR.unlockedOverlays.first = true;
+      $(this).addClass("unlocked");
+      saveState();
+    }
+  });
+
+  $("convert-clicks-to-cash:eq(1)").on("click", async function () {
+    if (VAR.shapesClicked >= 500000) {
+      VAR.decrement("shapesClicked", 500000);
+      VAR.increment("cash", 500);
+      $("progress-bar:eq(1)").addClass("visible");
+      coolDown(60000, 1);
+    } else {
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
+    }
+  });
+
+  $("lockedoverlay:eq(1)").on("click", async function () {
+    if (VAR.shapesClicked < 500000) {
+      $("#text-warnings").textTimeout("Locked: Reach 500k Shapes first", 2000);
+    } else if (VAR.shapesClicked >= 500000) {
+      VAR.unlockedOverlays.second = true;
+      $(this).addClass("unlocked");
+      saveState();
+    }
+  });
+
+  $("convert-clicks-to-cash:eq(2)").on("click", async function () {
+    if (VAR.shapesClicked >= 1000000) {
+      VAR.decrement("shapesClicked", 1000000);
+      VAR.increment("cash", 1000);
+      $("progress-bar:eq(2)").addClass("visible");
+      coolDown(120000, 2);
+    } else {
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
+    }
+  });
+
+  $("lockedoverlay:eq(2)").on("click", async function () {
+    if (VAR.shapesClicked < 1000000) {
+      $("#text-warnings").textTimeout("Locked: Reach 1M Shapes first", 2000);
+    } else if (VAR.shapesClicked >= 1000000) {
+      VAR.unlockedOverlays.third = true;
+      $(this).addClass("unlocked");
+      saveState();
+    }
+  });
+
+  $("convert-max-clicks-to-cash").on("click", async function () {
+    const MIN_SHAPES = 10000;
+    if (VAR.shapesClicked >= MIN_SHAPES) {
+      const shapesToConvert =
+        Math.floor(VAR.shapesClicked / MIN_SHAPES) * MIN_SHAPES;
+      const cashToAdd = shapesToConvert / 1000;
+      VAR.decrement("shapesClicked", shapesToConvert);
+      VAR.increment("cash", cashToAdd);
+    } else {
+      $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
+    }
+  });
+
+  $("lockedmax").on("click", async function () {
+    if (VAR.shapesClicked < 100000000) {
+      $("#text-warnings").textTimeout("Locked: Reach 100M Shapes first", 2000);
+    } else if (VAR.shapesClicked >= 100000000) {
+      VAR.unlockedOverlays.max = true;
+      $(this).addClass("unlocked");
+      saveState();
     }
   });
 
@@ -67,6 +146,30 @@ export function initializeUi() {
 
   $("#DONT").on("click", function () {
     $("warning-screen").removeClass("warn");
+  });
+
+  $("#Rlevel").on("click", function () {
+    VAR.set("level", 0);
+  });
+
+  $("#Rshape").on("click", function () {
+    VAR.set("shapesClicked", 0);
+  });
+
+  $("#Rach").on("click", function () {
+    VAR.set("ach", []);
+  });
+
+  $("#Rmulti").on("click", function () {
+    VAR.set("multiplier", 0);
+  });
+
+  $("#Rquota").on("click", function () {
+    VAR.set("quota", 15);
+  });
+
+  $("#Rcash").on("click", function () {
+    VAR.set("cash", 0);
   });
 }
 
@@ -84,4 +187,68 @@ export function render() {
   $("bg").text(VAR.enableAnimationForBg ? "Unpaused" : "Paused");
   $("ss").text(VAR.enableAnimationForShapes ? "Unpaused" : "Paused");
   $("sb").text(VAR.enableAnimationForBouncing ? "Unpaused" : "Paused");
+
+  if (VAR.unlockedOverlays.first) {
+    $("lockedoverlay:first").addClass("unlocked");
+  } else {
+    $("lockedoverlay:first").removeClass("unlocked");
+  }
+
+  if (VAR.unlockedOverlays.second) {
+    $("lockedoverlay:eq(1)").addClass("unlocked");
+  } else {
+    $("lockedoverlay:eq(1)").removeClass("unlocked");
+  }
+
+  if (VAR.unlockedOverlays.third) {
+    $("lockedoverlay:eq(2)").addClass("unlocked");
+  } else {
+    $("lockedoverlay:eq(2)").removeClass("unlocked");
+  }
+
+  if (VAR.unlockedOverlays.max) {
+    $("lockedmax").addClass("unlocked");
+  } else {
+    $("lockedmax").removeClass("unlocked");
+  }
+}
+
+$(document).ready(function () {
+  $("[data-nav]").click(function (e) {
+    e.preventDefault();
+    const targetId = $(this).data("nav");
+    const target = $(`#${targetId}`);
+    $("[data-nav]").css("color", "white");
+    $(this).css("color", "blue");
+    target[0].scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  });
+});
+
+async function coolDown(duration, index) {
+  $("#text-warnings").text(`cooldown: ${duration / 1000} Seconds`);
+
+  $(`progress-bar:eq(${index}) loading-part`).css({
+    height: "100%",
+  });
+  $(`progress-bar:eq(${index}) loading-part`).animate(
+    { height: "0%" },
+    {
+      duration: duration,
+      easing: "linear",
+      step: function (now) {
+        const progress = Math.round(now);
+        $(`progress-bar:eq(${index}) loading-part`).text(
+          `${formatPlaceValue(progress)}%`
+        );
+      },
+      complete: function () {
+        $(`progress-bar:eq(${index}) loading-part`).removeClass("visible");
+        $("#text-warnings").text("");
+      },
+    }
+  );
 }
