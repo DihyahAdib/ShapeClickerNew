@@ -1,3 +1,4 @@
+import { updateAchievementList } from "./achievements.js";
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
 import { VAR, resetGame, saveState } from "./state.js";
 
@@ -171,7 +172,13 @@ export function initializeUi() {
   $("#Rcash").on("click", function () {
     VAR.set("cash", 0);
   });
+
+  $("[data-nav=achievements]").on("click", function () {
+    $("notification").removeClass("active");
+  });
 }
+
+let previousAchievementCount = 0;
 
 export function render() {
   $("shapes").text(`${formatPlaceValue(VAR.shapesClicked)} Shapes`);
@@ -187,6 +194,17 @@ export function render() {
   $("bg").text(VAR.enableAnimationForBg ? "Unpaused" : "Paused");
   $("ss").text(VAR.enableAnimationForShapes ? "Unpaused" : "Paused");
   $("sb").text(VAR.enableAnimationForBouncing ? "Unpaused" : "Paused");
+
+  $("number").text(VAR.achievements.length);
+
+  if (VAR.achievements.length > previousAchievementCount) {
+    $("notification").addClass("active");
+    previousAchievementCount = VAR.achievements.length;
+  }
+
+  if (VAR.achievements.length === 0) {
+    $("notification").removeClass("active");
+  }
 
   if (VAR.unlockedOverlays.first) {
     $("lockedoverlay:first").addClass("unlocked");
@@ -211,6 +229,7 @@ export function render() {
   } else {
     $("lockedmax").removeClass("unlocked");
   }
+  updateAchievementList();
 }
 
 $(document).ready(function () {

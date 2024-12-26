@@ -179,6 +179,14 @@ click-convert {
   scroll-snap-align: center;
 }
 
+achievements-list {
+  color: #333;
+  font-family: Comfortaa, sans-serif;
+}
+achievements-list div.ach-list-item {
+  font-size: 26px;
+}
+
 @keyframes bg-scrolling-reverse {
   100% {
     background-position: 50px 50px;

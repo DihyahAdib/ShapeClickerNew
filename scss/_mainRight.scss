@@ -169,6 +169,29 @@ nav-bar {
     background-color: #333;
     transform: rotate(90deg);
   }
+
+  notification {
+    position: absolute;
+    top: 18%;
+    right: -10px;
+    visibility: hidden;
+    number {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: red;
+      font-size: 17px;
+      font-family: #{v.$Comfort};
+      font-weight: #{map.get(v.$font-weights, "bold")};
+    }
+  }
+  notification.active {
+    visibility: visible;
+  }
 }
 
 convert-container {
@@ -192,4 +215,34 @@ click-convert {
   min-width: 435px;
   flex-shrink: 0;
   scroll-snap-align: center;
+
+  h2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #333;
+    font-family: #{v.$Comfort};
+    font-size: #{map.get(v.$font-sizes, "regular2up")};
+    font-weight: #{map.get(v.$font-weights, "bold")};
+  }
+}
+
+achievements-list {
+  color: black;
+  font-family: #{v.$Comfort};
+
+  div.ach-list-item {
+    text-align: start;
+    font-size: 22px;
+  }
+
+  .ach-list-item.unlocked {
+    color: green;
+    font-weight: bold;
+  }
+
+  .ach-list-item.locked {
+    color: gray;
+    font-style: italic;
+    opacity: 0.6;
+  }
 }

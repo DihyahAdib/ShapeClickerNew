@@ -1,6 +1,6 @@
 import { VAR } from "./state.js";
 import { initializeUi } from "./Ui.js";
-import { randomize } from "./random.js";
+import { randomize } from "./utils.js";
 
 export function handleClickingShapes() {
   VAR.increment("shapesClicked", 1 + VAR.multiplier);
