@@ -4,7 +4,7 @@
 main-right {
   display: flex;
   justify-content: flex-end;
-  width: 110%;
+  width: 70%;
   height: 92vh;
   margin: 1em;
   padding: 0;
@@ -28,7 +28,7 @@ main-right containerone {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  width: 45%;
   height: 100%;
 }
 main-right containerone data-container {
@@ -82,7 +82,7 @@ main-right containerone data-container svg-spin #gear {
   border-radius: 50%;
   background-color: rgb(205, 205, 205);
 }
-main-right upgrade-and-store {
+main-right conversion-upgrade-shop {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -187,7 +187,7 @@ convert-container {
   padding: 0 10px;
 }
 
-click-convert:first-child {
+click-menu-containers:first-child {
   margin-left: 20px;
 }
 
@@ -195,12 +195,12 @@ click-convert:first-child {
   margin-right: 20px;
 }
 
-click-convert {
+click-menu-containers {
   min-width: 435px;
   flex-shrink: 0;
   scroll-snap-align: center;
 }
-click-convert h2 {
+click-menu-containers h2 {
   margin-top: 10px;
   margin-bottom: 10px;
   color: #333;
@@ -335,7 +335,7 @@ svg {
   animation: bounce 0.3s ease-in-out;
 }
 
-click-convert {
+click-menu-containers {
   position: relative;
   display: flex;
   top: 1%;
@@ -352,26 +352,26 @@ click-convert {
   visibility: visible;
   z-index: 0;
 }
-click-convert text {
+click-menu-containers text {
   margin-top: 28px;
   color: black;
   font-family: Comfortaa, sans-serif;
   font-size: 2em;
   font-weight: 700;
 }
-click-convert more-info {
+click-menu-containers more-info {
   position: absolute;
   top: 8%;
   left: -15px;
   transform: translate(70%, -100%);
 }
-click-convert click-convert-desc {
+click-menu-containers click-convert-desc {
   color: black;
   font-family: Quicksand, sans-serif;
   font-size: 1em;
   font-weight: 900;
 }
-click-convert hr {
+click-menu-containers hr {
   border: none;
   margin-top: 16px;
   border-top: 3px double #333;
@@ -382,7 +382,7 @@ click-convert hr {
   height: 10px;
   width: 90%;
 }
-click-convert hr::after {
+click-menu-containers hr::after {
   background-color: rgb(255, 242, 225);
   color: #45a088;
   content: "$";
@@ -741,6 +741,80 @@ achievement-popup.active {
   pointer-events: all;
 }
 
+#upgrades text {
+  margin-bottom: 18px;
+}
+#upgrades #text-warnings-upg {
+  margin-top: 20px;
+  color: black;
+  font-family: Quicksand, sans-serif;
+  font-size: 1.2em;
+  font-weight: 900;
+}
+#upgrades container-upg {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+#upgrades container-upg plus-shapes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: inherit;
+}
+#upgrades plus-shape {
+  width: 100%;
+  height: 70px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #5c8ea3;
+  box-shadow: 2px 2px 7px;
+  transition: background-color 0.2s ease;
+  font-family: Comfortaa, sans-serif;
+  letter-spacing: 2px;
+  border: none;
+  border-radius: 22px 12px;
+  margin: 0;
+  padding: 0;
+  color: rgb(0, 0, 0);
+}
+#upgrades plus-shape:active {
+  background-color: #507d90;
+  box-shadow: inset 2px 2px 7px;
+  color: rgb(0, 0, 0);
+}
+#upgrades .lockedoverlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(90% + 26px);
+  height: 70px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 22px 12px;
+  visibility: visible;
+  transition: background-color 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+#upgrades .lockedoverlay img {
+  width: 60px;
+  height: 60px;
+}
+#upgrades .lockedoverlay:hover {
+  transition: background-color 0.2s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.68);
+}
+#upgrades .lockedoverlay.unlocked {
+  visibility: hidden;
+}
+
 body {
   width: 100%;
   height: 100%;
@@ -972,13 +1046,10 @@ overlay.active {
 }
 
 main {
-  width: 60%;
+  width: 30%;
   height: 92vh;
   margin: 1em;
   padding: 0;
-}
-
-main {
   color: hsl(0, 0%, 12%);
   font: 400 16px/1.5 Exo, sans-serif;
   text-align: center;

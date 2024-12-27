@@ -4,7 +4,7 @@
 main-right {
   display: flex;
   justify-content: flex-end;
-  width: 110%;
+  width: 70%;
   height: 92vh;
   margin: 1em;
   padding: 0;
@@ -30,7 +30,7 @@ main-right {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
+    width: 45%;
     height: 100%;
 
     data-container {
@@ -91,7 +91,7 @@ main-right {
     }
   }
 
-  upgrade-and-store {
+  conversion-upgrade-shop {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -203,7 +203,7 @@ convert-container {
   padding: 0 10px;
 }
 
-click-convert:first-child {
+click-menu-containers:first-child {
   margin-left: 20px;
 }
 
@@ -211,7 +211,7 @@ click-convert:first-child {
   margin-right: 20px;
 }
 
-click-convert {
+click-menu-containers {
   min-width: 435px;
   flex-shrink: 0;
   scroll-snap-align: center;

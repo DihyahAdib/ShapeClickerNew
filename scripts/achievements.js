@@ -77,6 +77,14 @@ export const ACHIEVEMENTS = {
     ifUnlocked: false,
     condition: (data) => data.level >= 100,
   },
+
+  theManAtTheEndOfTime: {
+    name: "man",
+    description: "The man with the top hat",
+    ifUnlocked: false,
+    condition: (data) =>
+      data.level >= 500 && data.shapesClicked >= 1000000000000,
+  },
 };
 
 export function checkAchievements() {

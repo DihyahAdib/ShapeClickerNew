@@ -5,6 +5,7 @@
 @use "svg";
 @use "clickConversions";
 @use "promptsPopups";
+@use "upgrades";
 
 body {
   width: 100%;
@@ -230,13 +231,10 @@ overlay.active {
 }
 
 main {
-  width: 60%;
+  width: 30%;
   height: 92vh;
   margin: 1em;
   padding: 0;
-}
-
-main {
   color: hsl(0, 0%, 12%);
   font: 400 16px/1.5 #{v.$Exo};
   text-align: center;

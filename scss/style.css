@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 @import url(https://fonts.googleapis.com/css?family=Exo:100);
+
 main-right {
   display: flex;
   justify-content: flex-end;
@@ -14,6 +15,7 @@ main-right {
   background-image: url(/assets/rrreplicate1.svg);
   background-size: cover;
 }
+
 main-right containertwo {
   display: flex;
   flex-direction: column;
@@ -21,9 +23,11 @@ main-right containertwo {
   width: 50%;
   height: 100%;
 }
+
 main-right containertwo ul {
   list-style-type: none;
 }
+
 main-right containerone {
   display: flex;
   flex-direction: column;
@@ -31,6 +35,7 @@ main-right containerone {
   width: 50%;
   height: 100%;
 }
+
 main-right containerone data-container {
   display: grid;
   grid-template-columns: 87% 14%;
@@ -46,6 +51,7 @@ main-right containerone data-container {
   width: 90%;
   background-color: rgb(234, 234, 234);
 }
+
 main-right containerone data-container container {
   display: flex;
   padding: 5px;
@@ -53,11 +59,13 @@ main-right containerone data-container container {
   width: 95%;
   align-items: center;
 }
+
 main-right containerone data-container container STATS {
   padding-top: 4px;
   padding-bottom: 4px;
   width: 100%;
 }
+
 main-right containerone data-container container STATS level,
 main-right containerone data-container container STATS quota,
 main-right containerone data-container container STATS cash {
@@ -66,12 +74,14 @@ main-right containerone data-container container STATS cash {
   font-weight: 700;
   font-size: 1.36em;
 }
+
 main-right containerone data-container svg-spin {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   width: 61px;
 }
+
 main-right containerone data-container svg-spin #gear {
   font-size: 3em;
   font-weight: 900;
@@ -82,7 +92,8 @@ main-right containerone data-container svg-spin #gear {
   border-radius: 50%;
   background-color: rgb(205, 205, 205);
 }
-main-right upgrade-and-store {
+
+main-right conversion-upgrade-shop {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -113,6 +124,7 @@ nav-bar {
   margin-top: 15px;
   background: rgb(146, 163, 177);
 }
+
 nav-bar ul {
   display: flex;
   position: relative;
@@ -124,6 +136,7 @@ nav-bar ul {
   width: 100%;
   height: 100%;
 }
+
 nav-bar ul li {
   display: flex;
   align-items: center;
@@ -133,6 +146,7 @@ nav-bar ul li {
   transition: transform 0.3s ease;
   height: 100%;
 }
+
 nav-bar ul li a {
   letter-spacing: 1px;
   color: whitesmoke;
@@ -143,9 +157,11 @@ nav-bar ul li a {
   align-items: center;
   height: 100%;
 }
+
 nav-bar ul li:hover {
   transform: scale(1.04);
 }
+
 nav-bar hr {
   width: 20px;
   color: #333;
@@ -154,6 +170,31 @@ nav-bar hr {
   border-top: 2px double #333;
   background-color: #333;
   transform: rotate(90deg);
+}
+
+nav-bar notification {
+  position: absolute;
+  top: 18%;
+  right: -10px;
+  visibility: hidden;
+}
+
+nav-bar notification number {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: red;
+  font-size: 17px;
+  font-family: Comfortaa, sans-serif;
+  font-weight: 700;
+}
+
+nav-bar notification.active {
+  visibility: visible;
 }
 
 convert-container {
@@ -165,7 +206,7 @@ convert-container {
   padding: 0 10px;
 }
 
-click-convert:first-child {
+click-menu-containers:first-child {
   margin-left: 20px;
 }
 
@@ -173,18 +214,40 @@ click-convert:first-child {
   margin-right: 20px;
 }
 
-click-convert {
+click-menu-containers {
   min-width: 435px;
   flex-shrink: 0;
   scroll-snap-align: center;
 }
 
-achievements-list {
+click-menu-containers h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
   color: #333;
   font-family: Comfortaa, sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
 }
+
+achievements-list {
+  color: black;
+  font-family: Comfortaa, sans-serif;
+}
+
 achievements-list div.ach-list-item {
-  font-size: 26px;
+  text-align: start;
+  font-size: 22px;
+}
+
+achievements-list .ach-list-item.unlocked {
+  color: green;
+  font-weight: bold;
+}
+
+achievements-list .ach-list-item.locked {
+  color: gray;
+  font-style: italic;
+  opacity: 0.6;
 }
 
 @keyframes bg-scrolling-reverse {
@@ -192,73 +255,91 @@ achievements-list div.ach-list-item {
     background-position: 50px 50px;
   }
 }
+
 @keyframes bg-scrolling {
   0% {
     background-position: 50px 50px;
   }
 }
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 @keyframes o-spin {
   from {
     transform: rotate(360deg);
   }
+
   to {
     transform: rotate(0deg);
   }
 }
+
 @keyframes bounce {
   0% {
     transform: scale(1);
   }
+
   20% {
     transform: scale(1.04);
   }
+
   40% {
     transform: scale(0.97);
   }
+
   100% {
     transform: scale(1);
   }
 }
+
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0%);
   }
 }
+
 @keyframes slideOutToLeft {
   from {
     transform: translateX(0%);
   }
+
   to {
     transform: translateX(-100%);
   }
 }
+
 @keyframes slideInFromLeft {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0%);
   }
 }
+
 @keyframes slideOutToRight {
   from {
     transform: translateX(0%);
   }
+
   to {
     transform: translateX(100%);
   }
 }
+
 svg-container {
   position: relative;
   animation: spin 0s linear infinite;
@@ -295,7 +376,7 @@ svg {
   animation: bounce 0.3s ease-in-out;
 }
 
-click-convert {
+click-menu-containers {
   position: relative;
   display: flex;
   top: 1%;
@@ -312,26 +393,30 @@ click-convert {
   visibility: visible;
   z-index: 0;
 }
-click-convert text {
+
+click-menu-containers text {
   margin-top: 28px;
   color: black;
   font-family: Comfortaa, sans-serif;
   font-size: 2em;
   font-weight: 700;
 }
-click-convert more-info {
+
+click-menu-containers more-info {
   position: absolute;
   top: 8%;
   left: -15px;
   transform: translate(70%, -100%);
 }
+
 click-convert click-convert-desc {
   color: black;
   font-family: Quicksand, sans-serif;
   font-size: 1em;
   font-weight: 900;
 }
-click-convert hr {
+
+click-menu-containers hr {
   border: none;
   margin-top: 16px;
   border-top: 3px double #333;
@@ -342,7 +427,8 @@ click-convert hr {
   height: 10px;
   width: 90%;
 }
-click-convert hr::after {
+
+click-menu-containers hr::after {
   background-color: rgb(255, 242, 225);
   color: #45a088;
   content: "$";
@@ -387,6 +473,7 @@ lock-container {
   justify-content: flex-start;
   flex-direction: column;
 }
+
 lock-container lock-button-container {
   position: relative;
   display: flex;
@@ -394,6 +481,7 @@ lock-container lock-button-container {
   height: 28%;
   justify-content: center;
 }
+
 lock-container h2 {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -402,6 +490,7 @@ lock-container h2 {
   font-size: 1.3em;
   font-weight: 700;
 }
+
 lock-container lockedoverlay {
   position: absolute;
   display: flex;
@@ -416,14 +505,17 @@ lock-container lockedoverlay {
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
 }
+
 lock-container lockedoverlay img {
   width: 50px;
   height: 50px;
 }
+
 lock-container lockedoverlay:hover {
   transition: background-color 0.3s ease-in-out;
   background-color: rgba(0, 0, 0, 0.68);
 }
+
 lock-container lockedoverlay.unlocked {
   visibility: hidden;
 }
@@ -526,6 +618,7 @@ progress-bar {
   visibility: hidden;
   z-index: 1;
 }
+
 progress-bar loading-part {
   position: absolute;
   display: flex;
@@ -652,6 +745,7 @@ achievements-container {
   z-index: 9;
   justify-content: flex-start;
   align-items: center;
+  pointer-events: none;
 }
 
 achievement-popup {
@@ -671,10 +765,12 @@ achievement-popup {
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0s 0.3s;
 }
+
 achievement-popup .ach-styling {
   display: flex;
   justify-content: center;
 }
+
 achievement-popup #close-ach {
   position: absolute;
   right: 1px;
@@ -687,6 +783,7 @@ achievement-popup #close-ach {
   font-size: 35px;
   border-radius: 30px;
 }
+
 achievement-popup p {
   margin-top: 25px;
   font-size: 17px;
@@ -698,6 +795,100 @@ achievement-popup.active {
   opacity: 1;
   visibility: visible;
   pointer-events: all;
+}
+
+#upgrades text {
+  margin-bottom: 18px;
+}
+
+#upgrades div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#upgrades plus-shapesss {
+  display: flex;
+  margin: 10px 0;
+}
+
+#upgrades auto {
+  margin: 10px 0;
+}
+
+#upgrades plus-shape,
+#upgrades auto-click {
+  position: relative;
+  display: flex;
+  background-color: #4585a0;
+  box-shadow: 2px 2px 7px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+  margin: 0 4px;
+  font-family: Comfortaa, sans-serif;
+  align-items: center;
+  font-size: 1.18em;
+  font-weight: 700;
+  z-index: 0;
+}
+
+#upgrades plus-shape:active,
+#upgrades auto-click:active,
+#upgrades upgrade-added:active {
+  background-color: #3a728a;
+  box-shadow: inset 2px 2px 7px;
+}
+
+#upgrades plus-shape {
+  width: 130px;
+  height: 70px;
+}
+
+#upgrades auto-click {
+  width: 150px;
+  height: 70px;
+}
+
+#upgrades .lockedoverlay {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  height: 70px;
+  margin: 0 4px;
+  visibility: visible;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+#upgrades .lockedoverlay img {
+  width: 60px;
+  height: 60px;
+}
+
+#upgrades .lockedoverlay:hover {
+  transition: background-color 0.3s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.68);
+}
+
+#upgrades .lockedoverlay.unlocked {
+  visibility: hidden;
+}
+
+upgrade-added {
+  background-color: #4585a0;
+}
+
+upgrade-added {
+  width: 150px;
+  height: 70px;
 }
 
 body {
@@ -758,6 +949,7 @@ warning-screen {
   overflow-y: scroll;
   overflow-x: hidden;
 }
+
 settings h1,
 warning-screen h1 {
   letter-spacing: 5px;
@@ -765,12 +957,14 @@ warning-screen h1 {
   font-size: 3em;
   font-family: Quicksand, sans-serif;
 }
+
 settings h3,
 warning-screen h3 {
   color: rgb(126, 188, 214);
   font-size: 1.5em;
   font-family: Comfortaa, sans-serif;
 }
+
 settings NOT,
 warning-screen NOT {
   color: rgb(255, 255, 255);
@@ -778,6 +972,7 @@ warning-screen NOT {
   font-size: 1.5em;
   font-family: Comfortaa, sans-serif;
 }
+
 settings .close,
 warning-screen .close {
   position: absolute;
@@ -794,6 +989,7 @@ warning-screen .close {
   justify-content: center;
   align-items: center;
 }
+
 settings general,
 settings animations,
 settings danger-zone,
@@ -809,6 +1005,7 @@ warning-screen danger-zone {
   margin-bottom: 5px;
   padding: 5px;
 }
+
 settings statsdata,
 warning-screen statsdata {
   display: flex;
@@ -820,6 +1017,7 @@ warning-screen statsdata {
   margin-bottom: 5px;
   padding: 5px;
 }
+
 settings .button-container,
 warning-screen .button-container {
   display: grid;
@@ -829,6 +1027,7 @@ warning-screen .button-container {
   align-items: center;
   justify-items: center;
 }
+
 settings .btnR,
 warning-screen .btnR {
   padding-left: 10px;
@@ -845,6 +1044,7 @@ warning-screen .btnR {
   font-weight: 700;
   font-family: Quicksand, sans-serif;
 }
+
 settings .btnR:hover,
 warning-screen .btnR:hover {
   background-color: cadetblue;
@@ -879,6 +1079,7 @@ ul#bar {
   transform: scale(1);
   transition: transform 0.3s ease;
 }
+
 #bar li a {
   text-decoration: none;
   color: whitesmoke;
@@ -946,12 +1147,14 @@ main {
   animation-timing-function: linear;
   position: relative;
 }
+
 main::before {
   content: "SHAPE CLICKER";
   font-family: Exo, sans-serif;
   font-size: 4em;
   font-weight: 900;
 }
+
 main::after {
   content: "";
   position: absolute;
@@ -972,12 +1175,14 @@ main.bgAnimation {
   animation: bg-scrolling-reverse 2s infinite;
   animation-timing-function: linear;
 }
+
 main.bgAnimation::before {
   content: "SHAPE CLICKER";
   font-family: Exo, sans-serif;
   font-size: 4em;
   font-weight: 900;
 }
+
 main.bgAnimation::after {
   content: "";
   position: absolute;
@@ -1001,6 +1206,7 @@ stats-container {
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 5;
 }
+
 stats-container stats {
   display: flex;
   margin: 0;
@@ -1010,6 +1216,7 @@ stats-container stats {
   justify-content: center;
   align-items: center;
 }
+
 stats-container stats shapes,
 stats-container stats plus-shapes {
   margin: 0;
@@ -1017,10 +1224,12 @@ stats-container stats plus-shapes {
   font-family: Comfortaa, sans-serif;
   font-weight: 900;
 }
+
 stats-container stats shapes {
   color: hsl(0, 0%, 0%);
   font-size: 35px;
 }
+
 stats-container stats plus-shapes {
   color: hsl(0, 0%, 10%);
   font-size: 1.5em;
@@ -1107,11 +1316,14 @@ span.c1 {
   width: 100%;
   height: 100%;
   background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.484) 100%);
-  pointer-events: none; /* Ensures overlay doesn't block interactions */
+  pointer-events: none;
+  /* Ensures overlay doesn't block interactions */
 }
 
 .rotate-vertical {
   margin: 0;
   transform: rotate(90deg);
   transform-origin: center;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

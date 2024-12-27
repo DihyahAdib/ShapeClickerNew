@@ -57,7 +57,6 @@ export function initializeUi() {
       VAR.increment("cash", 10);
       $("progress-bar:first").addClass("visible");
       coolDown(30000, 0);
-      $("somethign ");
     } else {
       $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
     }
@@ -138,6 +137,19 @@ export function initializeUi() {
     }
   });
 
+  $(".lockedoverlay").on("click", function () {
+    if (VAR.level >= 10 && VAR.cash >= 100) {
+      VAR.unlockedOverlays.firstUpg = true;
+      $(this).addClass("unlocked");
+      saveState();
+    } else {
+      $("#text-warnings-upg").textTimeout(
+        "Insufficient amount of level / cash",
+        2000
+      );
+    }
+  });
+
   $("more-info").on("mouseover", function () {
     $("prompt-frame-tip").addClass("active");
   });
@@ -206,6 +218,10 @@ export function render() {
     $("notification").removeClass("active");
   }
 
+  if (VAR.achievements.length >= 9) {
+    $("number").text("9+");
+  }
+
   if (VAR.unlockedOverlays.first) {
     $("lockedoverlay:first").addClass("unlocked");
   } else {
@@ -228,6 +244,16 @@ export function render() {
     $("lockedmax").addClass("unlocked");
   } else {
     $("lockedmax").removeClass("unlocked");
+  }
+
+  if (VAR.unlockedOverlays.firstUpg) {
+    $(".lockedoverlay").addClass("unlocked");
+  } else if (
+    VAR.cash < 100 ||
+    !VAR.unlockedOverlays.firstUpg ||
+    VAR.level < 10
+  ) {
+    $(".lockedoverlay").removeClass("unlocked");
   }
   updateAchievementList();
 }
@@ -265,8 +291,9 @@ async function coolDown(duration, index) {
         );
       },
       complete: function () {
-        $(`progress-bar:eq(${index}) loading-part`).removeClass("visible");
+        $(`progress-bar:eq(${index})`).removeClass("visible");
         $("#text-warnings").text("");
+        render();
       },
     }
   );

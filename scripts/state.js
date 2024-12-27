@@ -94,6 +94,7 @@ export const loadState = () => {
       second: false,
       third: false,
       max: false,
+      firstUpg: false,
     };
 
     VAR.achievements = savedState.achievements || [];

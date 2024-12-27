@@ -182,9 +182,9 @@
             </notification>
           </nav-bar>
 
-          <upgrade-and-store>
+          <conversion-upgrade-shop>
             <convert-container>
-              <click-convert id="convert">
+              <click-menu-containers id="convert">
                 <more-info>
                   <img src="./assets/question.svg" alt="question" />
                 </more-info>
@@ -251,23 +251,43 @@
                   <h2>Custom Conversion</h2>
                   <p id="text-warnings"></p>
                 </lock-container>
-              </click-convert>
-              <click-convert id="bank">
+              </click-menu-containers>
+
+              <click-menu-containers id="bank">
                 <p>cool</p>
-              </click-convert>
-              <click-convert id="shop">
+                <p id="text-warnings"></p>
+              </click-menu-containers>
+
+              <click-menu-containers id="shop">
                 <p>cool</p>
-              </click-convert>
-              <click-convert id="upgrades">
-                <p>cool</p>
-              </click-convert>
-              <click-convert id="achievements">
+                <p id="text-warnings"></p>
+              </click-menu-containers>
+
+              <click-menu-containers id="upgrades">
+                <Text>Upgrades</Text>
+
+                <container-upg>
+                  <plus-shapes-container>
+                    <div>
+                      <div class="lockedoverlay">
+                        <img src="/assets/lock.svg" />
+                      </div>
+                      <plus-shape>+5Shapes /1m</plus-shape>
+                    </div>
+                  </plus-shapes-container>
+                </container-upg>
+
+                <p id="text-warnings-upg"></p>
+              </click-menu-containers>
+
+              <click-menu-containers id="achievements">
                 <text>Achievements</text>
                 <achievements-list></achievements-list>
-              </click-convert>
-              <click-convert id="last"> </click-convert>
+              </click-menu-containers>
+
+              <click-menu-containers id="last"> </click-menu-containers>
             </convert-container>
-          </upgrade-and-store>
+          </conversion-upgrade-shop>
         </containerone>
       </main-right>
     </main-container>
