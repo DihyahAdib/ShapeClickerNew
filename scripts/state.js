@@ -17,9 +17,11 @@ export const VAR = {
     second: false,
     third: false,
     max: false,
+    firstUpg: false,
   },
-
+  previousAchievementCount: 0,
   achievements: [],
+
   totalAchievements: [
     "A cute, Angle",
     "Geθ Neθ",
@@ -96,7 +98,7 @@ export const loadState = () => {
       max: false,
       firstUpg: false,
     };
-
+    VAR.previousAchievementCount = savedState.previousAchievementCount || 0;
     VAR.achievements = savedState.achievements || [];
     VAR.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
     VAR.enableAnimationForShapes = savedState.enableAnimationForShapes ?? true;
@@ -116,6 +118,7 @@ export const saveState = () => {
       quota: VAR.quota,
       cash: VAR.cash,
       unlockedOverlays: VAR.unlockedOverlays,
+      previousAchievementCount: VAR.previousAchievementCount,
       achievements: VAR.achievements,
       enableAnimationForBg: VAR.enableAnimationForBg,
       enableAnimationForShapes: VAR.enableAnimationForShapes,
@@ -136,7 +139,9 @@ export function resetGame() {
     second: false,
     third: false,
     max: false,
+    firstUpg: false,
   };
+  VAR.previousAchievementCount = 0;
   VAR.achievements = [];
   VAR.enableAnimationForBg = true;
   VAR.enableAnimationForShapes = true;

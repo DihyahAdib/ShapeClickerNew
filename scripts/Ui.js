@@ -190,8 +190,6 @@ export function initializeUi() {
   });
 }
 
-let previousAchievementCount = 0;
-
 export function render() {
   $("shapes").text(`${formatPlaceValue(VAR.shapesClicked)} Shapes`);
   $("plus-shapes").text(`+${formatPlaceValue(VAR.multiplier)} Shapes`);
@@ -209,9 +207,9 @@ export function render() {
 
   $("number").text(VAR.achievements.length);
 
-  if (VAR.achievements.length > previousAchievementCount) {
+  if (VAR.achievements.length > VAR.previousAchievementCount) {
     $("notification").addClass("active");
-    previousAchievementCount = VAR.achievements.length;
+    VAR.previousAchievementCount = VAR.achievements.length;
   }
 
   if (VAR.achievements.length === 0) {
@@ -248,11 +246,7 @@ export function render() {
 
   if (VAR.unlockedOverlays.firstUpg) {
     $(".lockedoverlay").addClass("unlocked");
-  } else if (
-    VAR.cash < 100 ||
-    !VAR.unlockedOverlays.firstUpg ||
-    VAR.level < 10
-  ) {
+  } else if (VAR.cash < 10 || !VAR.unlockedOverlays.firstUpg || VAR.level < 5) {
     $(".lockedoverlay").removeClass("unlocked");
   }
   updateAchievementList();

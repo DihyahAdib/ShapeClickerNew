@@ -15,6 +15,13 @@ export const ACHIEVEMENTS = {
     condition: (data) => data.shapesClicked >= 50,
   },
 
+  canNowUseFactory: {
+    name: "Servant, Worker, Enem-",
+    description: "Unlocked the Factory",
+    ifUnlocked: false,
+    condition: (data) => data.level >= 10,
+  },
+
   ninetyDegreeAvenue: {
     name: "90 Degree Avenue",
     description: "Reach the square shape",

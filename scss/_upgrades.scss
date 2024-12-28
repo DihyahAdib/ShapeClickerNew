@@ -1,30 +1,26 @@
 @use "sass:map";
 @use "variable" as v;
 
-#upgrades {
+#Factory {
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+
   text {
     margin-bottom: 18px;
   }
 
-  #text-warnings-upg {
-    margin-top: 20px;
-    color: black;
-    font-family: #{v.$Quick};
-    font-size: 1.2em;
-    font-weight: #{map.get(v.$font-weights, "bold1up")};
-  }
-
-  container-upg {
+  container-shape {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    align-items: flex-start;
     width: 100%;
+    flex-direction: column;
 
-    plus-shapes-container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: inherit;
+    smaller-shape-container {
+      width: 95%;
+      margin: 8px 0;
     }
   }
 
@@ -34,7 +30,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background-color: #5c8ea3;
     box-shadow: 2px 2px 7px;
     transition: background-color 0.2s ease;
@@ -43,7 +39,7 @@
     border: none;
     border-radius: 22px 12px;
     margin: 0;
-    padding: 0;
+    padding: 5px;
     color: rgb(0, 0, 0);
   }
   plus-shape:active {
@@ -58,10 +54,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: calc(90% + 26px);
+    width: 80%;
     height: 70px;
     margin: 0;
-    padding: 0;
+    padding: 5px;
     border: none;
     border-radius: 22px 12px;
     visibility: visible;
@@ -82,5 +78,13 @@
 
   .lockedoverlay.unlocked {
     visibility: hidden;
+  }
+
+  #text-warnings-upg {
+    margin-top: 20px;
+    color: black;
+    font-family: #{v.$Quick};
+    font-size: 1.2em;
+    font-weight: #{map.get(v.$font-weights, "bold1up")};
   }
 }
