@@ -5,8 +5,8 @@ main-right {
   display: flex;
   justify-content: flex-end;
   width: 70%;
-  height: 92vh;
-  margin: 1em;
+  height: 70%;
+  margin: 1em 0;
   padding: 0;
   border-radius: 10px;
   background-color: rgb(47, 47, 47);
@@ -203,27 +203,8 @@ convert-container {
   padding: 0 10px;
 }
 
-click-menu-containers:first-child {
-  margin-left: 20px;
-}
-
 #achievements {
   margin-right: 20px;
-}
-
-click-menu-containers {
-  min-width: 435px;
-  flex-shrink: 0;
-  scroll-snap-align: center;
-
-  h2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #333;
-    font-family: #{v.$Comfort};
-    font-size: #{map.get(v.$font-sizes, "regular2up")};
-    font-weight: #{map.get(v.$font-weights, "bold")};
-  }
 }
 
 achievements-list {
@@ -233,16 +214,13 @@ achievements-list {
   div.ach-list-item {
     text-align: start;
     font-size: 22px;
+    color: gray;
+    font-style: italic;
+    opacity: 0.8;
   }
 
   .ach-list-item.unlocked {
     color: green;
     font-weight: bold;
-  }
-
-  .ach-list-item.locked {
-    color: gray;
-    font-style: italic;
-    opacity: 0.6;
   }
 }

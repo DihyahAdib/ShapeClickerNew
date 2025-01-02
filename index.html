@@ -174,7 +174,7 @@
               <li><a href="#" data-nav="convert">Conversion</a></li>
               <li><a href="#" data-nav="bank">Bank</a></li>
               <li><a href="#" data-nav="shop">Shop</a></li>
-              <li><a href="#" data-nav="upgrades">Upgrades</a></li>
+              <li><a href="#" data-nav="Factory">Factory</a></li>
               <li><a href="#" data-nav="achievements">Achievements</a></li>
             </ul>
             <notification>
@@ -263,26 +263,40 @@
                 <p id="text-warnings"></p>
               </click-menu-containers>
 
-              <click-menu-containers id="upgrades">
-                <Text>Upgrades</Text>
+              <click-menu-containers id="Factory">
+                <Text>Factory</Text>
+                <container-shape>
+                  <smaller-shape-container>
+                    <plus-shape>cost: 10$</plus-shape>
+                  </smaller-shape-container>
 
-                <container-upg>
-                  <plus-shapes-container>
-                    <div>
-                      <div class="lockedoverlay">
-                        <img src="/assets/lock.svg" />
-                      </div>
-                      <plus-shape>+5Shapes /1m</plus-shape>
-                    </div>
-                  </plus-shapes-container>
-                </container-upg>
+                  <smaller-shape-container>
+                    <plus-shape>cost: 50$</plus-shape>
+                  </smaller-shape-container>
+
+                  <smaller-shape-container>
+                    <plus-shape>cost: 100$</plus-shape>
+                  </smaller-shape-container>
+
+                  <smaller-shape-container>
+                    <plus-shape>cost: 500$</plus-shape>
+                  </smaller-shape-container>
+
+                  <smaller-shape-container>
+                    <plus-shape>cost: 2,000$</plus-shape>
+                  </smaller-shape-container>
+
+                  <smaller-shape-container>
+                    <plus-shape>cost: 50,000$</plus-shape>
+                  </smaller-shape-container>
+                </container-shape>
 
                 <p id="text-warnings-upg"></p>
               </click-menu-containers>
 
               <click-menu-containers id="achievements">
                 <text>Achievements</text>
-                <achievements-list></achievements-list>
+                <achievements-list> </achievements-list>
               </click-menu-containers>
 
               <click-menu-containers id="last"> </click-menu-containers>

@@ -5,8 +5,8 @@ main-right {
   display: flex;
   justify-content: flex-end;
   width: 70%;
-  height: 92vh;
-  margin: 1em;
+  height: 70%;
+  margin: 1em 0;
   padding: 0;
   border-radius: 10px;
   background-color: rgb(47, 47, 47);
@@ -187,26 +187,8 @@ convert-container {
   padding: 0 10px;
 }
 
-click-menu-containers:first-child {
-  margin-left: 20px;
-}
-
 #achievements {
   margin-right: 20px;
-}
-
-click-menu-containers {
-  min-width: 435px;
-  flex-shrink: 0;
-  scroll-snap-align: center;
-}
-click-menu-containers h2 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: #333;
-  font-family: Comfortaa, sans-serif;
-  font-size: 1.3em;
-  font-weight: 700;
 }
 
 achievements-list {
@@ -216,15 +198,13 @@ achievements-list {
 achievements-list div.ach-list-item {
   text-align: start;
   font-size: 22px;
+  color: gray;
+  font-style: italic;
+  opacity: 0.8;
 }
 achievements-list .ach-list-item.unlocked {
   color: green;
   font-weight: bold;
-}
-achievements-list .ach-list-item.locked {
-  color: gray;
-  font-style: italic;
-  opacity: 0.6;
 }
 
 @keyframes bg-scrolling-reverse {
@@ -343,11 +323,12 @@ click-menu-containers {
   text-align: center;
   align-items: center;
   border-radius: 10px;
-  border: 3px solid rgba(0, 0, 0, 0.1215686275);
-  width: 435px;
+  border: 3px solid rgba(0, 0, 0, 0.1921568627);
+  width: 100%;
   height: 540px;
   background-color: rgb(255, 242, 225);
-  padding: 10px;
+  padding: 0;
+  margin: 10px 0;
   opacity: 1;
   visibility: visible;
   z-index: 0;
@@ -391,6 +372,24 @@ click-menu-containers hr::after {
   position: relative;
   top: -17px;
   font-weight: 900;
+}
+
+click-menu-containers {
+  min-width: 435px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+}
+click-menu-containers h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #333;
+  font-family: Comfortaa, sans-serif;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+click-menu-containers:first-child {
+  margin-left: 20px;
 }
 
 click-convertone {
@@ -592,9 +591,9 @@ prompt-frame {
   opacity: 0;
   visibility: hidden;
   width: 37%;
-  top: 88%;
-  left: 80%;
-  transform: translate(-20%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(80%, -26.5%);
   transition: 200ms ease-in-out;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0);
@@ -605,7 +604,7 @@ prompt-frame {
 prompt-frame.active {
   opacity: 1;
   visibility: visible;
-  transform: translate(-40%, -50%);
+  transform: translate(50%, -26.5%);
 }
 
 #prompt {
@@ -626,7 +625,7 @@ prompt-frame-tip {
   opacity: 0;
   width: 300px;
   top: 34%;
-  right: 533px;
+  right: 29%;
   color: black;
   transform: translate(50%, -145%);
   transition: 200ms ease-in-out;
@@ -741,78 +740,53 @@ achievement-popup.active {
   pointer-events: all;
 }
 
-#upgrades text {
+#Factory {
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#Factory text {
   margin-bottom: 18px;
 }
-#upgrades #text-warnings-upg {
-  margin-top: 20px;
-  color: black;
-  font-family: Quicksand, sans-serif;
-  font-size: 1.2em;
-  font-weight: 900;
-}
-#upgrades container-upg {
+#Factory container-shape {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  align-items: flex-start;
   width: 100%;
 }
-#upgrades container-upg plus-shapes-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: inherit;
+#Factory container-shape smaller-shape-container {
+  width: 95%;
+  margin: 8px 0;
 }
-#upgrades plus-shape {
+#Factory plus-shape {
   width: 100%;
   height: 70px;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #5c8ea3;
-  box-shadow: 2px 2px 7px;
   transition: background-color 0.2s ease;
   font-family: Comfortaa, sans-serif;
   letter-spacing: 2px;
-  border: none;
-  border-radius: 22px 12px;
+  border: 2px black solid;
+  border-radius: 20px 12px;
   margin: 0;
-  padding: 0;
+  padding: 5px;
   color: rgb(0, 0, 0);
 }
-#upgrades plus-shape:active {
+#Factory plus-shape:active {
   background-color: #507d90;
   box-shadow: inset 2px 2px 7px;
   color: rgb(0, 0, 0);
 }
-#upgrades .lockedoverlay {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: calc(90% + 26px);
-  height: 70px;
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-radius: 22px 12px;
-  visibility: visible;
-  transition: background-color 0.3s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-}
-#upgrades .lockedoverlay img {
-  width: 60px;
-  height: 60px;
-}
-#upgrades .lockedoverlay:hover {
-  transition: background-color 0.2s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.68);
-}
-#upgrades .lockedoverlay.unlocked {
-  visibility: hidden;
+#Factory #text-warnings-upg {
+  margin-top: 20px;
+  color: black;
+  font-family: Quicksand, sans-serif;
+  font-size: 1.2em;
+  font-weight: 900;
 }
 
 body {

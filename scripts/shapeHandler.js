@@ -4,12 +4,10 @@ import { randomize } from "./utils.js";
 
 export function handleClickingShapes() {
   VAR.increment("shapesClicked", 1 + VAR.multiplier);
-  if (VAR.shapesClicked >= VAR.quota) {
-    VAR.multiply("quota", 3);
-    VAR.increment("level", 1);
-    VAR.increment("multiplier", 0.5);
+  if (VAR.shapesClicked >= VAR.getQuota()) {
+    VAR.increment("level", 1).increment("multiplier", 0.5);
   }
-  if (VAR.level === 1 && VAR.quota < 46) {
+  if (VAR.level === 1 && VAR.getQuota() < 46) {
     $("prompt-frame").addClass("active");
   } else {
     $("prompt-frame").removeClass("active");
