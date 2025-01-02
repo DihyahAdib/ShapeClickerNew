@@ -1,4 +1,4 @@
-import { updateAchievementList } from "./achievements.js";
+import { ACHIEVEMENTS } from "./achievements.js";
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
 import { VAR, resetGame, saveState } from "./state.js";
 
@@ -137,8 +137,8 @@ export function initializeUi() {
     }
   });
 
-  $(".lockedoverlay").on("click", function () {
-    if (VAR.level >= 10 && VAR.cash >= 100) {
+  $(".lockedoverlay:first").on("click", function () {
+    if (VAR.level >= 10 && VAR.cash >= 10) {
       VAR.unlockedOverlays.firstUpg = true;
       $(this).addClass("unlocked");
       saveState();
@@ -186,8 +186,17 @@ export function initializeUi() {
   });
 
   $("[data-nav=achievements]").on("click", function () {
-    $("notification").removeClass("active");
+    VAR.set("uncheckedAchievements", 0);
   });
+
+  for (let key in ACHIEVEMENTS) {
+    const ach = ACHIEVEMENTS[key];
+    const isUnlocked = VAR.achievements.includes(ach.name);
+    const listItem = $("<div>")
+      .addClass("ach-list-item")
+      .text(`${ach.name} - ${isUnlocked ? "Unlocked" : "Locked"}`);
+    listItem.appendTo("achievements-list");
+  }
 }
 
 export function render() {
@@ -195,7 +204,7 @@ export function render() {
   $("plus-shapes").text(`+${formatPlaceValue(VAR.multiplier)} Shapes`);
   $("cash").text(`Cash ${formatPlaceValue(VAR.cash)}$`);
   $("level").text(`Level ${formatPlaceValue(VAR.level)}`);
-  $("quota").text(`Quota ${formatPlaceValue(VAR.quota)}`);
+  $("quota").text(`Quota ${formatPlaceValue(VAR.getQuota())}`);
   $("main").toggleClass("bgAnimation", VAR.enableAnimationForBg);
   $("svg-container").toggleClass("shape-spin", VAR.enableAnimationForShapes);
   $("svg-bouncing")
@@ -205,51 +214,28 @@ export function render() {
   $("ss").text(VAR.enableAnimationForShapes ? "Unpaused" : "Paused");
   $("sb").text(VAR.enableAnimationForBouncing ? "Unpaused" : "Paused");
 
-  $("number").text(VAR.achievements.length);
+  $("number").text(
+    VAR.uncheckedAchievements >= 9 ? "9+" : VAR.uncheckedAchievements
+  );
+  $("notification").toggleClass("active", VAR.uncheckedAchievements > 0);
 
-  if (VAR.achievements.length > VAR.previousAchievementCount) {
-    $("notification").addClass("active");
-    VAR.previousAchievementCount = VAR.achievements.length;
-  }
+  $(".ach-list-item").each(function (i) {
+    const ach = ACHIEVEMENTS[Object.keys(ACHIEVEMENTS)[i]];
+    const isUnlocked = VAR.achievements.includes(ach.name);
 
-  if (VAR.achievements.length === 0) {
-    $("notification").removeClass("active");
-  }
+    $(this)
+      .text(`${ach.name} - ${isUnlocked ? "Unlocked" : "Locked"}`)
+      .toggleClass("unlocked", isUnlocked);
+  });
 
-  if (VAR.achievements.length >= 9) {
-    $("number").text("9+");
-  }
-
-  if (VAR.unlockedOverlays.first) {
-    $("lockedoverlay:first").addClass("unlocked");
-  } else {
-    $("lockedoverlay:first").removeClass("unlocked");
-  }
-
-  if (VAR.unlockedOverlays.second) {
-    $("lockedoverlay:eq(1)").addClass("unlocked");
-  } else {
-    $("lockedoverlay:eq(1)").removeClass("unlocked");
-  }
-
-  if (VAR.unlockedOverlays.third) {
-    $("lockedoverlay:eq(2)").addClass("unlocked");
-  } else {
-    $("lockedoverlay:eq(2)").removeClass("unlocked");
-  }
-
-  if (VAR.unlockedOverlays.max) {
-    $("lockedmax").addClass("unlocked");
-  } else {
-    $("lockedmax").removeClass("unlocked");
-  }
-
-  if (VAR.unlockedOverlays.firstUpg) {
-    $(".lockedoverlay").addClass("unlocked");
-  } else if (VAR.cash < 10 || !VAR.unlockedOverlays.firstUpg || VAR.level < 5) {
-    $(".lockedoverlay").removeClass("unlocked");
-  }
-  updateAchievementList();
+  $("lockedoverlay:first").toggleClass("unlocked", VAR.unlockedOverlays.first);
+  $("lockedoverlay:eq(1)").toggleClass("unlocked", VAR.unlockedOverlays.second);
+  $("lockedoverlay:eq(2)").toggleClass("unlocked", VAR.unlockedOverlays.third);
+  $("lockedmax").toggleClass("unlocked", VAR.unlockedOverlays.max);
+  $(".lockedoverlay:first").toggleClass(
+    "unlocked",
+    VAR.unlockedOverlays.firstUpg
+  );
 }
 
 $(document).ready(function () {

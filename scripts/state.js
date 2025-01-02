@@ -1,13 +1,12 @@
 // state.js //
 
 import { render } from "./Ui.js";
-import { checkAchievements } from "./achievements.js";
+import { pushNewAchievement } from "./achievements.js";
 
 export const VAR = {
   level: 0,
   shapesClicked: 0,
   multiplier: 0,
-  quota: 15,
   cash: 0,
   enableAnimationForBg: true,
   enableAnimationForShapes: true,
@@ -19,69 +18,54 @@ export const VAR = {
     max: false,
     firstUpg: false,
   },
-  previousAchievementCount: 0,
+  uncheckedAchievements: 0,
   achievements: [],
-
-  totalAchievements: [
-    "A cute, Angle",
-    "Geθ Neθ",
-    "90 Degree Avenue",
-    "A Square but worst",
-    "x6",
-    "stop... no literally",
-    "imposter syndrome",
-    "Almost there",
-    "wow... well that was anticlimactic",
-    "keep it movin",
-    "hmm...",
-  ],
 
   updateBonusShapeTimes(min, max) {
     this.bonusShapeMinTime = min;
     this.bonusShapeMaxTime = max;
-    checkAchievements();
+    pushNewAchievement();
     render();
     saveState();
   },
 
   increment(key, value) {
-    this[key] += value;
-    checkAchievements();
-    render();
-    saveState();
+    this.set(key, this[key] + value);
+    return this;
   },
 
   decrement(key, value) {
-    this[key] -= value;
-    checkAchievements();
-    render();
-    saveState();
+    this.set(key, this[key] - value);
+    return this;
   },
 
   multiply(key, value) {
-    this[key] *= value;
-    checkAchievements();
-    render();
-    saveState();
+    this.set(key, this[key] * value);
+    return this;
   },
 
   set(key, value) {
     this[key] = value;
-    checkAchievements();
+    pushNewAchievement();
     render();
     saveState();
+    return this;
   },
 
   toggle(key) {
-    this[key] = !this[key];
-    checkAchievements();
-    render();
-    saveState();
+    this.set(key, !this[key]);
+    return this;
+  },
+
+  push(key, value) {
+    this.set(key, [...this[key], value]);
+    return this;
+  },
+
+  getQuota() {
+    return 15 * Math.pow(2, this.level);
   },
 };
-
-export const progress =
-  (VAR.achievements.length / VAR.totalAchievements.length) * 100;
 
 export const loadState = () => {
   const savedState = JSON.parse(localStorage.getItem("currentState") || "null");
@@ -89,7 +73,6 @@ export const loadState = () => {
     VAR.level = savedState.level || 0;
     VAR.shapesClicked = savedState.shapesClicked || 0;
     VAR.multiplier = savedState.multiplier || 0;
-    VAR.quota = savedState.quota || 15;
     VAR.cash = savedState.cash || 0;
     VAR.unlockedOverlays = savedState.unlockedOverlays || {
       first: false,
@@ -98,7 +81,7 @@ export const loadState = () => {
       max: false,
       firstUpg: false,
     };
-    VAR.previousAchievementCount = savedState.previousAchievementCount || 0;
+    VAR.uncheckedAchievements = savedState.uncheckedAchievements || 0;
     VAR.achievements = savedState.achievements || [];
     VAR.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
     VAR.enableAnimationForShapes = savedState.enableAnimationForShapes ?? true;
@@ -115,10 +98,9 @@ export const saveState = () => {
       level: VAR.level,
       shapesClicked: VAR.shapesClicked,
       multiplier: VAR.multiplier,
-      quota: VAR.quota,
       cash: VAR.cash,
       unlockedOverlays: VAR.unlockedOverlays,
-      previousAchievementCount: VAR.previousAchievementCount,
+      uncheckedAchievements: VAR.uncheckedAchievements,
       achievements: VAR.achievements,
       enableAnimationForBg: VAR.enableAnimationForBg,
       enableAnimationForShapes: VAR.enableAnimationForShapes,
@@ -127,12 +109,10 @@ export const saveState = () => {
   );
 };
 
-// Function to reset the game state
 export function resetGame() {
   VAR.level = 0;
   VAR.shapesClicked = 0;
   VAR.multiplier = 0;
-  VAR.quota = 15;
   VAR.cash = 0;
   VAR.unlockedOverlays = {
     first: false,
@@ -141,13 +121,14 @@ export function resetGame() {
     max: false,
     firstUpg: false,
   };
-  VAR.previousAchievementCount = 0;
+  VAR.uncheckedAchievements = 0;
   VAR.achievements = [];
   VAR.enableAnimationForBg = true;
   VAR.enableAnimationForShapes = true;
   VAR.enableAnimationForBouncing = true;
   localStorage.removeItem("currentState");
   render();
+  saveState();
 }
 
 window.VAR = VAR;

@@ -5,8 +5,8 @@ main-right {
   display: flex;
   justify-content: flex-end;
   width: 70%;
-  height: 92vh;
-  margin: 1em;
+  height: 70%;
+  margin: 1em 0;
   padding: 0;
   border-radius: 10px;
   background-color: rgb(47, 47, 47);
@@ -198,15 +198,13 @@ achievements-list {
 achievements-list div.ach-list-item {
   text-align: start;
   font-size: 22px;
+  color: gray;
+  font-style: italic;
+  opacity: 0.8;
 }
 achievements-list .ach-list-item.unlocked {
   color: green;
   font-weight: bold;
-}
-achievements-list .ach-list-item.locked {
-  color: gray;
-  font-style: italic;
-  opacity: 0.6;
 }
 
 @keyframes bg-scrolling-reverse {
@@ -593,9 +591,9 @@ prompt-frame {
   opacity: 0;
   visibility: hidden;
   width: 37%;
-  top: 88%;
-  left: 80%;
-  transform: translate(-20%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(80%, -26.5%);
   transition: 200ms ease-in-out;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0);
@@ -606,7 +604,7 @@ prompt-frame {
 prompt-frame.active {
   opacity: 1;
   visibility: visible;
-  transform: translate(-35%, -40%);
+  transform: translate(50%, -26.5%);
 }
 
 #prompt {
@@ -756,7 +754,6 @@ achievement-popup.active {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  flex-direction: column;
 }
 #Factory container-shape smaller-shape-container {
   width: 95%;
@@ -770,12 +767,11 @@ achievement-popup.active {
   align-items: center;
   justify-content: space-between;
   background-color: #5c8ea3;
-  box-shadow: 2px 2px 7px;
   transition: background-color 0.2s ease;
   font-family: Comfortaa, sans-serif;
   letter-spacing: 2px;
-  border: none;
-  border-radius: 22px 12px;
+  border: 2px black solid;
+  border-radius: 20px 12px;
   margin: 0;
   padding: 5px;
   color: rgb(0, 0, 0);
@@ -784,34 +780,6 @@ achievement-popup.active {
   background-color: #507d90;
   box-shadow: inset 2px 2px 7px;
   color: rgb(0, 0, 0);
-}
-#Factory .lockedoverlay {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: 70px;
-  margin: 0;
-  padding: 5px;
-  border: none;
-  border-radius: 22px 12px;
-  visibility: visible;
-  transition: background-color 0.3s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-}
-#Factory .lockedoverlay img {
-  width: 60px;
-  height: 60px;
-}
-#Factory .lockedoverlay:hover {
-  transition: background-color 0.2s ease-in-out;
-  background-color: rgba(0, 0, 0, 0.68);
-}
-#Factory .lockedoverlay.unlocked {
-  visibility: hidden;
 }
 #Factory #text-warnings-upg {
   margin-top: 20px;

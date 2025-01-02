@@ -6,9 +6,9 @@ prompt-frame {
   opacity: 0;
   visibility: hidden;
   width: 37%;
-  top: 88%;
-  left: 80%;
-  transform: translate(-20%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(80%, -26.5%);
   transition: 200ms ease-in-out;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0);
@@ -18,7 +18,7 @@ prompt-frame {
 prompt-frame.active {
   opacity: 1;
   visibility: visible;
-  transform: translate(-35%, -40%);
+  transform: translate(50%, -26.5%);
 }
 
 #prompt {
