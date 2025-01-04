@@ -2,8 +2,14 @@
 import { render } from "./Ui.js";
 import { pushNewAchievement } from "./achievements.js";
 
-const userId = localStorage.getItem("userId") || crypto.randomUUID();
-localStorage.setItem("userId", userId);
+const urlParams = new URLSearchParams(window.location.search);
+let userId = urlParams.get("userId");
+
+if (!userId) {
+  userId = crypto.randomUUID();
+  const newUrl = `${window.location.pathname}?userId=${userId}`;
+  window.history.pushState({ path: newUrl }, "", newUrl);
+}
 
 export const VAR = {
   level: 0,

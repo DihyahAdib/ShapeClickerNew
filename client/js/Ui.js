@@ -197,6 +197,9 @@ export function initializeUi() {
       .text(`${ach.name} - ${isUnlocked ? "Unlocked" : "Locked"}`);
     listItem.appendTo("achievements-list");
   }
+
+  const saveCodeDisplay = document.createElement("div");
+  saveCodeDisplay.textContent = `Your save code: ${userId.slice(0, 8)}`;
 }
 
 export function render() {
