@@ -1,6 +1,6 @@
 // state.js //
 
-import { render } from "../../scripts/Ui.js";
+import { render } from "./Ui.js";
 import { pushNewAchievement } from "./achievements.js";
 
 export const VAR = {

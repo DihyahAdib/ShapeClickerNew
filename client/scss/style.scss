@@ -14,7 +14,7 @@ body {
   padding: 0;
   overflow: hidden;
   box-sizing: border-box;
-  background-image: url(/assets/nnnoise.svg);
+  background-image: url(/client/assets/nnnoise.svg);
   background-repeat: repeat;
   user-select: none;
 }
@@ -38,7 +38,7 @@ warning-screen {
   height: 45%;
   width: 18%;
   z-index: 11;
-  background-image: url(/assets/rainy.gif);
+  background-image: url(/client/assets/rainy.gif);
   box-shadow: 8px 14px 18px 1px rgba(0, 0, 0, 0.302);
 }
 settings,
