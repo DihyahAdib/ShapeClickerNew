@@ -1,7 +1,9 @@
 // state.js //
-
 import { render } from "./Ui.js";
 import { pushNewAchievement } from "./achievements.js";
+
+const userId = localStorage.getItem("userId") || crypto.randomUUID();
+localStorage.setItem("userId", userId);
 
 export const VAR = {
   level: 0,
@@ -67,49 +69,76 @@ export const VAR = {
   },
 };
 
-export const loadState = () => {
-  const savedState = JSON.parse(localStorage.getItem("currentState") || "null");
-  if (savedState) {
-    VAR.level = savedState.level || 0;
-    VAR.shapesClicked = savedState.shapesClicked || 0;
-    VAR.multiplier = savedState.multiplier || 0;
-    VAR.cash = savedState.cash || 0;
-    VAR.unlockedOverlays = savedState.unlockedOverlays || {
-      first: false,
-      second: false,
-      third: false,
-      max: false,
-      firstUpg: false,
-    };
-    VAR.uncheckedAchievements = savedState.uncheckedAchievements || 0;
-    VAR.achievements = savedState.achievements || [];
-    VAR.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
-    VAR.enableAnimationForShapes = savedState.enableAnimationForShapes ?? true;
-    VAR.enableAnimationForBouncing =
-      savedState.enableAnimationForBouncing ?? true;
-    render();
+export const loadState = async () => {
+  try {
+    const response = await fetch(`/api/users/${userId}`);
+    if (!response.ok) {
+      // If user doesn't exist, create new user
+      if (response.status === 404) {
+        await saveState(); // This will create a new user with default values
+        return;
+      }
+      throw new Error("Failed to load state");
+    }
+
+    const savedState = await response.json();
+    if (savedState) {
+      VAR.level = savedState.level ?? 0;
+      VAR.shapesClicked = savedState.shapesClicked ?? 0;
+      VAR.multiplier = savedState.multiplier ?? 0;
+      VAR.cash = savedState.cash ?? 0;
+      VAR.unlockedOverlays = savedState.unlockedOverlays ?? {
+        first: false,
+        second: false,
+        third: false,
+        max: false,
+        firstUpg: false,
+      };
+      VAR.uncheckedAchievements = savedState.uncheckedAchievements ?? 0;
+      VAR.achievements = savedState.achievements ?? [];
+      VAR.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
+      VAR.enableAnimationForShapes =
+        savedState.enableAnimationForShapes ?? true;
+      VAR.enableAnimationForBouncing =
+        savedState.enableAnimationForBouncing ?? true;
+      render();
+    }
+  } catch (error) {
+    console.error("Error loading state:", error);
   }
 };
 
-export const saveState = () => {
-  localStorage.setItem(
-    "currentState",
-    JSON.stringify({
-      level: VAR.level,
-      shapesClicked: VAR.shapesClicked,
-      multiplier: VAR.multiplier,
-      cash: VAR.cash,
-      unlockedOverlays: VAR.unlockedOverlays,
-      uncheckedAchievements: VAR.uncheckedAchievements,
-      achievements: VAR.achievements,
-      enableAnimationForBg: VAR.enableAnimationForBg,
-      enableAnimationForShapes: VAR.enableAnimationForShapes,
-      enableAnimationForBouncing: VAR.enableAnimationForBouncing,
-    })
-  );
+export const saveState = async () => {
+  try {
+    const response = await fetch(`/api/users/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        level: VAR.level,
+        shapesClicked: VAR.shapesClicked,
+        multiplier: VAR.multiplier,
+        cash: VAR.cash,
+        unlockedOverlays: VAR.unlockedOverlays,
+        uncheckedAchievements: VAR.uncheckedAchievements,
+        achievements: VAR.achievements,
+        enableAnimationForBg: VAR.enableAnimationForBg,
+        enableAnimationForShapes: VAR.enableAnimationForShapes,
+        enableAnimationForBouncing: VAR.enableAnimationForBouncing,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to save state");
+    }
+  } catch (error) {
+    console.error("Error saving state:", error);
+  }
 };
 
-export function resetGame() {
+export async function resetGame() {
   VAR.level = 0;
   VAR.shapesClicked = 0;
   VAR.multiplier = 0;
@@ -126,11 +155,22 @@ export function resetGame() {
   VAR.enableAnimationForBg = true;
   VAR.enableAnimationForShapes = true;
   VAR.enableAnimationForBouncing = true;
-  localStorage.removeItem("currentState");
+
+  try {
+    await fetch(`/api/users/${userId}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error("Error resetting game:", error);
+  }
+
   render();
   saveState();
 }
 
 window.VAR = VAR;
 render();
-loadState();
+// Changed to await since loadState is now async
+(async () => {
+  await loadState();
+})();

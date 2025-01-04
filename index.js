@@ -39,10 +39,48 @@ const UserModel = mongoose.model("users", userSchema);
 
 app.use(express.static("client"));
 
+// Get all users
 app.get("/api/users", async (req, res) => {
   try {
     const userData = await UserModel.find();
     res.json(userData);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Get specific user
+app.get("/api/users/:userId", async (req, res) => {
+  try {
+    const user = await UserModel.findOne({ userId: req.params.userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Update user state
+app.put("/api/users/:userId", async (req, res) => {
+  try {
+    const user = await UserModel.findOneAndUpdate(
+      { userId: req.params.userId },
+      req.body,
+      { new: true, upsert: true }
+    );
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Delete user state
+app.delete("/api/users/:userId", async (req, res) => {
+  try {
+    await UserModel.findOneAndDelete({ userId: req.params.userId });
+    res.json({ message: "User deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
