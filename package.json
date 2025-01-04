@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "css": "sass -w --update ./scss/style.scss ./css/style.css"
+    "css": "sass -w ./scss:./css"
   },
   "author": "Dihyah Adib",
   "license": "ISC",
