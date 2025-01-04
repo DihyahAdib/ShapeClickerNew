@@ -2,6 +2,11 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 dotenv.config();
@@ -32,17 +37,19 @@ const userSchema = new mongoose.Schema({
 
 const UserModel = mongoose.model("users", userSchema);
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the API!");
-});
+app.use(express.static("client"));
 
-app.get("/getUsers", async (req, res) => {
+app.get("/api/users", async (req, res) => {
   try {
     const userData = await UserModel.find();
     res.json(userData);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+});
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "index.html"));
 });
 
 mongoose
