@@ -77,10 +77,19 @@ app.put("/api/users/:userId", async (req, res) => {
 });
 
 // Delete user state
-app.delete("/api/users/:userId", async (req, res) => {
+app.get("/api/deleteUsers/:userId", async (req, res) => {
   try {
     await UserModel.findOneAndDelete({ userId: req.params.userId });
     res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.get("/api/deleteUsers", async (req, res) => {
+  try {
+    await UserModel.deleteMany({});
+    res.json({ message: " All user deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
