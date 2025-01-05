@@ -79,9 +79,8 @@ export const loadState = async () => {
   try {
     const response = await fetch(`/api/users/${userId}`);
     if (!response.ok) {
-      // If user doesn't exist, create new user
       if (response.status === 404) {
-        await saveState(); // This will create a new user with default values
+        await saveState();
         return;
       }
       throw new Error("Failed to load state");
