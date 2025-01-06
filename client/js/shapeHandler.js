@@ -1,13 +1,13 @@
-import { VAR } from "./state.js";
+import { data } from "./state.js";
 import { initializeUi } from "./Ui.js";
 import { randomize } from "./utils.js";
 
 export function handleClickingShapes() {
-  VAR.increment("shapesClicked", 1 + VAR.multiplier);
-  if (VAR.shapesClicked >= VAR.getQuota()) {
-    VAR.increment("level", 1).increment("multiplier", 0.5);
+  data.increment("shapesClicked", 1 + data.multiplier);
+  if (data.shapesClicked >= data.getQuota()) {
+    data.increment("level", 1).increment("multiplier", 0.5);
   }
-  if (VAR.level === 1 && VAR.getQuota() < 46) {
+  if (data.level === 1 && data.getQuota() < 46) {
     $("prompt-frame").addClass("active");
   } else {
     $("prompt-frame").removeClass("active");
@@ -29,7 +29,7 @@ export function bonusShapes() {
 }
 
 $("bonus-shape").on("click", function () {
-  VAR.increment("shapesClicked", 40);
+  data.increment("shapesClicked", 40);
   $("bonus-shape").removeClass("visible");
   setTimeout(bonusShapes, randomize(minTime, maxTime));
 });

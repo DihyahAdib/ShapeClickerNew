@@ -1,18 +1,18 @@
 import { ACHIEVEMENTS } from "./achievements.js";
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
-import { VAR, resetGame, saveState } from "./state.js";
+import { data, resetGame, saveState } from "./state.js";
 
 export function initializeUi() {
   $("#bg").on("click", function () {
-    VAR.toggle("enableAnimationForBg");
+    data.toggle("enableAnimationForBg");
   });
 
   $("#spin").on("click", function () {
-    VAR.toggle("enableAnimationForShapes");
+    data.toggle("enableAnimationForShapes");
   });
 
   $("#bounce").on("click", function () {
-    VAR.toggle("enableAnimationForBouncing");
+    data.toggle("enableAnimationForBouncing");
   });
 
   $("svg-spin").on("click", function () {
@@ -52,9 +52,9 @@ export function initializeUi() {
   });
 
   $("convert-clicks-to-cash:first").on("click", async function () {
-    if (VAR.shapesClicked >= 10000) {
-      VAR.decrement("shapesClicked", 10000);
-      VAR.increment("cash", 10);
+    if (data.shapesClicked >= 10000) {
+      data.decrement("shapesClicked", 10000);
+      data.increment("cash", 10);
       $("progress-bar:first").addClass("visible");
       coolDown(30000, 0);
     } else {
@@ -63,19 +63,19 @@ export function initializeUi() {
   });
 
   $("lockedoverlay:first").on("click", async function () {
-    if (VAR.shapesClicked < 10000) {
+    if (data.shapesClicked < 10000) {
       $("#text-warnings").textTimeout("Locked: Reach 10k Shapes first", 2000);
-    } else if (VAR.shapesClicked >= 10000) {
-      VAR.unlockedOverlays.first = true;
+    } else if (data.shapesClicked >= 10000) {
+      data.unlockedOverlays.first = true;
       $(this).addClass("unlocked");
       saveState();
     }
   });
 
   $("convert-clicks-to-cash:eq(1)").on("click", async function () {
-    if (VAR.shapesClicked >= 500000) {
-      VAR.decrement("shapesClicked", 500000);
-      VAR.increment("cash", 500);
+    if (data.shapesClicked >= 500000) {
+      data.decrement("shapesClicked", 500000);
+      data.increment("cash", 500);
       $("progress-bar:eq(1)").addClass("visible");
       coolDown(60000, 1);
     } else {
@@ -84,19 +84,19 @@ export function initializeUi() {
   });
 
   $("lockedoverlay:eq(1)").on("click", async function () {
-    if (VAR.shapesClicked < 500000) {
+    if (data.shapesClicked < 500000) {
       $("#text-warnings").textTimeout("Locked: Reach 500k Shapes first", 2000);
-    } else if (VAR.shapesClicked >= 500000) {
-      VAR.unlockedOverlays.second = true;
+    } else if (data.shapesClicked >= 500000) {
+      data.unlockedOverlays.second = true;
       $(this).addClass("unlocked");
       saveState();
     }
   });
 
   $("convert-clicks-to-cash:eq(2)").on("click", async function () {
-    if (VAR.shapesClicked >= 1000000) {
-      VAR.decrement("shapesClicked", 1000000);
-      VAR.increment("cash", 1000);
+    if (data.shapesClicked >= 1000000) {
+      data.decrement("shapesClicked", 1000000);
+      data.increment("cash", 1000);
       $("progress-bar:eq(2)").addClass("visible");
       coolDown(120000, 2);
     } else {
@@ -105,10 +105,10 @@ export function initializeUi() {
   });
 
   $("lockedoverlay:eq(2)").on("click", async function () {
-    if (VAR.shapesClicked < 1000000) {
+    if (data.shapesClicked < 1000000) {
       $("#text-warnings").textTimeout("Locked: Reach 1M Shapes first", 2000);
-    } else if (VAR.shapesClicked >= 1000000) {
-      VAR.unlockedOverlays.third = true;
+    } else if (data.shapesClicked >= 1000000) {
+      data.unlockedOverlays.third = true;
       $(this).addClass("unlocked");
       saveState();
     }
@@ -116,30 +116,30 @@ export function initializeUi() {
 
   $("convert-max-clicks-to-cash").on("click", async function () {
     const MIN_SHAPES = 10000;
-    if (VAR.shapesClicked >= MIN_SHAPES) {
+    if (data.shapesClicked >= MIN_SHAPES) {
       const shapesToConvert =
-        Math.floor(VAR.shapesClicked / MIN_SHAPES) * MIN_SHAPES;
+        Math.floor(data.shapesClicked / MIN_SHAPES) * MIN_SHAPES;
       const cashToAdd = shapesToConvert / 1000;
-      VAR.decrement("shapesClicked", shapesToConvert);
-      VAR.increment("cash", cashToAdd);
+      data.decrement("shapesClicked", shapesToConvert);
+      data.increment("cash", cashToAdd);
     } else {
       $("#text-warnings").textTimeout("Insufficient amount of shapes", 2000);
     }
   });
 
   $("lockedmax").on("click", async function () {
-    if (VAR.shapesClicked < 100000000) {
+    if (data.shapesClicked < 100000000) {
       $("#text-warnings").textTimeout("Locked: Reach 100M Shapes first", 2000);
-    } else if (VAR.shapesClicked >= 100000000) {
-      VAR.unlockedOverlays.max = true;
+    } else if (data.shapesClicked >= 100000000) {
+      data.unlockedOverlays.max = true;
       $(this).addClass("unlocked");
       saveState();
     }
   });
 
   $(".lockedoverlay:first").on("click", function () {
-    if (VAR.level >= 10 && VAR.cash >= 10) {
-      VAR.unlockedOverlays.firstUpg = true;
+    if (data.level >= 10 && data.cash >= 10) {
+      data.unlockedOverlays.firstUpg = true;
       $(this).addClass("unlocked");
       saveState();
     } else {
@@ -162,79 +162,120 @@ export function initializeUi() {
   });
 
   $("#Rlevel").on("click", function () {
-    VAR.set("level", 0);
+    data.set("level", 0);
   });
 
   $("#Rshape").on("click", function () {
-    VAR.set("shapesClicked", 0);
+    data.set("shapesClicked", 0);
   });
 
   $("#Rach").on("click", function () {
-    VAR.set("ach", []);
+    data.set("ach", []);
   });
 
   $("#Rmulti").on("click", function () {
-    VAR.set("multiplier", 0);
+    data.set("multiplier", 0);
   });
 
   $("#Rquota").on("click", function () {
-    VAR.set("quota", 15);
+    data.set("quota", 15);
   });
 
   $("#Rcash").on("click", function () {
-    VAR.set("cash", 0);
+    data.set("cash", 0);
   });
 
   $("[data-nav=achievements]").on("click", function () {
-    VAR.set("uncheckedAchievements", 0);
+    data.set("uncheckedAchievements", 0);
   });
 
   for (let key in ACHIEVEMENTS) {
     const ach = ACHIEVEMENTS[key];
-    const isUnlocked = VAR.achievements.includes(ach.name);
+    const isUnlocked = data.achievements.includes(ach.name);
     const listItem = $("<div>")
       .addClass("ach-list-item")
       .text(`${ach.name} - ${isUnlocked ? "Unlocked" : "Locked"}`);
     listItem.appendTo("achievements-list");
   }
+
+  $(".plus-shape:first").on("click", function () {
+    if (data.cash >= data.factoryFunctionCostAmount.I) {
+      data.decrement("cash", data.factoryFunctionCostAmount.I);
+      setInterval(() => {
+        data.increment("shapesClicked", data.factoryFunctionOutput.I);
+      }, data.factoryFunctionTimings.I);
+      data.incrementNestedObj(
+        "factoryFunctionCostAmount.I",
+        data.factoryFunctionCostAmount.I
+      );
+    } else {
+      $(".plus-shape:first").textTimeout(
+        "Not enough Cash!",
+        2000,
+        `cost ${formatPlaceValue(data.factoryFunctionCostAmount.I)}$`
+      );
+    }
+  });
 }
 
 export function render() {
-  $("shapes").text(`${formatPlaceValue(VAR.shapesClicked)} Shapes`);
-  $("plus-shapes").text(`+${formatPlaceValue(VAR.multiplier)} Shapes`);
-  $("cash").text(`Cash ${formatPlaceValue(VAR.cash)}$`);
-  $("level").text(`Level ${formatPlaceValue(VAR.level)}`);
-  $("quota").text(`Quota ${formatPlaceValue(VAR.getQuota())}`);
-  $("main").toggleClass("bgAnimation", VAR.enableAnimationForBg);
-  $("svg-container").toggleClass("shape-spin", VAR.enableAnimationForShapes);
+  $("shapes").text(`${formatPlaceValue(data.shapesClicked)} Shapes`);
+  $("plus-shapes").text(`+${formatPlaceValue(data.multiplier)} Shapes`);
+  $("cash").text(`Cash ${formatPlaceValue(data.cash)}$`);
+  $("level").text(`Level ${formatPlaceValue(data.level)}`);
+  $("quota").text(`Quota ${formatPlaceValue(data.getQuota())}`);
+  $("main").toggleClass("bgAnimation", data.enableAnimationForBg);
+  $("svg-container").toggleClass("shape-spin", data.enableAnimationForShapes);
   $("svg-bouncing")
-    .html(getShape(VAR.level))
-    .bounceable(VAR.enableAnimationForBouncing);
-  $("bg").text(VAR.enableAnimationForBg ? "Unpaused" : "Paused");
-  $("ss").text(VAR.enableAnimationForShapes ? "Unpaused" : "Paused");
-  $("sb").text(VAR.enableAnimationForBouncing ? "Unpaused" : "Paused");
+    .html(getShape(data.level))
+    .bounceable(data.enableAnimationForBouncing);
+  $("bg").text(data.enableAnimationForBg ? "Unpaused" : "Paused");
+  $("ss").text(data.enableAnimationForShapes ? "Unpaused" : "Paused");
+  $("sb").text(data.enableAnimationForBouncing ? "Unpaused" : "Paused");
 
   $("number").text(
-    VAR.uncheckedAchievements >= 9 ? "9+" : VAR.uncheckedAchievements
+    data.uncheckedAchievements >= 9 ? "9+" : data.uncheckedAchievements
   );
-  $("notification").toggleClass("active", VAR.uncheckedAchievements > 0);
+  $("notification").toggleClass("active", data.uncheckedAchievements > 0);
 
   $(".ach-list-item").each(function (i) {
     const ach = ACHIEVEMENTS[Object.keys(ACHIEVEMENTS)[i]];
-    const isUnlocked = VAR.achievements.includes(ach.name);
+    const isUnlocked = data.achievements.includes(ach.name);
 
     $(this)
       .text(`${ach.name} - ${isUnlocked ? "Unlocked" : "Locked"}`)
       .toggleClass("unlocked", isUnlocked);
   });
 
-  $("lockedoverlay:first").toggleClass("unlocked", VAR.unlockedOverlays.first);
-  $("lockedoverlay:eq(1)").toggleClass("unlocked", VAR.unlockedOverlays.second);
-  $("lockedoverlay:eq(2)").toggleClass("unlocked", VAR.unlockedOverlays.third);
-  $("lockedmax").toggleClass("unlocked", VAR.unlockedOverlays.max);
+  $("lockedoverlay:first").toggleClass("unlocked", data.unlockedOverlays.first);
+  $("lockedoverlay:eq(1)").toggleClass(
+    "unlocked",
+    data.unlockedOverlays.second
+  );
+  $("lockedoverlay:eq(2)").toggleClass("unlocked", data.unlockedOverlays.third);
+  $("lockedmax").toggleClass("unlocked", data.unlockedOverlays.max);
   $(".lockedoverlay:first").toggleClass(
     "unlocked",
-    VAR.unlockedOverlays.firstUpg
+    data.unlockedOverlays.firstUpg
+  );
+
+  $(".plus-shape:first").text(
+    `cost ${formatPlaceValue(data.factoryFunctionCostAmount.I)}$`
+  );
+  $(".plus-shape:eq(1)").text(
+    `cost ${formatPlaceValue(data.factoryFunctionCostAmount.II)}$`
+  );
+  $(".plus-shape:eq(2)").text(
+    `cost ${formatPlaceValue(data.factoryFunctionCostAmount.III)}$`
+  );
+  $(".plus-shape:eq(3)").text(
+    `cost ${formatPlaceValue(data.factoryFunctionCostAmount.IV)}$`
+  );
+  $(".plus-shape:eq(4)").text(
+    `cost ${formatPlaceValue(data.factoryFunctionCostAmount.V)}$`
+  );
+  $(".plus-shape:eq(5)").text(
+    `cost ${formatPlaceValue(data.factoryFunctionCostAmount.VI)}$`
   );
 }
 

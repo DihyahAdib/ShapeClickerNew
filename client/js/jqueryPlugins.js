@@ -20,9 +20,9 @@ $.fn.spin = function (direction) {
   }
 };
 
-$.fn.textTimeout = async function (text, ms) {
+$.fn.textTimeout = async function (text, ms, newText) {
   this.text(text);
   await new Promise((resolve) => setTimeout(resolve, ms));
-  this.text("");
+  this.text(newText);
   return this;
 };

@@ -84,14 +84,13 @@ export const ACHIEVEMENTS = {
 export function pushNewAchievement() {
   for (let key in ACHIEVEMENTS) {
     const ach = ACHIEVEMENTS[key]; // Using ach as a reference to the achievement object
-    if (ach.condition(VAR)) {
-      if (!VAR.achievements.includes(ach.name)) {
-        VAR.push("achievements", ach.name).increment(
-          "uncheckedAchievements",
-          1
-        ); // attempting to add to state array.
+    if (ach.condition(data)) {
+      if (!data.achievements.includes(ach.name)) {
+        data
+          .push("achievements", ach.name)
+          .increment("uncheckedAchievements", 1); // attempting to add to state array.
         showAchievementNotification(ach);
-        console.log(VAR.uncheckedAchievements);
+        console.log(data.uncheckedAchievements);
       }
     }
   }

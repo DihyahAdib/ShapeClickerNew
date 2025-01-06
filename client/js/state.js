@@ -11,7 +11,7 @@ if (!userId) {
   window.history.pushState({ path: newUrl }, "", newUrl);
 }
 
-export const VAR = {
+export const data = {
   level: 0,
   shapesClicked: 0,
   multiplier: 0,
@@ -28,13 +28,27 @@ export const VAR = {
     max: false,
     firstUpg: false,
   },
-
-  updateBonusShapeTimes(min, max) {
-    this.bonusShapeMinTime = min;
-    this.bonusShapeMaxTime = max;
-    pushNewAchievement();
-    render();
-    saveState();
+  factoryFunctionTimings: {
+    I: 1000,
+    II: 10000,
+    III: 30000,
+    IV: 60000,
+    V: 120000,
+  },
+  factoryFunctionCostAmount: {
+    I: 10,
+    II: 50,
+    III: 100,
+    IV: 500,
+    V: 2000,
+    VI: 50000,
+  },
+  factoryFunctionOutput: {
+    I: 10,
+    II: 20,
+    III: 40,
+    IV: 80,
+    V: 100,
   },
 
   increment(key, value) {
@@ -44,6 +58,32 @@ export const VAR = {
 
   decrement(key, value) {
     this.set(key, this[key] - value);
+    return this;
+  },
+
+  incrementNestedObj(keyPath, value) {
+    const keys = keyPath.split(".");
+    let target = this;
+    for (let i = 0; i < keys.length - 1; i++) {
+      target = target[keys[i]];
+    }
+    const lastKey = keys[keys.length - 1];
+    target[lastKey] += value;
+    render();
+    saveState();
+    return this;
+  },
+
+  decrementNestedObj(keyPath, value) {
+    const keys = keyPath.split(".");
+    let target = this;
+    for (let i = 0; i < keys.length - 1; i++) {
+      target = target[keys[i]];
+    }
+    const lastKey = keys[keys.length - 1];
+    target[lastKey] -= value;
+    render();
+    saveState();
     return this;
   },
 
@@ -88,23 +128,45 @@ export const loadState = async () => {
 
     const savedState = await response.json();
     if (savedState) {
-      VAR.level = savedState.level ?? 0;
-      VAR.shapesClicked = savedState.shapesClicked ?? 0;
-      VAR.multiplier = savedState.multiplier ?? 0;
-      VAR.cash = savedState.cash ?? 0;
-      VAR.unlockedOverlays = savedState.unlockedOverlays ?? {
+      data.level = savedState.level ?? 0;
+      data.shapesClicked = savedState.shapesClicked ?? 0;
+      data.multiplier = savedState.multiplier ?? 0;
+      data.cash = savedState.cash ?? 0;
+      data.unlockedOverlays = savedState.unlockedOverlays ?? {
         first: false,
         second: false,
         third: false,
         max: false,
         firstUpg: false,
       };
-      VAR.uncheckedAchievements = savedState.uncheckedAchievements ?? 0;
-      VAR.achievements = savedState.achievements ?? [];
-      VAR.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
-      VAR.enableAnimationForShapes =
+      data.factoryFunctionTimings = savedState.factoryFunctionTimings ?? {
+        I: 1000,
+        II: 10000,
+        III: 30000,
+        IV: 60000,
+        V: 120000,
+      };
+      data.factoryFunctionCostAmount = savedState.factoryFunctionCostAmount ?? {
+        I: 10,
+        II: 50,
+        III: 100,
+        IV: 500,
+        V: 2000,
+        VI: 50000,
+      };
+      data.factoryFunctionOutput = savedState.factoryFunctionOutput ?? {
+        I: 10,
+        II: 20,
+        III: 40,
+        IV: 80,
+        V: 100,
+      };
+      data.uncheckedAchievements = savedState.uncheckedAchievements ?? 0;
+      data.achievements = savedState.achievements ?? [];
+      data.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
+      data.enableAnimationForShapes =
         savedState.enableAnimationForShapes ?? true;
-      VAR.enableAnimationForBouncing =
+      data.enableAnimationForBouncing =
         savedState.enableAnimationForBouncing ?? true;
       render();
     }
@@ -122,16 +184,19 @@ export const saveState = async () => {
       },
       body: JSON.stringify({
         userId,
-        level: VAR.level,
-        shapesClicked: VAR.shapesClicked,
-        multiplier: VAR.multiplier,
-        cash: VAR.cash,
-        unlockedOverlays: VAR.unlockedOverlays,
-        uncheckedAchievements: VAR.uncheckedAchievements,
-        achievements: VAR.achievements,
-        enableAnimationForBg: VAR.enableAnimationForBg,
-        enableAnimationForShapes: VAR.enableAnimationForShapes,
-        enableAnimationForBouncing: VAR.enableAnimationForBouncing,
+        level: data.level,
+        shapesClicked: data.shapesClicked,
+        multiplier: data.multiplier,
+        cash: data.cash,
+        unlockedOverlays: data.unlockedOverlays,
+        factoryFunctionTimings: data.factoryFunctionTimings,
+        factoryFunctionCostAmount: data.factoryFunctionCostAmount,
+        factoryFunctionOutput: data.factoryFunctionOutput,
+        uncheckedAchievements: data.uncheckedAchievements,
+        achievements: data.achievements,
+        enableAnimationForBg: data.enableAnimationForBg,
+        enableAnimationForShapes: data.enableAnimationForShapes,
+        enableAnimationForBouncing: data.enableAnimationForBouncing,
       }),
     });
 
@@ -144,22 +209,44 @@ export const saveState = async () => {
 };
 
 export async function resetGame() {
-  VAR.level = 0;
-  VAR.shapesClicked = 0;
-  VAR.multiplier = 0;
-  VAR.cash = 0;
-  VAR.unlockedOverlays = {
+  data.level = 0;
+  data.shapesClicked = 0;
+  data.multiplier = 0;
+  data.cash = 0;
+  data.unlockedOverlays = {
     first: false,
     second: false,
     third: false,
     max: false,
     firstUpg: false,
   };
-  VAR.uncheckedAchievements = 0;
-  VAR.achievements = [];
-  VAR.enableAnimationForBg = true;
-  VAR.enableAnimationForShapes = true;
-  VAR.enableAnimationForBouncing = true;
+  data.factoryFunctionTimings = {
+    I: 1000,
+    II: 10000,
+    III: 30000,
+    IV: 60000,
+    V: 120000,
+  };
+  data.factoryFunctionCostAmount = {
+    I: 10,
+    II: 50,
+    III: 100,
+    IV: 500,
+    V: 2000,
+    VI: 50000,
+  };
+  data.factoryFunctionOutput = {
+    I: 10,
+    II: 20,
+    III: 40,
+    IV: 80,
+    V: 100,
+  };
+  data.uncheckedAchievements = 0;
+  data.achievements = [];
+  data.enableAnimationForBg = true;
+  data.enableAnimationForShapes = true;
+  data.enableAnimationForBouncing = true;
 
   try {
     await fetch(`/api/users/${userId}`, {
@@ -173,9 +260,8 @@ export async function resetGame() {
   saveState();
 }
 
-window.VAR = VAR;
+window.data = data;
 render();
-// Changed to await since loadState is now async
 (async () => {
   await loadState();
 })();
