@@ -27,14 +27,14 @@ const startingState = {
     max: false,
     firstUpg: false,
   },
-  intervals: [],
-  factory: [
-    { cost: 10, timing: 1000, givenAmount: 10 },
-    { cost: 50, timing: 10000, givenAmount: 20 },
-    { cost: 100, timing: 30000, givenAmount: 40 },
-    { cost: 500, timing: 60000, givenAmount: 80 },
-    { cost: 2000, timing: 120000, givenAmount: 100 },
-    { cost: 5000, timing: 240000, givenAmount: 200 },
+  factorys: [
+    { name: "Intern", owned: 0, shapeCount: 10, baseShapeProduction: 0.1 },
+    { name: "Shape", owned: 0, shapeCount: 50, baseShapeProduction: 0.5 },
+    { name: "Mathematician", owned: 0, shapeCount: 100, baseShapeProduction: 1 },
+    { name: "Shipment", owned: 0, shapeCount: 500, baseShapeProduction: 5 },
+    { name: "Bank", owned: 0, shapeCount: 1000, baseShapeProduction: 10 },
+    { name: "TopHat", owned: 0, shapeCount: 15000, baseShapeProduction: 15 },
+    { name: "ThirdDimention", owned: 0, shapeCount: 130000, baseShapeProduction: 30 },
   ],
 };
 
@@ -55,15 +55,33 @@ export const data = {
     max: false,
     firstUpg: false,
   },
-  intervals: [],
-  factory: [
-    { cost: 10, timing: 1000, givenAmount: 10 },
-    { cost: 50, timing: 10000, givenAmount: 20 },
-    { cost: 100, timing: 30000, givenAmount: 40 },
-    { cost: 500, timing: 60000, givenAmount: 80 },
-    { cost: 2000, timing: 120000, givenAmount: 100 },
-    { cost: 5000, timing: 240000, givenAmount: 200 },
+  //baseShapeProduction is how many shapes per sec: shape:(half shape per sec)
+  factorys: [
+    { name: "Intern", owned: 0, shapeCount: 10, baseShapeProduction: 0.1 },
+    { name: "Shape", owned: 0, shapeCount: 50, baseShapeProduction: 0.5 },
+    { name: "Mathematician", owned: 0, shapeCount: 100, baseShapeProduction: 1 },
+    { name: "Shipment", owned: 0, shapeCount: 500, baseShapeProduction: 5 },
+    { name: "Bank", owned: 0, shapeCount: 1000, baseShapeProduction: 10 },
+    { name: "TopHat", owned: 0, shapeCount: 15000, baseShapeProduction: 15 },
+    { name: "ThirdDimention", owned: 0, shapeCount: 130000, baseShapeProduction: 30 },
   ],
+
+  calculateProduction(factoryIndex) {
+    // 10 times 0.1 is how many shapes rewarded to the player per second.
+    //The baseShape and owned properties are the only ones increasing or changing.
+    const factory = data.factorys[factoryIndex];
+    return factory.shapeCount * factory.baseShapeProduction;
+  },
+
+  getQuota(level = this.level) {
+    return 15 * Math.pow(2, this.level);
+  },
+
+  getLevel() {
+    while (this.shapesClicked >= this.getQuota(this.level)) {
+      this.increment("level", 1).increment("multiplier", 0.5);
+    }
+  },
 
   increment(key, value) {
     this.set(key, this[key] + value);
@@ -122,15 +140,6 @@ export const data = {
   push(key, value) {
     this.set(key, [...this[key], value]);
     return this;
-  },
-
-  getQuota(level = this.level) {
-    return 15 * Math.pow(2, this.level);
-  },
-  getLevel() {
-    while (this.shapesClicked >= this.getQuota(this.level)) {
-      this.increment("level", 1).increment("multiplier", 0.5);
-    }
   },
 };
 
@@ -199,15 +208,4 @@ window.data = data;
 render();
 (async () => {
   await loadState();
-  data.intervals.forEach(function ({ timing, givenAmount }) {
-    setInterval(() => {
-      data.increment("shapesClicked", givenAmount); //give players shapes
-    }, timing);
-  });
 })();
-
-function stopAllIntervals() {
-  data.intervals.forEach((intervals) => clearInterval(intervals));
-  data.intervals = [];
-  console.log(data.intervals);
-}

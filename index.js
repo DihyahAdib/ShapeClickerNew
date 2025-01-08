@@ -46,7 +46,6 @@ const userSchema = new mongoose.Schema({
     max: { type: Boolean, default: false },
     firstUpg: { type: Boolean, default: false },
   },
-  intervals: [{ timing: Number, givenAmount: Number }],
 });
 
 const UserModel = mongoose.model("users", userSchema);
@@ -92,7 +91,6 @@ app.put("/api/users/:userId", async (req, res) => {
       "enableAnimationForShapes",
       "enableAnimationForBouncing",
       "unlockedOverlays",
-      "intervals",
     ];
 
     const updates = {};

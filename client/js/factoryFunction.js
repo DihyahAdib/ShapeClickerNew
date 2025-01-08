@@ -1,19 +1,27 @@
 //factoryFunction.js//
 import { data } from "./state.js";
 
-$.fn.factoryFunction = function ({ factoryItem: { cost, timing, givenAmount }, text, ms, newText }) {
-  $(this).on("click", function () {
-    if (data.cash >= cost) {
-      data.decrement("cash", cost); //takes cash
+$(".plus-shape").on("click", function () {
+  const index = $(this).data("index");
+  const currentFactory = data.factorys[index];
 
+  if (data.cash >= currentFactory.shapeCount) {
+    data.decrement("cash", currentFactory.shapeCount);
+    data.incrementNestedObj(`factorys.${factoryIndex}.owned`, 1);
+    data.incrementNestedObj(`factorys.${factoryIndex}.shapeCount`, factory.shapeCount);
+
+    if (!factory.producing) {
+      factory.producing = true;
       setInterval(() => {
-        data.increment("shapesClicked", givenAmount); //give players shapes
-      }, timing);
-
-      data.incrementNestedObj(`${CostKey}`, cost);
-    } else {
-      $(this).textTimeout(text, ms, newText);
+        const production = data.calculateProduction(factoryIndex);
+        data.shapesClicked += production;
+      }, 1000);
     }
-  });
-  return this;
-};
+  } else {
+    $(this).textTimeout(
+      `Not enough cash for ${currentFactory.name}!`,
+      2000,
+      `Cost: ${currentFactory.shapeCount}$ (Owned: ${currentFactory.owned})`
+    );
+  }
+});

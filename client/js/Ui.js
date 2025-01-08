@@ -196,25 +196,10 @@ export function initializeUi() {
       .text(`${ach.name} - ${isUnlocked ? "Unlocked" : "Locked"}`);
     listItem.appendTo("achievements-list");
   }
-
-  $(".plus-shape").each(function (i) {
-    const { cost, timing, givenAmount } = data.factory[i];
-    $(this).on("click", function () {
-      if (data.cash >= cost) {
-        data.decrement("cash", cost); //takes cash
-        setInterval(() => {
-          data.increment("shapesClicked", givenAmount);
-        }, timing);
-        data.push("intervals", { timing, givenAmount });
-        data.incrementNestedObj(`factory.${[i]}.cost`, cost);
-      } else {
-        $(this).textTimeout("Not enough cash!", 2000, `cost ${cost}$`);
-      }
-    });
-  });
 }
 
 export function render() {
+  setInterval(() => {}, 200);
   $("shapes").text(`${formatPlaceValue(data.shapesClicked)} Shapes`);
   $("plus-shapes").text(`+${formatPlaceValue(data.multiplier)} Shapes`);
   $("cash").text(`Cash ${formatPlaceValue(data.cash)}$`);
