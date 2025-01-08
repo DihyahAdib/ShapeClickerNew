@@ -21,7 +21,7 @@ body {
 
 main-container {
   display: flex;
-  margin: 1%;
+  margin: 1% 0;
   padding: 0;
   flex-direction: row;
 }
@@ -255,12 +255,7 @@ main {
     width: 100%;
     height: 100%;
     z-index: 1;
-    background: radial-gradient(
-      ellipse 80% 80% at center,
-      rgba(0, 0, 0, 0) 50%,
-      rgba(0, 0, 0, 0.2) 75%,
-      rgba(0, 0, 0, 0.484) 100%
-    );
+    background: radial-gradient(ellipse 80% 80% at center, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.484) 100%);
     pointer-events: none;
   }
   position: relative;
@@ -287,12 +282,7 @@ main.bgAnimation {
     width: 100%;
     height: 100%;
     z-index: 1;
-    background: radial-gradient(
-      ellipse 80% 80% at center,
-      rgba(0, 0, 0, 0) 50%,
-      rgba(0, 0, 0, 0.2) 75%,
-      rgba(0, 0, 0, 0.484) 100%
-    );
+    background: radial-gradient(ellipse 80% 80% at center, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.484) 100%);
     pointer-events: none;
   }
 }
@@ -413,12 +403,7 @@ span.c1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle,
-    rgba(0, 0, 0, 0) 50%,
-    rgba(0, 0, 0, 0.2) 75%,
-    rgba(0, 0, 0, 0.484) 100%
-  );
+  background: radial-gradient(circle, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 75%, rgba(0, 0, 0, 0.484) 100%);
   pointer-events: none; /* Ensures overlay doesn't block interactions */
 }
 

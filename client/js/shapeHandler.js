@@ -4,9 +4,7 @@ import { randomize } from "./utils.js";
 
 export function handleClickingShapes() {
   data.increment("shapesClicked", 1 + data.multiplier);
-  if (data.shapesClicked >= data.getQuota()) {
-    data.increment("level", 1).increment("multiplier", 0.5);
-  }
+  data.getLevel();
   if (data.level === 1 && data.getQuota() < 46) {
     $("prompt-frame").addClass("active");
   } else {

@@ -1,17 +1,3 @@
-function bounce() {
-  $(this).addClass("bouncy");
-  setTimeout(() => {
-    $(this).removeClass("bouncy");
-  }, 300);
-}
-
-$.fn.bounceable = function (isBounceable) {
-  $(this).off("click", bounce);
-  if (isBounceable) {
-    $(this).on("click", bounce);
-  }
-};
-
 $.fn.spin = function (direction) {
   if (direction === "right") {
     $("svg#gear").addClass("spin").removeClass("Ospin");

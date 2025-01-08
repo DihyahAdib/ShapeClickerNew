@@ -8,7 +8,6 @@ main-right {
   height: 70%;
   margin: 1em 0;
   padding: 0;
-  border-radius: 10px;
   background-color: rgb(47, 47, 47);
   color: white;
   background-image: url(/assets/rrreplicate1.svg);
@@ -802,7 +801,7 @@ body {
 
 main-container {
   display: flex;
-  margin: 1%;
+  margin: 1% 0;
   padding: 0;
   flex-direction: row;
 }

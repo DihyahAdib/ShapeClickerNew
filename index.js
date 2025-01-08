@@ -27,6 +27,7 @@ if (!fs.existsSync(path.join(__dirname, "client"))) {
   console.error("Error: 'client' folder does not exist.");
   process.exit(1);
 }
+
 const userSchema = new mongoose.Schema({
   userId: { type: String, required: true, unique: true },
   level: { type: Number, default: 0, min: 0 },
@@ -45,28 +46,7 @@ const userSchema = new mongoose.Schema({
     max: { type: Boolean, default: false },
     firstUpg: { type: Boolean, default: false },
   },
-  factoryFunctionTimings: {
-    I: { type: Number, default: 1000 },
-    II: { type: Number, default: 10000 },
-    III: { type: Number, default: 30000 },
-    IV: { type: Number, default: 60000 },
-    V: { type: Number, default: 120000 },
-  },
-  factoryFunctionCostAmount: {
-    I: { type: Number, default: 10 },
-    II: { type: Number, default: 50 },
-    III: { type: Number, default: 100 },
-    IV: { type: Number, default: 500 },
-    V: { type: Number, default: 2000 },
-    VI: { type: Number, default: 50000 },
-  },
-  factoryFunctionOutput: {
-    I: { type: Number, default: 10 },
-    II: { type: Number, default: 20 },
-    III: { type: Number, default: 40 },
-    IV: { type: Number, default: 80 },
-    V: { type: Number, default: 100 },
-  },
+  intervals: [{ timing: Number, givenAmount: Number }],
 });
 
 const UserModel = mongoose.model("users", userSchema);
@@ -96,9 +76,11 @@ app.get("/api/users/:userId", async (req, res) => {
   }
 });
 
-// Update user state
+// Update/save user state
 app.put("/api/users/:userId", async (req, res) => {
   try {
+    const userId = req.params.userId;
+    const stateData = req.body;
     const allowedUpdates = [
       "level",
       "shapesClicked",
@@ -110,22 +92,19 @@ app.put("/api/users/:userId", async (req, res) => {
       "enableAnimationForShapes",
       "enableAnimationForBouncing",
       "unlockedOverlays",
+      "intervals",
     ];
 
     const updates = {};
     for (const key of allowedUpdates) {
-      if (req.body[key] !== undefined) {
-        updates[key] = req.body[key];
+      if (stateData[key] !== undefined) {
+        updates[key] = stateData[key];
       }
     }
 
-    const user = await UserModel.findOneAndUpdate(
-      { userId: req.params.userId },
-      updates,
-      { new: true, upsert: true }
-    );
-
-    res.json(user);
+    const user = await UserModel.findOneAndUpdate({ userId }, { $set: updates }, { new: true, upsert: true });
+    console.log(updates);
+    res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -134,20 +113,23 @@ app.put("/api/users/:userId", async (req, res) => {
 // Delete specific user
 app.get("/api/deleteUsers/:userId", async (req, res) => {
   try {
-    await UserModel.findOneAndDelete({ userId: req.params.userId });
+    const user = await UserModel.findOneAndDelete({ userId: req.params.userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     res.json({ message: "User deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error deleting user: " + error.message });
   }
 });
 
 // Delete all users
 app.get("/api/deleteUsers", async (req, res) => {
   try {
-    await UserModel.deleteMany({});
-    res.json({ message: "All users deleted successfully" });
+    const result = await UserModel.deleteMany({});
+    res.json({ message: "All users deleted successfully", deletedCount: result.deletedCount });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Error deleting users: " + error.message });
   }
 });
 

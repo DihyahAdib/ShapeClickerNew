@@ -10,6 +10,33 @@ if (!userId) {
   const newUrl = `${window.location.pathname}?userId=${userId}`;
   window.history.pushState({ path: newUrl }, "", newUrl);
 }
+const startingState = {
+  level: 0,
+  shapesClicked: 0,
+  multiplier: 0,
+  cash: 0,
+  uncheckedAchievements: 0,
+  achievements: [],
+  enableAnimationForBg: true,
+  enableAnimationForShapes: true,
+  enableAnimationForBouncing: true,
+  unlockedOverlays: {
+    first: false,
+    second: false,
+    third: false,
+    max: false,
+    firstUpg: false,
+  },
+  intervals: [],
+  factory: [
+    { cost: 10, timing: 1000, givenAmount: 10 },
+    { cost: 50, timing: 10000, givenAmount: 20 },
+    { cost: 100, timing: 30000, givenAmount: 40 },
+    { cost: 500, timing: 60000, givenAmount: 80 },
+    { cost: 2000, timing: 120000, givenAmount: 100 },
+    { cost: 5000, timing: 240000, givenAmount: 200 },
+  ],
+};
 
 export const data = {
   level: 0,
@@ -28,28 +55,15 @@ export const data = {
     max: false,
     firstUpg: false,
   },
-  factoryFunctionTimings: {
-    I: 1000,
-    II: 10000,
-    III: 30000,
-    IV: 60000,
-    V: 120000,
-  },
-  factoryFunctionCostAmount: {
-    I: 10,
-    II: 50,
-    III: 100,
-    IV: 500,
-    V: 2000,
-    VI: 50000,
-  },
-  factoryFunctionOutput: {
-    I: 10,
-    II: 20,
-    III: 40,
-    IV: 80,
-    V: 100,
-  },
+  intervals: [],
+  factory: [
+    { cost: 10, timing: 1000, givenAmount: 10 },
+    { cost: 50, timing: 10000, givenAmount: 20 },
+    { cost: 100, timing: 30000, givenAmount: 40 },
+    { cost: 500, timing: 60000, givenAmount: 80 },
+    { cost: 2000, timing: 120000, givenAmount: 100 },
+    { cost: 5000, timing: 240000, givenAmount: 200 },
+  ],
 
   increment(key, value) {
     this.set(key, this[key] + value);
@@ -110,9 +124,34 @@ export const data = {
     return this;
   },
 
-  getQuota() {
+  getQuota(level = this.level) {
     return 15 * Math.pow(2, this.level);
   },
+  getLevel() {
+    while (this.shapesClicked >= this.getQuota(this.level)) {
+      this.increment("level", 1).increment("multiplier", 0.5);
+    }
+  },
+};
+
+Object.assign(data, startingState);
+
+export const saveState = async () => {
+  try {
+    const response = await fetch(`/api/users/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, ...data }),
+    });
+    console.log("saved");
+    if (!response.ok) {
+      throw new Error("Failed to save state");
+    }
+  } catch (error) {
+    console.error("Error saving state:", error);
+  }
 };
 
 export const loadState = async () => {
@@ -127,131 +166,27 @@ export const loadState = async () => {
     }
 
     const savedState = await response.json();
-    if (savedState) {
-      data.level = savedState.level ?? 0;
-      data.shapesClicked = savedState.shapesClicked ?? 0;
-      data.multiplier = savedState.multiplier ?? 0;
-      data.cash = savedState.cash ?? 0;
-      data.unlockedOverlays = savedState.unlockedOverlays ?? {
-        first: false,
-        second: false,
-        third: false,
-        max: false,
-        firstUpg: false,
-      };
-      data.factoryFunctionTimings = savedState.factoryFunctionTimings ?? {
-        I: 1000,
-        II: 10000,
-        III: 30000,
-        IV: 60000,
-        V: 120000,
-      };
-      data.factoryFunctionCostAmount = savedState.factoryFunctionCostAmount ?? {
-        I: 10,
-        II: 50,
-        III: 100,
-        IV: 500,
-        V: 2000,
-        VI: 50000,
-      };
-      data.factoryFunctionOutput = savedState.factoryFunctionOutput ?? {
-        I: 10,
-        II: 20,
-        III: 40,
-        IV: 80,
-        V: 100,
-      };
-      data.uncheckedAchievements = savedState.uncheckedAchievements ?? 0;
-      data.achievements = savedState.achievements ?? [];
-      data.enableAnimationForBg = savedState.enableAnimationForBg ?? true;
-      data.enableAnimationForShapes =
-        savedState.enableAnimationForShapes ?? true;
-      data.enableAnimationForBouncing =
-        savedState.enableAnimationForBouncing ?? true;
-      render();
-    }
+    Object.assign(data, { ...startingState, ...savedState });
+    render();
   } catch (error) {
     console.error("Error loading state:", error);
   }
 };
 
-export const saveState = async () => {
+export async function resetGame() {
+  Object.assign(data, startingState);
+
   try {
-    const response = await fetch(`/api/users/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId,
-        level: data.level,
-        shapesClicked: data.shapesClicked,
-        multiplier: data.multiplier,
-        cash: data.cash,
-        unlockedOverlays: data.unlockedOverlays,
-        factoryFunctionTimings: data.factoryFunctionTimings,
-        factoryFunctionCostAmount: data.factoryFunctionCostAmount,
-        factoryFunctionOutput: data.factoryFunctionOutput,
-        uncheckedAchievements: data.uncheckedAchievements,
-        achievements: data.achievements,
-        enableAnimationForBg: data.enableAnimationForBg,
-        enableAnimationForShapes: data.enableAnimationForShapes,
-        enableAnimationForBouncing: data.enableAnimationForBouncing,
-      }),
+    const response = await fetch(`/api/deleteUsers/${userId}`, {
+      method: "GET",
     });
 
     if (!response.ok) {
-      throw new Error("Failed to save state");
+      throw new Error(`Error resetting game: ${response.statusText}`);
     }
-  } catch (error) {
-    console.error("Error saving state:", error);
-  }
-};
-
-export async function resetGame() {
-  data.level = 0;
-  data.shapesClicked = 0;
-  data.multiplier = 0;
-  data.cash = 0;
-  data.unlockedOverlays = {
-    first: false,
-    second: false,
-    third: false,
-    max: false,
-    firstUpg: false,
-  };
-  data.factoryFunctionTimings = {
-    I: 1000,
-    II: 10000,
-    III: 30000,
-    IV: 60000,
-    V: 120000,
-  };
-  data.factoryFunctionCostAmount = {
-    I: 10,
-    II: 50,
-    III: 100,
-    IV: 500,
-    V: 2000,
-    VI: 50000,
-  };
-  data.factoryFunctionOutput = {
-    I: 10,
-    II: 20,
-    III: 40,
-    IV: 80,
-    V: 100,
-  };
-  data.uncheckedAchievements = 0;
-  data.achievements = [];
-  data.enableAnimationForBg = true;
-  data.enableAnimationForShapes = true;
-  data.enableAnimationForBouncing = true;
-
-  try {
-    await fetch(`/api/users/${userId}`, {
-      method: "DELETE",
-    });
+    console.log("User deleted successfully.");
+    stopAllIntervals();
+    // location.reload();
   } catch (error) {
     console.error("Error resetting game:", error);
   }
@@ -264,4 +199,15 @@ window.data = data;
 render();
 (async () => {
   await loadState();
+  data.intervals.forEach(function ({ timing, givenAmount }) {
+    setInterval(() => {
+      data.increment("shapesClicked", givenAmount); //give players shapes
+    }, timing);
+  });
 })();
+
+function stopAllIntervals() {
+  data.intervals.forEach((intervals) => clearInterval(intervals));
+  data.intervals = [];
+  console.log(data.intervals);
+}
