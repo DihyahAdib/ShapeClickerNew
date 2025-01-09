@@ -1,6 +1,7 @@
 // state.js //
 import { render } from "./Ui.js";
 import { pushNewAchievement } from "./achievements.js";
+import { initializeProduction, stopAllIntervals } from "./factoryFunction.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 let userId = urlParams.get("userId");
@@ -223,12 +224,19 @@ Object.assign(data, startingState);
 
 export const saveState = async () => {
   try {
+    const saveData = {
+      ...data,
+      factorys: data.factorys.map((factory) => ({
+        ...factory,
+        producing: factory.producing ? true : null,
+      })),
+    };
     const response = await fetch(`/api/users/${userId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId, ...data }),
+      body: JSON.stringify({ userId, ...saveData }),
     });
     if (!response.ok) {
       throw new Error("Failed to save state");
@@ -268,6 +276,7 @@ export async function resetGame() {
     if (!response.ok) {
       throw new Error(`Error resetting game: ${response.statusText}`);
     }
+    stopAllIntervals();
     console.log("User deleted successfully.");
     // location.reload();
   } catch (error) {
@@ -282,4 +291,5 @@ window.data = data;
 render();
 (async () => {
   await loadState();
+  initializeProduction();
 })();

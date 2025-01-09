@@ -199,8 +199,6 @@ export function initializeUi() {
 }
 
 export function render() {
-  setInterval(() => {}, 200);
-
   $("shapes").text(`${formatPlaceValue(data.shapesClicked)} Shapes`);
   $("plus-shapes").text(`+${formatPlaceValue(data.multiplier)} Shapes`);
   $("cash").text(`Cash ${formatPlaceValue(data.cash)}$`);
