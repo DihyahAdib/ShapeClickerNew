@@ -200,14 +200,17 @@ export function initializeUi() {
 
 export function render() {
   setInterval(() => {}, 200);
+
   $("shapes").text(`${formatPlaceValue(data.shapesClicked)} Shapes`);
   $("plus-shapes").text(`+${formatPlaceValue(data.multiplier)} Shapes`);
   $("cash").text(`Cash ${formatPlaceValue(data.cash)}$`);
   $("level").text(`Level ${formatPlaceValue(data.level)}`);
   $("quota").text(`Quota ${formatPlaceValue(data.getQuota())}`);
   $("main").toggleClass("bgAnimation", data.enableAnimationForBg);
+
   $("svg-container").toggleClass("shape-spin", data.enableAnimationForShapes);
   $("svg-bouncing").html(getShape(data.level)).bounceable(data.enableAnimationForBouncing);
+
   $("bg").text(data.enableAnimationForBg ? "Unpaused" : "Paused");
   $("ss").text(data.enableAnimationForShapes ? "Unpaused" : "Paused");
   $("sb").text(data.enableAnimationForBouncing ? "Unpaused" : "Paused");
@@ -229,6 +232,16 @@ export function render() {
   $("lockedoverlay:eq(2)").toggleClass("unlocked", data.unlockedOverlays.third);
   $("lockedmax").toggleClass("unlocked", data.unlockedOverlays.max);
   $(".lockedoverlay:first").toggleClass("unlocked", data.unlockedOverlays.firstUpg);
+
+  $(".plus-shape").each(function () {
+    const factoryIndex = $(this).data("index");
+    const currentFactory = data.factorys[factoryIndex];
+    if (currentFactory) {
+      $(this).text(`Cost: ${formatPlaceValue(currentFactory.shapeCount)}$ (Owned: ${formatPlaceValue(currentFactory.owned)})`);
+    } else {
+      console.error("Invalid factory data for index:", factoryIndex);
+    }
+  });
 }
 
 $(document).ready(function () {

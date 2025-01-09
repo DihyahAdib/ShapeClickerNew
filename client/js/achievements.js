@@ -76,8 +76,7 @@ export const ACHIEVEMENTS = {
   theManAtTheEndOfTime: {
     name: "man",
     description: "The man with the top hat",
-    condition: (data) =>
-      data.level >= 500 && data.shapesClicked >= 1000000000000,
+    condition: (data) => data.level >= 500 && data.shapesClicked >= 1000000000000,
   },
 };
 
@@ -86,11 +85,8 @@ export function pushNewAchievement() {
     const ach = ACHIEVEMENTS[key]; // Using ach as a reference to the achievement object
     if (ach.condition(data)) {
       if (!data.achievements.includes(ach.name)) {
-        data
-          .push("achievements", ach.name)
-          .increment("uncheckedAchievements", 1); // attempting to add to state array.
+        data.push("achievements", ach.name).increment("uncheckedAchievements", 1); // attempting to add to state array.
         showAchievementNotification(ach);
-        console.log(data.uncheckedAchievements);
       }
     }
   }

@@ -28,13 +28,55 @@ const startingState = {
     firstUpg: false,
   },
   factorys: [
-    { name: "Intern", owned: 0, shapeCount: 10, baseShapeProduction: 0.1 },
-    { name: "Shape", owned: 0, shapeCount: 50, baseShapeProduction: 0.5 },
-    { name: "Mathematician", owned: 0, shapeCount: 100, baseShapeProduction: 1 },
-    { name: "Shipment", owned: 0, shapeCount: 500, baseShapeProduction: 5 },
-    { name: "Bank", owned: 0, shapeCount: 1000, baseShapeProduction: 10 },
-    { name: "TopHat", owned: 0, shapeCount: 15000, baseShapeProduction: 15 },
-    { name: "ThirdDimention", owned: 0, shapeCount: 130000, baseShapeProduction: 30 },
+    {
+      name: "Intern",
+      owned: 0,
+      shapeCount: 10,
+      baseShapeProduction: 0.1,
+      producing: null,
+    },
+    {
+      name: "Shape",
+      owned: 0,
+      shapeCount: 50,
+      baseShapeProduction: 0.5,
+      producing: null,
+    },
+    {
+      name: "Mathematician",
+      owned: 0,
+      shapeCount: 100,
+      baseShapeProduction: 1,
+      producing: null,
+    },
+    {
+      name: "Shipment",
+      owned: 0,
+      shapeCount: 500,
+      baseShapeProduction: 5,
+      producing: null,
+    },
+    {
+      name: "Bank",
+      owned: 0,
+      shapeCount: 1000,
+      baseShapeProduction: 10,
+      producing: null,
+    },
+    {
+      name: "TopHat",
+      owned: 0,
+      shapeCount: 15000,
+      baseShapeProduction: 15,
+      producing: null,
+    },
+    {
+      name: "ThirdDimention",
+      owned: 0,
+      shapeCount: 130000,
+      baseShapeProduction: 30,
+      producing: null,
+    },
   ],
 };
 
@@ -55,23 +97,57 @@ export const data = {
     max: false,
     firstUpg: false,
   },
-  //baseShapeProduction is how many shapes per sec: shape:(half shape per sec)
   factorys: [
-    { name: "Intern", owned: 0, shapeCount: 10, baseShapeProduction: 0.1 },
-    { name: "Shape", owned: 0, shapeCount: 50, baseShapeProduction: 0.5 },
-    { name: "Mathematician", owned: 0, shapeCount: 100, baseShapeProduction: 1 },
-    { name: "Shipment", owned: 0, shapeCount: 500, baseShapeProduction: 5 },
-    { name: "Bank", owned: 0, shapeCount: 1000, baseShapeProduction: 10 },
-    { name: "TopHat", owned: 0, shapeCount: 15000, baseShapeProduction: 15 },
-    { name: "ThirdDimention", owned: 0, shapeCount: 130000, baseShapeProduction: 30 },
+    {
+      name: "Intern",
+      owned: 0,
+      shapeCount: 10,
+      baseShapeProduction: 0.1,
+      producing: null,
+    },
+    {
+      name: "Shape",
+      owned: 0,
+      shapeCount: 50,
+      baseShapeProduction: 0.5,
+      producing: null,
+    },
+    {
+      name: "Mathematician",
+      owned: 0,
+      shapeCount: 100,
+      baseShapeProduction: 1,
+      producing: null,
+    },
+    {
+      name: "Shipment",
+      owned: 0,
+      shapeCount: 500,
+      baseShapeProduction: 5,
+      producing: null,
+    },
+    {
+      name: "Bank",
+      owned: 0,
+      shapeCount: 1000,
+      baseShapeProduction: 10,
+      producing: null,
+    },
+    {
+      name: "TopHat",
+      owned: 0,
+      shapeCount: 15000,
+      baseShapeProduction: 15,
+      producing: null,
+    },
+    {
+      name: "ThirdDimention",
+      owned: 0,
+      shapeCount: 130000,
+      baseShapeProduction: 30,
+      producing: null,
+    },
   ],
-
-  calculateProduction(factoryIndex) {
-    // 10 times 0.1 is how many shapes rewarded to the player per second.
-    //The baseShape and owned properties are the only ones increasing or changing.
-    const factory = data.factorys[factoryIndex];
-    return factory.shapeCount * factory.baseShapeProduction;
-  },
 
   getQuota(level = this.level) {
     return 15 * Math.pow(2, this.level);
@@ -154,7 +230,6 @@ export const saveState = async () => {
       },
       body: JSON.stringify({ userId, ...data }),
     });
-    console.log("saved");
     if (!response.ok) {
       throw new Error("Failed to save state");
     }
@@ -194,7 +269,6 @@ export async function resetGame() {
       throw new Error(`Error resetting game: ${response.statusText}`);
     }
     console.log("User deleted successfully.");
-    stopAllIntervals();
     // location.reload();
   } catch (error) {
     console.error("Error resetting game:", error);

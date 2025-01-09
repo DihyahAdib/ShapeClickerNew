@@ -28,6 +28,66 @@ if (!fs.existsSync(path.join(__dirname, "client"))) {
   process.exit(1);
 }
 
+const factorySchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  owned: { type: Number, default: 0, min: 0 },
+  shapeCount: { type: Number, required: true, min: 0 },
+  baseShapeProduction: { type: Number, required: true, min: 0 },
+  producing: { type: Boolean, default: null },
+});
+
+const defaultfactories = [
+  {
+    name: "Intern",
+    owned: 0,
+    shapeCount: 10,
+    baseShapeProduction: 0.1,
+    producing: null,
+  },
+  {
+    name: "Shape",
+    owned: 0,
+    shapeCount: 50,
+    baseShapeProduction: 0.5,
+    producing: null,
+  },
+  {
+    name: "Mathematician",
+    owned: 0,
+    shapeCount: 100,
+    baseShapeProduction: 1,
+    producing: null,
+  },
+  {
+    name: "Shipment",
+    owned: 0,
+    shapeCount: 500,
+    baseShapeProduction: 5,
+    producing: null,
+  },
+  {
+    name: "Bank",
+    owned: 0,
+    shapeCount: 1000,
+    baseShapeProduction: 10,
+    producing: null,
+  },
+  {
+    name: "TopHat",
+    owned: 0,
+    shapeCount: 15000,
+    baseShapeProduction: 15,
+    producing: null,
+  },
+  {
+    name: "ThirdDimention",
+    owned: 0,
+    shapeCount: 130000,
+    baseShapeProduction: 30,
+    producing: null,
+  },
+];
+
 const userSchema = new mongoose.Schema({
   userId: { type: String, required: true, unique: true },
   level: { type: Number, default: 0, min: 0 },
@@ -46,9 +106,13 @@ const userSchema = new mongoose.Schema({
     max: { type: Boolean, default: false },
     firstUpg: { type: Boolean, default: false },
   },
+  factorys: { type: [factorySchema], default: defaultfactories },
 });
 
+const Factory = mongoose.model("Factory", factorySchema);
 const UserModel = mongoose.model("users", userSchema);
+
+export { Factory, UserModel };
 
 app.use(express.static("client"));
 
@@ -91,6 +155,7 @@ app.put("/api/users/:userId", async (req, res) => {
       "enableAnimationForShapes",
       "enableAnimationForBouncing",
       "unlockedOverlays",
+      "factorys",
     ];
 
     const updates = {};
@@ -128,6 +193,76 @@ app.get("/api/deleteUsers", async (req, res) => {
     res.json({ message: "All users deleted successfully", deletedCount: result.deletedCount });
   } catch (error) {
     res.status(500).json({ message: "Error deleting users: " + error.message });
+  }
+});
+
+//factory api req
+// Get all factories
+app.get("/api/factories", async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    if (!userId) {
+      return res.status(400).json({ message: "Missing userId query parameter" });
+    }
+
+    const user = await UserModel.findOne({ userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user.factorys); // Send the user's factories array
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching factories: " + error.message });
+  }
+});
+
+// Create a new factory
+app.post("/api/factories", async (req, res) => {
+  try {
+    const { name, owned, shapeCount, baseShapeProduction, producing } = req.body;
+    const newFactory = new Factory({
+      name,
+      owned,
+      shapeCount,
+      baseShapeProduction,
+      producing,
+    });
+    const savedFactory = await newFactory.save();
+    res.status(201).json(savedFactory);
+  } catch (error) {
+    res.status(400).json({ message: "Error creating factory: " + error.message });
+  }
+});
+
+// Update a specific factory
+app.put("/api/UPDfactories/:id", async (req, res) => {
+  try {
+    const factoryId = req.params.id;
+    const updates = req.body;
+    const updatedFactory = await Factory.findByIdAndUpdate(factoryId, updates, {
+      new: true,
+    });
+    if (!updatedFactory) {
+      return res.status(404).json({ message: "Factory not found" });
+    }
+    res.json(updatedFactory);
+  } catch (error) {
+    res.status(400).json({ message: "Error updating factory: " + error.message });
+  }
+});
+
+// Delete a specific factory
+app.delete("/api/DELfactories/:id", async (req, res) => {
+  try {
+    const factoryId = req.params.id;
+    const deletedFactory = await Factory.findByIdAndDelete(factoryId);
+    if (!deletedFactory) {
+      return res.status(404).json({ message: "Factory not found" });
+    }
+    res.json({ message: "Factory deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting factory: " + error.message });
   }
 });
 
