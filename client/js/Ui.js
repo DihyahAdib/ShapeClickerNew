@@ -2,6 +2,7 @@ import { ACHIEVEMENTS } from "./achievements.js";
 import { formatPlaceValue, getShape } from "./shapeHandler.js";
 import { data, resetGame, saveState } from "./state.js";
 import { setupBounceablePlugin } from "./bounceable.js";
+import { initializeFactoryHandlers } from "./factoryFunction.js";
 import "./factoryFunction.js";
 setupBounceablePlugin();
 
@@ -235,11 +236,18 @@ export function render() {
     const factoryIndex = $(this).data("index");
     const currentFactory = data.factorys[factoryIndex];
     if (currentFactory) {
-      $(this).text(`Cost: ${formatPlaceValue(currentFactory.shapeCount)}$ (Owned: ${formatPlaceValue(currentFactory.owned)})`);
+      const cost = Number(currentFactory.cost);
+      const owned = Number(currentFactory.owned);
+      if (isNaN(cost) || isNaN(owned)) {
+        console.error("Invalid numbers:", { cost, owned, factory: currentFactory });
+        return;
+      }
+      $(this).text(`Cost: ${cost}$ (Owned: ${owned})`);
     } else {
       console.error("Invalid factory data for index:", factoryIndex);
     }
   });
+  initializeFactoryHandlers();
 }
 
 $(document).ready(function () {

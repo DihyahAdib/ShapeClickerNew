@@ -31,7 +31,7 @@ if (!fs.existsSync(path.join(__dirname, "client"))) {
 const factorySchema = new mongoose.Schema({
   name: { type: String, required: true },
   owned: { type: Number, default: 0, min: 0 },
-  shapeCount: { type: Number, required: true, min: 0 },
+  cost: { type: Number, required: true, min: 0 },
   baseShapeProduction: { type: Number, required: true, min: 0 },
   producing: { type: Boolean, default: null },
 });
@@ -40,51 +40,51 @@ const defaultfactories = [
   {
     name: "Intern",
     owned: 0,
-    shapeCount: 10,
-    baseShapeProduction: 0.1,
-    producing: null,
+    cost: 10,
+    baseCost: 10,
+    baseShapeProduction: 1,
   },
   {
     name: "Shape",
     owned: 0,
-    shapeCount: 50,
-    baseShapeProduction: 0.5,
-    producing: null,
+    cost: 50,
+    baseCost: 50,
+    baseShapeProduction: 5,
   },
   {
     name: "Mathematician",
     owned: 0,
-    shapeCount: 100,
-    baseShapeProduction: 1,
-    producing: null,
+    cost: 100,
+    baseCost: 100,
+    baseShapeProduction: 10,
   },
   {
     name: "Shipment",
     owned: 0,
-    shapeCount: 500,
-    baseShapeProduction: 5,
-    producing: null,
+    cost: 500,
+    baseCost: 500,
+    baseShapeProduction: 50,
   },
   {
     name: "Bank",
     owned: 0,
-    shapeCount: 1000,
-    baseShapeProduction: 10,
-    producing: null,
+    cost: 1000,
+    baseCost: 1000,
+    baseShapeProduction: 100,
   },
   {
     name: "TopHat",
     owned: 0,
-    shapeCount: 15000,
-    baseShapeProduction: 15,
-    producing: null,
+    cost: 15000,
+    baseCost: 15000,
+    baseShapeProduction: 150,
   },
   {
     name: "ThirdDimention",
     owned: 0,
-    shapeCount: 130000,
-    baseShapeProduction: 30,
-    producing: null,
+    cost: 130000,
+    baseCost: 130000,
+    baseShapeProduction: 300,
   },
 ];
 
@@ -220,11 +220,11 @@ app.get("/api/factories", async (req, res) => {
 // Create a new factory
 app.post("/api/factories", async (req, res) => {
   try {
-    const { name, owned, shapeCount, baseShapeProduction, producing } = req.body;
+    const { name, owned, cost, baseShapeProduction, producing } = req.body;
     const newFactory = new Factory({
       name,
       owned,
-      shapeCount,
+      cost,
       baseShapeProduction,
       producing,
     });
