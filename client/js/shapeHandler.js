@@ -1,7 +1,5 @@
 import { data } from "./state.js";
-import { initializeUi } from "./Ui.js";
-import { randomize } from "./utils.js";
-
+import { randomize } from "./jqueryPlugins.js";
 export function handleClickingShapes() {
   data.increment("shapesClicked", 1 + data.multiplier);
   data.getLevel();
@@ -160,5 +158,3 @@ export function formatPlaceValue(number) {
 $("svg-container").on("click", function () {
   handleClickingShapes();
 });
-
-initializeUi();

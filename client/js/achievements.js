@@ -1,4 +1,5 @@
 // Achievements.js //
+import { data } from "./state.js";
 
 export const ACHIEVEMENTS = {
   aCuteAngle: {
@@ -11,6 +12,12 @@ export const ACHIEVEMENTS = {
     name: "Geθ Neθ",
     description: "Reached A total of 50 clicks",
     condition: (data) => data.shapesClicked >= 50,
+  },
+
+  liquidator: {
+    name: "My little buisness man",
+    description: "Buy your first factory function",
+    condition: (data) => data.factorys.owned >= 1,
   },
 
   canNowUseFactory: {

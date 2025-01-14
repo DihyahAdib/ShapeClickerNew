@@ -44,7 +44,13 @@
     box-shadow: inset 2px 2px 7px;
     color: rgb(0, 0, 0);
   }
+  .plus-shape .cost {
+    margin-left: 10px; /* Optional: adds spacing */
+  }
 
+  .plus-shape .owned {
+    margin-right: 10px; /* Optional: adds spacing */
+  }
   #text-warnings-upg {
     margin-top: 20px;
     color: black;

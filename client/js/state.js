@@ -1,5 +1,5 @@
 // state.js //
-import { render } from "./Ui.js";
+import { render, initializeUi } from "./Ui.js";
 import { pushNewAchievement } from "./achievements.js";
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -387,6 +387,7 @@ render();
 
 (async () => {
   await loadState();
-  debugFactoryValues();
+  initializeUi();
   initializeProduction();
+  debugFactoryValues();
 })();

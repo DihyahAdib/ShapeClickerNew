@@ -81,8 +81,10 @@
               <plus-shapes></plus-shapes>
               <prompt-frame class="popup arrow">
                 <div id="prompt">
-                  <span id="c">Well done!</span> You will now have more shapes added to the ones you are already clicking on since you have
-                  met your <span id="c0">initial quota</span>. Do you understand? Okay, just keep clicking, and I'll get outta ya hair!
+                  <span id="c">Well done!</span> You will now have more shapes added to the ones you
+                  are already clicking on since you have met your
+                  <span id="c0">initial quota</span>. Do you understand? Okay, just keep clicking,
+                  and I'll get outta ya hair!
                 </div>
               </prompt-frame>
             </stats>
@@ -99,7 +101,8 @@
         <containerone>
           <prompt-frame-tip class="arrow-top">
             <div>
-              The <span class="c1">10k</span> refers to the amount of Shapes needed to convert into the displayed amount. <br />
+              The <span class="c1">10k</span> refers to the amount of Shapes needed to convert into
+              the displayed amount. <br />
               (Conversion ratio is 10k : 10$)
             </div>
           </prompt-frame-tip>
@@ -108,13 +111,23 @@
               <STATS>
                 <level></level>
               </STATS>
-              <svg class="rotate-vertical" height="20" width="10%" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                class="rotate-vertical"
+                height="20"
+                width="10%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <line x1="0" y1="10" x2="100%" y2="10" style="stroke: orange; stroke-width: 4" />
               </svg>
               <STATS>
                 <quota></quota>
               </STATS>
-              <svg class="rotate-vertical" height="20" width="10%" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                class="rotate-vertical"
+                height="20"
+                width="10%"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <line x1="0" y1="10" x2="100%" y2="10" style="stroke: orange; stroke-width: 4" />
               </svg>
               <STATS>
@@ -122,7 +135,13 @@
               </STATS>
             </container>
             <svg-spin>
-              <svg id="gear" width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                id="gear"
+                width="50"
+                height="50"
+                viewBox="0 0 50 50"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M25 34c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9zm0-16c-3.9 0-7 3.1-7 7s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7z"
                   stroke="black"
@@ -223,25 +242,46 @@
                 <Text>Factory</Text>
                 <container-shape>
                   <smaller-shape-container>
-                    <div class="plus-shape" data-index="0">Cost: 10$ (Owned: 0)</div>
+                    <div class="plus-shape" data-index="0">
+                      <span class="cost">Cost: 10$</span>
+                      <span class="owned">Owned: 0</span>
+                    </div>
                   </smaller-shape-container>
                   <smaller-shape-container>
-                    <div class="plus-shape" data-index="1">Cost: 50$ (Owned: 0)</div>
+                    <div class="plus-shape" data-index="1">
+                      <span class="cost">Cost: 50$</span>
+                      <span class="owned">Owned: 0</span>
+                    </div>
                   </smaller-shape-container>
                   <smaller-shape-container>
-                    <div class="plus-shape" data-index="2">Cost: 100$ (Owned: 0)</div>
+                    <div class="plus-shape" data-index="2">
+                      <span class="cost">Cost: 100$</span>
+                      <span class="owned">Owned: 0</span>
+                    </div>
                   </smaller-shape-container>
                   <smaller-shape-container>
-                    <div class="plus-shape" data-index="3">Cost: 500$ (Owned: 0)</div>
+                    <div class="plus-shape" data-index="3">
+                      <span class="cost">Cost: 500$</span>
+                      <span class="owned">Owned: 0</span>
+                    </div>
                   </smaller-shape-container>
                   <smaller-shape-container>
-                    <div class="plus-shape" data-index="4">Cost: 1,000$ (Owned: 0)</div>
+                    <div class="plus-shape" data-index="4">
+                      <span class="cost">Cost: 1,000$</span>
+                      <span class="owned">Owned: 0</span>
+                    </div>
                   </smaller-shape-container>
                   <smaller-shape-container>
-                    <div class="plus-shape" data-index="5">Cost: 15,000$ (Owned: 0)</div>
+                    <div class="plus-shape" data-index="5">
+                      <span class="cost">Cost: 15,000$</span>
+                      <span class="owned">Owned: 0</span>
+                    </div>
                   </smaller-shape-container>
                   <smaller-shape-container>
-                    <div class="plus-shape" data-index="6">Cost: 130,000$ (Owned: 0)</div>
+                    <div class="plus-shape" data-index="6">
+                      <span class="cost">Cost: 130,000$</span>
+                      <span class="owned">Owned: 0</span>
+                    </div>
                   </smaller-shape-container>
                 </container-shape>
 
@@ -260,13 +300,12 @@
       </main-right>
     </main-container>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="module" src="/js/jqueryPlugins.js"></script>
     <script type="module" src="/js/bounceable.js"></script>
     <script type="module" src="/js/achievements.js"></script>
     <script type="module" src="/js/shapeHandler.js"></script>
     <script type="module" src="/js/state.js"></script>
-    <script type="module" src="/js/jqueryPlugins.js"></script>
     <script type="module" src="/js/Ui.js"></script>
     <script type="module" src="/js/factoryFunction.js"></script>
-    <script type="module" src="/js/utils.js"></script>
   </body>
 </html>

@@ -3,7 +3,7 @@ import { formatPlaceValue, getShape } from "./shapeHandler.js";
 import { data, resetGame, saveState } from "./state.js";
 import { setupBounceablePlugin } from "./bounceable.js";
 import { initializeFactoryHandlers } from "./factoryFunction.js";
-import "./factoryFunction.js";
+
 setupBounceablePlugin();
 
 export function initializeUi() {
@@ -242,9 +242,6 @@ export function render() {
         console.error("Invalid numbers:", { cost, owned, factory: currentFactory });
         return;
       }
-      $(this).text(`Cost: ${cost}$ (Owned: ${owned})`);
-    } else {
-      console.error("Invalid factory data for index:", factoryIndex);
     }
   });
   initializeFactoryHandlers();
