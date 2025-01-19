@@ -1,6 +1,10 @@
 //factoryFunction.js//
-import { data } from "./state.js";
+import { data, saveState } from "./state.js";
 import { formatPlaceValue } from "./shapeHandler.js";
+
+export function calculateNextCost(baseCost, owned) {
+  return Math.floor(baseCost * Math.pow(1.15, owned));
+}
 
 export function initializeFactoryHandlers() {
   $(".plus-shape").on("click", function () {
@@ -17,13 +21,19 @@ export function initializeFactoryHandlers() {
       data.decrement("cash", cost);
       data.incrementNestedObj(`factorys.${index}.owned`, 1);
       data.incrementNestedObj(`factorys.${index}.cost`, currentFactory.cost);
-      currentFactory.cost = data.calculateNextCost(currentFactory.baseCost, currentFactory.owned);
+
+      const newCost = calculateNextCost(
+        currentFactory.baseCost,
+        currentFactory.owned
+      );
+      data.factorys[index].cost = newCost;
       $(this)
         .find(".cost")
-        .text(`Cost: ${formatPlaceValue(cost)}$`);
+        .text(`Cost: ${formatPlaceValue(newCost)}$`);
       $(this)
         .find(".owned")
         .text(`Owned: ${formatPlaceValue(currentFactory.owned)}`);
+      saveState();
     } else {
       $(this)
         .find(".cost")

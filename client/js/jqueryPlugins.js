@@ -15,10 +15,27 @@ $.fn.textTimeout = async function (text, ms, newText) {
   return this;
 };
 
-// Await
-$.fn.wait = async function (ms) {
+$.fn.textTimeoutOnly = async function (text, ms) {
+  this.text(text);
   await new Promise((resolve) => setTimeout(resolve, ms));
+  return this;
 };
+
+$.fn.TimeoutExEl = async function ($el, text, ms, newText) {
+  this.find($el).text(text);
+  await new Promise((resolve) => setTimeout(resolve, ms));
+  this.find($el).text(newText);
+  return this;
+};
+
+$.fn.textFind = function ($el, text) {
+  this.find($el).text(text);
+};
+
+// Await
+export async function wait(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 // Randomizer
 export function randomize(min, max) {
