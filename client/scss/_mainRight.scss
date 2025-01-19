@@ -4,7 +4,7 @@
 main-right {
   display: flex;
   justify-content: flex-end;
-  width: 70%;
+  width: 40%;
   height: 70%;
   margin: 1em 0;
   padding: 0;
@@ -13,23 +13,11 @@ main-right {
   background-image: url(/assets/rrreplicate1.svg);
   background-size: cover;
 
-  containertwo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    height: 100%;
-
-    ul {
-      list-style-type: none;
-    }
-  }
-
   containerone {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
+    width: 100%;
     height: 100%;
 
     data-container {
@@ -105,6 +93,18 @@ main-right {
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+  }
+}
+
+containertwo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+
+  ul {
+    list-style-type: none;
   }
 }
 

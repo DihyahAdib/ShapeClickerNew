@@ -139,8 +139,8 @@ export function formatPlaceValue(number) {
     maximumFractionDigits: 2,
   });
 
-  if (number >= 1_000_000_000_000_000_000) {
-    return formatter.format(number / 1_000_000_000_000_000_000) + "Qn"; // Quintillion
+  if (number >= 1_000_000_000_000_000_000n) {
+    return formatter.format(number / 1_000_000_000_000_000_000n) + "Qn"; // Quintillion
   } else if (number >= 1_000_000_000_000_000) {
     return formatter.format(number / 1_000_000_000_000_000) + "Qt"; // Quadrillion
   } else if (number >= 1_000_000_000_000) {

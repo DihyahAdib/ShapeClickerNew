@@ -81,10 +81,11 @@
               <plus-shapes></plus-shapes>
               <prompt-frame class="popup arrow">
                 <div id="prompt">
-                  <span id="c">Well done!</span> You will now have more shapes added to the ones you
-                  are already clicking on since you have met your
-                  <span id="c0">initial quota</span>. Do you understand? Okay, just keep clicking,
-                  and I'll get outta ya hair!
+                  <span id="c">Well done!</span> You will now have more shapes
+                  added to the ones you are already clicking on since you have
+                  met your <span id="c0">initial quota</span>. Do you
+                  understand? Okay, just keep clicking, and I'll get outta ya
+                  hair!
                 </div>
               </prompt-frame>
             </stats>
@@ -96,13 +97,14 @@
         </game-container>
       </main>
 
+      <containertwo> </containertwo>
+
       <main-right>
-        <containertwo> </containertwo>
         <containerone>
           <prompt-frame-tip class="arrow-top">
             <div>
-              The <span class="c1">10k</span> refers to the amount of Shapes needed to convert into
-              the displayed amount. <br />
+              The <span class="c1">10k</span> refers to the amount of Shapes
+              needed to convert into the displayed amount. <br />
               (Conversion ratio is 10k : 10$)
             </div>
           </prompt-frame-tip>
@@ -117,7 +119,13 @@
                 width="10%"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line x1="0" y1="10" x2="100%" y2="10" style="stroke: orange; stroke-width: 4" />
+                <line
+                  x1="0"
+                  y1="10"
+                  x2="100%"
+                  y2="10"
+                  style="stroke: orange; stroke-width: 4"
+                />
               </svg>
               <STATS>
                 <quota></quota>
@@ -128,7 +136,13 @@
                 width="10%"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <line x1="0" y1="10" x2="100%" y2="10" style="stroke: orange; stroke-width: 4" />
+                <line
+                  x1="0"
+                  y1="10"
+                  x2="100%"
+                  y2="10"
+                  style="stroke: orange; stroke-width: 4"
+                />
               </svg>
               <STATS>
                 <cash></cash>
@@ -181,29 +195,39 @@
                   <h2>Standard Conversions</h2>
                   <lock-button-container>
                     <div>
-                      <lockedoverlay><img src="/assets/lock.svg" /></lockedoverlay>
+                      <lockedoverlay
+                        ><img src="/assets/lock.svg"
+                      /></lockedoverlay>
 
                       <progress-bar>
                         <loading-part></loading-part>
                       </progress-bar>
 
                       <convert-clicks-to-cash>
-                        <click-convert-desc>10k &#10234; 10$</click-convert-desc>
+                        <click-convert-desc
+                          >10k &#10234; 10$</click-convert-desc
+                        >
                       </convert-clicks-to-cash>
                     </div>
                     <div>
-                      <lockedoverlay><img src="/assets/lock.svg" /></lockedoverlay>
+                      <lockedoverlay
+                        ><img src="/assets/lock.svg"
+                      /></lockedoverlay>
 
                       <progress-bar>
                         <loading-part></loading-part>
                       </progress-bar>
 
                       <convert-clicks-to-cash>
-                        <click-convert-desc>500k &#10234; 500$</click-convert-desc>
+                        <click-convert-desc
+                          >500k &#10234; 500$</click-convert-desc
+                        >
                       </convert-clicks-to-cash>
                     </div>
                     <div>
-                      <lockedoverlay><img src="/assets/lock.svg" /></lockedoverlay>
+                      <lockedoverlay
+                        ><img src="/assets/lock.svg"
+                      /></lockedoverlay>
 
                       <progress-bar>
                         <loading-part></loading-part>
@@ -219,7 +243,9 @@
                     <div>
                       <lockedmax><img src="/assets/lock.svg" /></lockedmax>
                       <convert-max-clicks-to-cash>
-                        <click-convert-desc>Max &#10234; Max$</click-convert-desc>
+                        <click-convert-desc
+                          >Max &#10234; Max$</click-convert-desc
+                        >
                       </convert-max-clicks-to-cash>
                     </div>
                   </lock-button-container-max>
@@ -241,6 +267,11 @@
               <click-menu-containers id="Factory">
                 <Text>Factory</Text>
                 <container-shape>
+                  <smaller-shape-container-bulk>
+                    <bulk class="bulk" data-key="ONE">1</bulk>
+                    <bulk class="bulk" data-key="HUNDRED">100</bulk>
+                    <bulk class="bulk" data-key="FIVE_HUNDRED">500</bulk>
+                  </smaller-shape-container-bulk>
                   <smaller-shape-container>
                     <div class="plus-shape" data-index="0">
                       <span class="cost">Cost: 10$</span>

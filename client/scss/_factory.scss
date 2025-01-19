@@ -22,6 +22,33 @@
     }
   }
 
+  smaller-shape-container-bulk {
+    width: 100%;
+    height: 70px;
+    margin: 8px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.945);
+
+    bulk {
+      width: 25%;
+      height: 60%;
+      position: relative;
+      display: flex;
+      background-color: #8e5ca3;
+      transition: background-color 0.2s ease;
+      font-family: #{v.$Comfort};
+      letter-spacing: 2px;
+      border: 2px black solid;
+      border-radius: 20px;
+      margin: 0;
+      padding: 5px;
+      color: rgb(0, 0, 0);
+    }
+  }
+
   .plus-shape {
     width: 100%;
     height: 70px;
@@ -44,6 +71,7 @@
     box-shadow: inset 2px 2px 7px;
     color: rgb(0, 0, 0);
   }
+
   .plus-shape .cost {
     margin-left: 10px; /* Optional: adds spacing */
   }
@@ -51,6 +79,7 @@
   .plus-shape .owned {
     margin-right: 10px; /* Optional: adds spacing */
   }
+
   #text-warnings-upg {
     margin-top: 20px;
     color: black;
