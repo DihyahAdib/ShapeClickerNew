@@ -1,7 +1,8 @@
 // state.js //
 import { render, initializeUi } from "./Ui.js";
 import { pushNewAchievement } from "./achievements.js";
-
+import { calculateNextCost } from "./factoryFunction.js";
+import { formatPlaceValue } from "./shapeHandler.js";
 const urlParams = new URLSearchParams(window.location.search);
 let userId = urlParams.get("userId");
 
@@ -151,10 +152,6 @@ export const data = {
 
   getQuota(level = this.level) {
     return 15 * Math.pow(2, this.level);
-  },
-
-  calculateNextCost(baseCost, owned) {
-    return Math.floor(baseCost * Math.pow(1.15, owned));
   },
 
   getLevel() {
@@ -309,27 +306,46 @@ export const loadState = async () => {
 
     const savedState = await response.json();
 
-    const mergedFactories = startingState.factorys.map((defaultFactory, index) => {
-      const savedFactory = savedState.factorys?.[index] || {};
-      const owned = savedFactory.owned || 0;
-      return {
-        ...defaultFactory,
-        owned, // Only override owned from saved state
-        cost: data.calculateNextCost(defaultFactory.baseCost, owned),
-      };
-    });
+    const mergedFactories = startingState.factorys.map(
+      (defaultFactory, index) => {
+        const savedFactory = savedState.factorys?.[index] || {};
+        const owned = Number(savedFactory.owned) || 0;
+        return {
+          ...defaultFactory,
+          owned, // Only override owned from saved state
+          baseCost: defaultFactory.cost,
+          cost: calculateNextCost(defaultFactory.cost, owned),
+        };
+      }
+    );
 
     Object.assign(data, {
       ...startingState,
       ...savedState,
       factorys: mergedFactories,
     });
-
+    updateFactoryDisplay();
     render();
   } catch (error) {
     console.error("Error loading state:", error);
   }
 };
+
+export function updateFactoryDisplay() {
+  $(".plus-shape").each(function () {
+    const index = $(this).data("index");
+    const factory = data.factorys[index];
+
+    if (factory) {
+      $(this)
+        .find(".cost")
+        .text(`Cost: ${formatPlaceValue(factory.cost)}$`);
+      $(this)
+        .find(".owned")
+        .text(`Owned: ${formatPlaceValue(factory.owned)}`);
+    }
+  });
+}
 
 export function debugFactoryValues() {
   data.factorys.forEach((factory, index) => {
@@ -369,7 +385,7 @@ export function initializeProduction() {
     data.factorys.forEach((factory) => {
       const production = factory.owned * factory.baseShapeProduction;
       batchProduction += production;
-      factory.cost = data.calculateNextCost(factory.baseCost, factory.owned);
+      factory.cost = calculateNextCost(factory.baseCost, factory.owned);
     });
     data.increment("shapesClicked", batchProduction);
     batchProduction = 0;

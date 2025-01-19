@@ -121,7 +121,8 @@ export function initializeUi() {
   $("convert-max-clicks-to-cash").on("click", async function () {
     const MIN_SHAPES = 10000;
     if (data.shapesClicked >= MIN_SHAPES) {
-      const shapesToConvert = Math.floor(data.shapesClicked / MIN_SHAPES) * MIN_SHAPES;
+      const shapesToConvert =
+        Math.floor(data.shapesClicked / MIN_SHAPES) * MIN_SHAPES;
       const cashToAdd = shapesToConvert / 1000;
       data.decrement("shapesClicked", shapesToConvert);
       data.increment("cash", cashToAdd);
@@ -146,7 +147,10 @@ export function initializeUi() {
       $(this).addClass("unlocked");
       saveState();
     } else {
-      $("#text-warnings-upg").textTimeout("Insufficient amount of level / cash", 2000);
+      $("#text-warnings-upg").textTimeout(
+        "Insufficient amount of level / cash",
+        2000
+      );
     }
   });
 
@@ -206,15 +210,17 @@ export function render() {
   $("level").text(`Level ${formatPlaceValue(data.level)}`);
   $("quota").text(`Quota ${formatPlaceValue(data.getQuota())}`);
   $("main").toggleClass("bgAnimation", data.enableAnimationForBg);
-
-  $("svg-container").toggleClass("shape-spin", data.enableAnimationForShapes);
-  $("svg-bouncing").html(getShape(data.level)).bounceable(data.enableAnimationForBouncing);
-
   $("bg").text(data.enableAnimationForBg ? "Unpaused" : "Paused");
   $("ss").text(data.enableAnimationForShapes ? "Unpaused" : "Paused");
   $("sb").text(data.enableAnimationForBouncing ? "Unpaused" : "Paused");
+  $("svg-container").toggleClass("shape-spin", data.enableAnimationForShapes);
+  $("svg-bouncing")
+    .html(getShape(data.level))
+    .bounceable(data.enableAnimationForBouncing);
 
-  $("number").text(data.uncheckedAchievements >= 9 ? "9+" : data.uncheckedAchievements);
+  $("number").text(
+    data.uncheckedAchievements >= 9 ? "9+" : data.uncheckedAchievements
+  );
   $("notification").toggleClass("active", data.uncheckedAchievements > 0);
 
   $(".ach-list-item").each(function (i) {
@@ -227,10 +233,16 @@ export function render() {
   });
 
   $("lockedoverlay:first").toggleClass("unlocked", data.unlockedOverlays.first);
-  $("lockedoverlay:eq(1)").toggleClass("unlocked", data.unlockedOverlays.second);
+  $("lockedoverlay:eq(1)").toggleClass(
+    "unlocked",
+    data.unlockedOverlays.second
+  );
   $("lockedoverlay:eq(2)").toggleClass("unlocked", data.unlockedOverlays.third);
   $("lockedmax").toggleClass("unlocked", data.unlockedOverlays.max);
-  $(".lockedoverlay:first").toggleClass("unlocked", data.unlockedOverlays.firstUpg);
+  $(".lockedoverlay:first").toggleClass(
+    "unlocked",
+    data.unlockedOverlays.firstUpg
+  );
 
   $(".plus-shape").each(function () {
     const factoryIndex = $(this).data("index");
@@ -239,7 +251,11 @@ export function render() {
       const cost = Number(currentFactory.cost);
       const owned = Number(currentFactory.owned);
       if (isNaN(cost) || isNaN(owned)) {
-        console.error("Invalid numbers:", { cost, owned, factory: currentFactory });
+        console.error("Invalid numbers:", {
+          cost,
+          owned,
+          factory: currentFactory,
+        });
         return;
       }
     }
@@ -275,7 +291,9 @@ async function coolDown(duration, index) {
       easing: "linear",
       step: function (now) {
         const progress = Math.round(now);
-        $(`progress-bar:eq(${index}) loading-part`).text(`${formatPlaceValue(progress)}%`);
+        $(`progress-bar:eq(${index}) loading-part`).text(
+          `${formatPlaceValue(progress)}%`
+        );
       },
       complete: function () {
         $(`progress-bar:eq(${index})`).removeClass("visible");
